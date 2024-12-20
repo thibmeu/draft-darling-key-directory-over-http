@@ -19,17 +19,16 @@
 # Change the file extension to match the format (.xml for XML, etc...)
 #
 ###
-title: "TODO - Your title"
-abbrev: "TODO - Abbreviation"
+title: "HPKE Key Directory over HTTP"
 category: info
 
-docname: draft-todo-yourname-protocol-latest
-submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
+docname: draft-darling-ohai-hpke-key-directory-over-http-latest
+submissiontype: IETF
 number:
 date:
 consensus: true
 v: 3
-area: AREA
+area: "Security"
 workgroup: WG Working Group
 keyword:
  - next generation
@@ -40,14 +39,18 @@ venue:
   type: Working Group
   mail: WG@example.com
   arch: https://example.com/WG
-  github: USER/REPO
-  latest: https://example.com/LATEST
+  github: "thibmeu/draft-darling-ohai-hpke-key-directory-over-http"
+  latest: https://thibmeu.github.io/draft-darling-ohai-hpke-key-directory-over-http/draft-darling-ohai-hpke-key-directory-over-http.html
 
 author:
  -
-    fullname: Your Name Here
-    organization: Your Organization Here
-    email: your.email@example.com
+    fullname: Fisher Darling
+    organization: Cloudflare Inc.
+    # email: your.email@example.com
+ -
+    fullname: Thibault Meunier
+    organization: Cloudflare Inc.
+    email: ot-ietf@thibault.uk
 
 normative:
 
