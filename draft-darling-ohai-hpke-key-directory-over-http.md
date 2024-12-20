@@ -8,19 +8,19 @@ number:
 date:
 consensus: true
 v: 3
-area: "Security"
-workgroup: WG Working Group
+area: ""
+workgroup: "Oblivious HTTP Application Intermediation"
 keyword:
  - next generation
  - unicorn
  - sparkling distributed ledger
 venue:
-  group: WG
-  type: Working Group
-  mail: WG@example.com
-  arch: https://example.com/WG
+  group: "Oblivious HTTP Application Intermediation"
+  type: ""
+  mail: "ohai@ietf.org"
+  arch: "https://mailarchive.ietf.org/arch/browse/ohai/"
   github: "thibmeu/draft-darling-ohai-hpke-key-directory-over-http"
-  latest: https://thibmeu.github.io/draft-darling-ohai-hpke-key-directory-over-http/draft-darling-ohai-hpke-key-directory-over-http.html
+  latest: "https://thibmeu.github.io/draft-darling-ohai-hpke-key-directory-over-http/draft-darling-ohai-hpke-key-directory-over-http.html"
 
 author:
  -
