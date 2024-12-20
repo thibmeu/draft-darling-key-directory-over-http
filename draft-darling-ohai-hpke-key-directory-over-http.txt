@@ -2,7 +2,7 @@
 
 
 
-WG Working Group                                              F. Darling
+Oblivious HTTP Application Intermediation                     F. Darling
 Internet-Draft                                                T. Meunier
 Intended status: Informational                           Cloudflare Inc.
 Expires: 23 June 2025                                   20 December 2024
@@ -26,9 +26,10 @@ About This Document
    https://datatracker.ietf.org/doc/draft-darling-ohai-hpke-key-
    directory-over-http/.
 
-   Discussion of this document takes place on the WG Working Group
-   mailing list (mailto:WG@example.com), which is archived at
-   https://example.com/WG.
+   Discussion of this document takes place on the Oblivious HTTP
+   Application Intermediation mailing list (mailto:ohai@ietf.org), which
+   is archived at https://mailarchive.ietf.org/arch/browse/ohai/.
+   Subscribe at https://www.ietf.org/mailman/listinfo/ohai/.
 
    Source for this draft and an issue tracker can be found at
    https://github.com/thibmeu/draft-darling-ohai-hpke-key-directory-
