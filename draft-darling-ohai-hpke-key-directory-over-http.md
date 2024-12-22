@@ -92,17 +92,79 @@ allows to provide some guarantees over key uniqueness/version. A key MUST NOT ha
 
 HpkeConfigList [1]
 
+```
+HpkeConfig HpkeConfigList<0..2^16-1>;
+
+struct {
+  HpkeConfigId id;
+  HpkeKemId kem_id;
+  HpkeKdfId kdf_id;
+  HpkeAeadId aead_id;
+  HpkePublicKey public_key;
+} HpkeConfig;
+
+opaque HpkePublicKey<0..2^16-1>;
+uint16 HpkeAeadId; /* Defined in [HPKE] */
+uint16 HpkeKemId;  /* Defined in [HPKE] */
+uint16 HpkeKdfId;  /* Defined in [HPKE] */
+```
+
+Partially informed comments:
+* HpkeConfigId could be removed
+* Need not-before to handle early capture
+
 [1] https://datatracker.ietf.org/doc/html/draft-ietf-ppm-dap-13#section-4.5.1
 
 ## OHTTP
 
 Key Configutation [1]
 
+```
+HPKE Symmetric Algorithms {
+  HPKE KDF ID (16),
+  HPKE AEAD ID (16),
+}
+
+Key Config {
+  Key Identifier (8),
+  HPKE KEM ID (16),
+  HPKE Public Key (Npk * 8),
+  HPKE Symmetric Algorithms Length (16) = 4..65532,
+  HPKE Symmetric Algorithms (32) ...,
+}
+```
+
+Partially informed comments:
+* Key Identifier could be removed/be deterministic
+* No mention of not-before
+* No mention of HTTP Caching for rotation
+
 [1] https://www.ietf.org/rfc/rfc9458.html#name-key-configuration
 
 ## Privacy Pass
 
 Issuer directory [1]
+
+```
+ {
+    "issuer-request-uri": "https://issuer.example.net/request",
+    "token-keys": [
+      {
+        "token-type": 2,
+        "token-key": "MI...AB",
+        "not-before": 1686913811,
+      },
+      {
+        "token-type": 2,
+        "token-key": "MI...AQ",
+      }
+    ]
+ }
+```
+
+Partially informed comments:
+* Not as flexible as HPKE
+* Has some protocol metadata (token-type, issuer-request-uri, rate-limit)
 
 [1] https://www.rfc-editor.org/rfc/rfc9578#name-configuration
 
