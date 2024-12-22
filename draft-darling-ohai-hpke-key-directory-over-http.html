@@ -8,7 +8,20 @@
 <meta content="Fisher Darling" name="author">
 <meta content="Thibault Meunier" name="author">
 <meta content="
-       TODO Abstract 
+       Service owners have a use to share public key as part of a standard directory.
+This is meant to be convenient to share, allow for rotation, and be secure to
+man-in-the-middle or split-view attack.
+This document defines recommendations for protocol implementers. 
+       Notes:
+JWK does not offer a standard endpoint either with jose or cose. It has a draft
+for HPKE [1]/[2]. There is an endpoint /.well-known/jwks.json that is tribal
+knowledge but is not registered with IANA.
+Certificates could also be a similar mechanism, but there is x509 as well.
+This directory might be bootstraped with x509 backed trust, but this is an
+overhead we don't touch. I'm not confident in defining a jwk subset (all attributes [3]). 
+       [1] https://datatracker.ietf.org/doc/draft-ietf-jose-hpke-encrypt/
+[2] https://datatracker.ietf.org/doc/draft-ietf-cose-hpke/
+[3] https://www.iana.org/assignments/jose/jose.xhtml 
     " name="description">
 <meta content="xml2rfc 3.25.0" name="generator">
 <meta content="next generation" name="keyword">
@@ -1051,7 +1064,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Darling &amp; Meunier</td>
-<td class="center">Expires 23 June 2025</td>
+<td class="center">Expires 25 June 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1064,12 +1077,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-darling-ohai-hpke-key-directory-over-http-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-12-20" class="published">20 December 2024</time>
+<time datetime="2024-12-22" class="published">22 December 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-06-23">23 June 2025</time></dd>
+<dd class="expires"><time datetime="2025-06-25">25 June 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1086,7 +1099,20 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <h1 id="title">HPKE Key Directory over HTTP</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">TODO Abstract<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">Service owners have a use to share public key as part of a standard directory.
+This is meant to be convenient to share, allow for rotation, and be secure to
+man-in-the-middle or split-view attack.
+This document defines recommendations for protocol implementers.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-2">Notes:
+JWK does not offer a standard endpoint either with jose or cose. It has a draft
+for HPKE [1]/[2]. There is an endpoint /.well-known/jwks.json that is tribal
+knowledge but is not registered with IANA.
+Certificates could also be a similar mechanism, but there is x509 as well.
+This directory might be bootstraped with x509 backed trust, but this is an
+overhead we don't touch. I'm not confident in defining a jwk subset (all attributes [3]).<a href="#section-abstract-2" class="pilcrow">¶</a></p>
+<p id="section-abstract-3">[1] https://datatracker.ietf.org/doc/draft-ietf-jose-hpke-encrypt/
+[2] https://datatracker.ietf.org/doc/draft-ietf-cose-hpke/
+[3] https://www.iana.org/assignments/jose/jose.xhtml<a href="#section-abstract-3" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-about-this-document">
@@ -1123,7 +1149,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 23 June 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 25 June 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1159,19 +1185,39 @@ svg :is([fill="white"], [fill^="#fff"]) {
             <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-conventions-and-definitions" class="internal xref">Conventions and Definitions</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
-            <p id="section-toc.1-1.3.1" class="keepWithNext"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
+            <p id="section-toc.1-1.3.1" class="keepWithNext"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-system" class="internal xref">System</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
-            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
+            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-use-cases" class="internal xref">Use cases</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.1">
+                <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="auto internal xref">4.1</a>.  <a href="#name-dap" class="internal xref">DAP</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2">
+                <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="auto internal xref">4.2</a>.  <a href="#name-ohttp" class="internal xref">OHTTP</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3">
+                <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="auto internal xref">4.3</a>.  <a href="#name-privacy-pass" class="internal xref">Privacy Pass</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.4">
+                <p id="section-toc.1-1.4.2.4.1"><a href="#section-4.4" class="auto internal xref">4.4</a>.  <a href="#name-masque-relay" class="internal xref">Masque relay</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
-            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
-            <p id="section-toc.1-1.6.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
-            <p id="section-toc.1-1.7.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
+            <p id="section-toc.1-1.8.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
+            <p id="section-toc.1-1.9.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1196,26 +1242,140 @@ described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</s
 appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="security-considerations">
+<div id="system">
 <section id="section-3">
-      <h2 id="name-security-considerations">
-<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
+      <h2 id="name-system">
+<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-system" class="section-name selfRef">System</a>
       </h2>
-<p id="section-3-1">TODO Security<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-1">At a high level, keys are base64url encoded.
+Endpoint is in JSON and CBOR, with a specific Content-Type but NOT a different
+endpoint.
+Consistency can be done with [1]
+Integration with key transparency [2] should be considered.
+Rotation is done via HTTP headers. A key is valid until this header expires, even though it's removed before.
+A key has a <code>not-before</code> in Unix timestamp, but DOES NOT have <code>not-after</code>.
+Keys should .
+Key IDs <span class="bcp14">MAY</span> have pet names, but the actual IDs should be derived from the key data. This
+allows to provide some guarantees over key uniqueness/version. A key <span class="bcp14">MUST NOT</span> have a version.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-2">[1] https://datatracker.ietf.org/doc/draft-group-privacypass-consistency-mirror/
+[2] https://datatracker.ietf.org/wg/keytrans/about/<a href="#section-3-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="use-cases">
+<section id="section-4">
+      <h2 id="name-use-cases">
+<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-use-cases" class="section-name selfRef">Use cases</a>
+      </h2>
+<div id="dap">
+<section id="section-4.1">
+        <h3 id="name-dap">
+<a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-dap" class="section-name selfRef">DAP</a>
+        </h3>
+<p id="section-4.1-1">HpkeConfigList [1]<a href="#section-4.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.1-2">```
+HpkeConfig HpkeConfigList&lt;0..2^16-1&gt;;<a href="#section-4.1-2" class="pilcrow">¶</a></p>
+<p id="section-4.1-3">struct {
+  HpkeConfigId id;
+  HpkeKemId kem_id;
+  HpkeKdfId kdf_id;
+  HpkeAeadId aead_id;
+  HpkePublicKey public_key;
+} HpkeConfig;<a href="#section-4.1-3" class="pilcrow">¶</a></p>
+<p id="section-4.1-4">opaque HpkePublicKey&lt;0..2^16-1&gt;;
+uint16 HpkeAeadId; /* Defined in [HPKE] <em>/
+uint16 HpkeKemId;  /</em> Defined in [HPKE] <em>/
+uint16 HpkeKdfId;  /</em> Defined in [HPKE] */
+```<a href="#section-4.1-4" class="pilcrow">¶</a></p>
+<p id="section-4.1-5">Partially informed comments:
+* HpkeConfigId could be removed
+* Need not-before to handle early capture<a href="#section-4.1-5" class="pilcrow">¶</a></p>
+<p id="section-4.1-6">[1] https://datatracker.ietf.org/doc/html/draft-ietf-ppm-dap-13#section-4.5.1<a href="#section-4.1-6" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="ohttp">
+<section id="section-4.2">
+        <h3 id="name-ohttp">
+<a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-ohttp" class="section-name selfRef">OHTTP</a>
+        </h3>
+<p id="section-4.2-1">Key Configutation [1]<a href="#section-4.2-1" class="pilcrow">¶</a></p>
+<p id="section-4.2-2">```
+HPKE Symmetric Algorithms {
+  HPKE KDF ID (16),
+  HPKE AEAD ID (16),
+}<a href="#section-4.2-2" class="pilcrow">¶</a></p>
+<p id="section-4.2-3">Key Config {
+  Key Identifier (8),
+  HPKE KEM ID (16),
+  HPKE Public Key (Npk * 8),
+  HPKE Symmetric Algorithms Length (16) = 4..65532,
+  HPKE Symmetric Algorithms (32) ...,
+}
+```<a href="#section-4.2-3" class="pilcrow">¶</a></p>
+<p id="section-4.2-4">Partially informed comments:
+* Key Identifier could be removed/be deterministic
+* No mention of not-before
+* No mention of HTTP Caching for rotation<a href="#section-4.2-4" class="pilcrow">¶</a></p>
+<p id="section-4.2-5">[1] https://www.ietf.org/rfc/rfc9458.html#name-key-configuration<a href="#section-4.2-5" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="privacy-pass">
+<section id="section-4.3">
+        <h3 id="name-privacy-pass">
+<a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-privacy-pass" class="section-name selfRef">Privacy Pass</a>
+        </h3>
+<p id="section-4.3-1">Issuer directory [1]<a href="#section-4.3-1" class="pilcrow">¶</a></p>
+<p id="section-4.3-2"><code>
+ {
+    "issuer-request-uri": "https://issuer.example.net/request",
+    "token-keys": [
+      {
+        "token-type": 2,
+        "token-key": "MI...AB",
+        "not-before": 1686913811,
+      },
+      {
+        "token-type": 2,
+        "token-key": "MI...AQ",
+      }
+    ]
+ }
+</code><a href="#section-4.3-2" class="pilcrow">¶</a></p>
+<p id="section-4.3-3">Partially informed comments:
+* Not as flexible as HPKE
+* Has some protocol metadata (token-type, issuer-request-uri, rate-limit)<a href="#section-4.3-3" class="pilcrow">¶</a></p>
+<p id="section-4.3-4">[1] https://www.rfc-editor.org/rfc/rfc9578#name-configuration<a href="#section-4.3-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="masque-relay">
+<section id="section-4.4">
+        <h3 id="name-masque-relay">
+<a href="#section-4.4" class="section-number selfRef">4.4. </a><a href="#name-masque-relay" class="section-name selfRef">Masque relay</a>
+        </h3>
+<p id="section-4.4-1">..<a href="#section-4.4-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="security-considerations">
+<section id="section-5">
+      <h2 id="name-security-considerations">
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
+      </h2>
+<p id="section-5-1">TODO Security<a href="#section-5-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
-<section id="section-4">
+<section id="section-6">
       <h2 id="name-iana-considerations">
-<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-4-1">This document has no IANA actions.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-6-1">This document has no IANA actions.<a href="#section-6-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-normative-references">
-<section id="section-5">
+<section id="section-7">
       <h2 id="name-normative-references">
-<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
       </h2>
 <dl class="references">
 <dt id="RFC2119">[RFC2119]</dt>

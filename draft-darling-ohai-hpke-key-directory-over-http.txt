@@ -5,7 +5,7 @@
 Oblivious HTTP Application Intermediation                     F. Darling
 Internet-Draft                                                T. Meunier
 Intended status: Informational                           Cloudflare Inc.
-Expires: 23 June 2025                                   20 December 2024
+Expires: 25 June 2025                                   22 December 2024
 
 
                       HPKE Key Directory over HTTP
@@ -13,7 +13,22 @@ Expires: 23 June 2025                                   20 December 2024
 
 Abstract
 
-   TODO Abstract
+   Service owners have a use to share public key as part of a standard
+   directory.  This is meant to be convenient to share, allow for
+   rotation, and be secure to man-in-the-middle or split-view attack.
+   This document defines recommendations for protocol implementers.
+
+   Notes: JWK does not offer a standard endpoint either with jose or
+   cose.  It has a draft for HPKE [1]/[2].  There is an endpoint /.well-
+   known/jwks.json that is tribal knowledge but is not registered with
+   IANA.  Certificates could also be a similar mechanism, but there is
+   x509 as well.  This directory might be bootstraped with x509 backed
+   trust, but this is an overhead we don't touch.  I'm not confident in
+   defining a jwk subset (all attributes [3]).
+
+   [1] https://datatracker.ietf.org/doc/draft-ietf-jose-hpke-encrypt/
+   [2] https://datatracker.ietf.org/doc/draft-ietf-cose-hpke/ [3]
+   https://www.iana.org/assignments/jose/jose.xhtml
 
 About This Document
 
@@ -50,7 +65,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 June 2025.
+   This Internet-Draft will expire on 25 June 2025.
 
 Copyright Notice
 
@@ -70,9 +85,15 @@ Table of Contents
 
    1.  Introduction
    2.  Conventions and Definitions
-   3.  Security Considerations
-   4.  IANA Considerations
-   5.  Normative References
+   3.  System
+   4.  Use cases
+     4.1.  DAP
+     4.2.  OHTTP
+     4.3.  Privacy Pass
+     4.4.  Masque relay
+   5.  Security Considerations
+   6.  IANA Considerations
+   7.  Normative References
    Acknowledgments
    Authors' Addresses
 
@@ -88,15 +109,87 @@ Table of Contents
    BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
-3.  Security Considerations
+3.  System
+
+   At a high level, keys are base64url encoded.  Endpoint is in JSON and
+   CBOR, with a specific Content-Type but NOT a different endpoint.
+   Consistency can be done with [1] Integration with key transparency
+   [2] should be considered.  Rotation is done via HTTP headers.  A key
+   is valid until this header expires, even though it's removed before.
+   A key has a not-before in Unix timestamp, but DOES NOT have not-
+   after.  Keys should . Key IDs MAY have pet names, but the actual IDs
+   should be derived from the key data.  This allows to provide some
+   guarantees over key uniqueness/version.  A key MUST NOT have a
+   version.
+
+   [1] https://datatracker.ietf.org/doc/draft-group-privacypass-
+   consistency-mirror/ [2] https://datatracker.ietf.org/wg/keytrans/
+   about/
+
+4.  Use cases
+
+4.1.  DAP
+
+   HpkeConfigList [1]
+
+   ``` HpkeConfig HpkeConfigList<0..2^16-1>;
+
+   struct { HpkeConfigId id; HpkeKemId kem_id; HpkeKdfId kdf_id;
+   HpkeAeadId aead_id; HpkePublicKey public_key; } HpkeConfig;
+
+   opaque HpkePublicKey<0..2^16-1>; uint16 HpkeAeadId; /* Defined in
+   [HPKE] _/ uint16 HpkeKemId; /_ Defined in [HPKE] _/ uint16 HpkeKdfId;
+   /_ Defined in [HPKE] */ ```
+
+   Partially informed comments: * HpkeConfigId could be removed * Need
+   not-before to handle early capture
+
+   [1] https://datatracker.ietf.org/doc/html/draft-ietf-ppm-dap-
+   13#section-4.5.1
+
+4.2.  OHTTP
+
+   Key Configutation [1]
+
+   ``` HPKE Symmetric Algorithms { HPKE KDF ID (16), HPKE AEAD ID (16),
+   }
+
+   Key Config { Key Identifier (8), HPKE KEM ID (16), HPKE Public Key
+   (Npk * 8), HPKE Symmetric Algorithms Length (16) = 4..65532, HPKE
+   Symmetric Algorithms (32) ..., } ```
+
+   Partially informed comments: * Key Identifier could be removed/be
+   deterministic * No mention of not-before * No mention of HTTP Caching
+   for rotation
+
+   [1] https://www.ietf.org/rfc/rfc9458.html#name-key-configuration
+
+4.3.  Privacy Pass
+
+   Issuer directory [1]
+
+   { "issuer-request-uri": "https://issuer.example.net/request", "token-
+   keys": [ { "token-type": 2, "token-key": "MI...AB", "not-before":
+   1686913811, }, { "token-type": 2, "token-key": "MI...AQ", } ] }
+
+   Partially informed comments: * Not as flexible as HPKE * Has some
+   protocol metadata (token-type, issuer-request-uri, rate-limit)
+
+   [1] https://www.rfc-editor.org/rfc/rfc9578#name-configuration
+
+4.4.  Masque relay
+
+   ..
+
+5.  Security Considerations
 
    TODO Security
 
-4.  IANA Considerations
+6.  IANA Considerations
 
    This document has no IANA actions.
 
-5.  Normative References
+7.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
