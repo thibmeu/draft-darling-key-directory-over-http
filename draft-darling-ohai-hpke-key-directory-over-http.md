@@ -31,6 +31,10 @@ author:
     fullname: Thibault Meunier
     organization: Cloudflare Inc.
     email: ot-ietf@thibault.uk
+ -
+    fullname: Simon Newton
+    organization: Cloudflare Inc.
+    email: rfc@simonnewton.com
 
 normative:
 
