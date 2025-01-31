@@ -1262,28 +1262,16 @@ URL.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
 <p id="section-1-1">Multiple Internet protocols rely on public key cryptography. They require keys
-to be distributed by servers to clients. This could be done via certificates,
+to be distributed by origins to clients. This is done via certificates,
 via software releases, or via HTTP. This document focuses on this last mechanism.
 It aims to set recommendation on how to design a key directory that should be
 served over HTTP.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">Distribution via HTTP allows for a more dynamic use of public keys, for rotation,
-or caching on intermediate servers or clients.<a href="#section-1-2" class="pilcrow">¶</a></p>
-<p id="section-1-3">The document covers:<a href="#section-1-3" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-1-4">
-<li id="section-1-4.1">
-          <p id="section-1-4.1.1">cache behaviour<a href="#section-1-4.1.1" class="pilcrow">¶</a></p>
-</li>
-        <li id="section-1-4.2">
-          <p id="section-1-4.2.1">how to populate key id<a href="#section-1-4.2.1" class="pilcrow">¶</a></p>
-</li>
-        <li id="section-1-4.3">
-          <p id="section-1-4.3.1">possibly well known url and client behaviour<a href="#section-1-4.3.1" class="pilcrow">¶</a></p>
-</li>
-        <li id="section-1-4.4">
-          <p id="section-1-4.4.1">rotation considerations (kid, cache, others), to minimize key compromise<a href="#section-1-4.4.1" class="pilcrow">¶</a></p>
-</li>
-      </ol>
-<p id="section-1-5">Format is a lot more work (likely different as well), so reusing COSE key set and jwk set could work for examples (maybe more, not sure)<a href="#section-1-5" class="pilcrow">¶</a></p>
+or caching on intermediate servers or clients.
+This document specifies how clients and mirrors should consume cache directive
+set by origins, how origins should expose their key directory, and rotate them.
+The document does not cover a specific directory format, as these needs might
+vary from one protocol to the next.<a href="#section-1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-definitions">
