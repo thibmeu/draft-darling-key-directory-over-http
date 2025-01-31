@@ -86,7 +86,7 @@ Format is a lot more work (likely different as well), so reusing COSE key set an
 
 # Conventions and Definitions
 
-{::boilerplate bcp14-tagged}
+{::boilerplate bcp14}
 
 The following terms are used throughout this document:
 
