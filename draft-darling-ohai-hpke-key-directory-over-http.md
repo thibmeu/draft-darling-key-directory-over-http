@@ -2,7 +2,7 @@
 title: "Key Directory over HTTP"
 category: info
 
-docname: draft-darling-ohai-key-directory-over-http-latest
+docname: draft-darling-key-directory-over-http-latest
 submissiontype: IETF
 consensus: true
 v: 3
@@ -20,8 +20,8 @@ venue:
   type: ""
   mail: "httpapi@ietf.org"
   arch: "https://mailarchive.ietf.org/arch/browse/httpapi/"
-  github: "thibmeu/draft-darling-ohai-hpke-key-directory-over-http"
-  latest: "https://thibmeu.github.io/draft-darling-ohai-hpke-key-directory-over-http/draft-darling-ohai-hpke-key-directory-over-http.html"
+  github: "thibmeu/draft-darling-key-directory-over-http"
+  latest: "https://thibmeu.github.io/draft-darling-key-directory-over-http/draft-darling-key-directory-over-http.html"
 
 author:
  -
