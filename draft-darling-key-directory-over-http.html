@@ -1311,9 +1311,8 @@ or caching on intermediate servers or clients.<a href="#section-1-2" class="pilc
       <h2 id="name-conventions-and-definitions">
 <a href="#section-2" class="section-number selfRef">2. </a><a href="#name-conventions-and-definitions" class="section-name selfRef">Conventions and Definitions</a>
       </h2>
-<p id="section-2-1">The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
-NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED",
-"MAY", and "OPTIONAL" in this document are to be interpreted as
+<p id="section-2-1">The key words "<span class="bcp14">MUST</span>", "<span class="bcp14">MUST NOT</span>", "<span class="bcp14">REQUIRED</span>", "<span class="bcp14">SHALL</span>", "<span class="bcp14">SHALL NOT</span>", "<span class="bcp14">SHOULD</span>", "<span class="bcp14">SHOULD NOT</span>", "<span class="bcp14">RECOMMENDED</span>", "<span class="bcp14">NOT RECOMMENDED</span>",
+"<span class="bcp14">MAY</span>", and "<span class="bcp14">OPTIONAL</span>" in this document are to be interpreted as
 described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they
 appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶</a></p>
 <p id="section-2-2">The following terms are used throughout this document:<a href="#section-2-2" class="pilcrow">¶</a></p>
@@ -1357,7 +1356,7 @@ privacy proxy<a href="#section-2-3.6.1" class="pilcrow">¶</a></p>
       <h2 id="name-architecture">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-architecture" class="section-name selfRef">Architecture</a>
       </h2>
-<p id="section-3-1">A server is exposing a key directory for clients to fetch. Clients MAY fetch the
+<p id="section-3-1">A server is exposing a key directory for clients to fetch. Clients <span class="bcp14">MAY</span> fetch the
 directory from a Mirror, either to protect its privacy, or because the Server
 wants to leverage a content delivery network.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <p id="section-3-2">This document focuses on the below interaction, which is triggered when the
@@ -1487,8 +1486,8 @@ on the number of keys a directory expects to serve at one point in time<a href="
 <a href="#section-3.3.1" class="section-number selfRef">3.3.1. </a><a href="#name-algorithm" class="section-name selfRef">Algorithm</a>
           </h4>
 <p id="section-3.3.1-1">We approach a public key generation by the function <code>Generate(params, RAND) -&gt; (publickey, privatekey, metadata)</code><a href="#section-3.3.1-1" class="pilcrow">¶</a></p>
-<p id="section-3.3.1-2">At any point in time, keys in the directory MUST have a unique truncated key id.
-When adding a key in the directory, that key MUST have a unique truncated key id.<a href="#section-3.3.1-2" class="pilcrow">¶</a></p>
+<p id="section-3.3.1-2">At any point in time, keys in the directory <span class="bcp14">MUST</span> have a unique truncated key id.
+When adding a key in the directory, that key <span class="bcp14">MUST</span> have a unique truncated key id.<a href="#section-3.3.1-2" class="pilcrow">¶</a></p>
 <p id="section-3.3.1-3">Generation looks as follow<a href="#section-3.3.1-3" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-3.3.1-4">
 <pre>
@@ -1518,8 +1517,8 @@ take intermediate into consideration<a href="#section-3.3.2-2.1.1" class="pilcro
 be NOW()+maxage<a href="#section-3.3.2-2.2.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-3.3.2-3">In both case, the protocol MUST define an error to signal a key which is not
-supported. It is RECOMMENDED to use truncated token ID as a short identifier.<a href="#section-3.3.2-3" class="pilcrow">¶</a></p>
+<p id="section-3.3.2-3">In both case, the protocol <span class="bcp14">MUST</span> define an error to signal a key which is not
+supported. It is <span class="bcp14">RECOMMENDED</span> to use truncated token ID as a short identifier.<a href="#section-3.3.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="immediate-server-client-behaviour">
@@ -1536,12 +1535,12 @@ is going to be placed under a higher load.<a href="#section-3.3.3-2" class="pilc
 <p id="section-3.3.3-3">Client requests are expected to fail.<a href="#section-3.3.3-3" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-3.3.3-4">
 <li id="section-3.3.3-4.1">
-              <p id="section-3.3.3-4.1.1">You MAY introduce a random backoff to spread the load of key distribution over
+              <p id="section-3.3.3-4.1.1">You <span class="bcp14">MAY</span> introduce a random backoff to spread the load of key distribution over
 time<a href="#section-3.3.3-4.1.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-3.3.3-4.2">
-              <p id="section-3.3.3-4.2.1">Clients on a scheduled rotation MAY be configured to distrust rotation outside
-a fixed schedule. Protocols SHOULD define such policies.<a href="#section-3.3.3-4.2.1" class="pilcrow">¶</a></p>
+              <p id="section-3.3.3-4.2.1">Clients on a scheduled rotation <span class="bcp14">MAY</span> be configured to distrust rotation outside
+a fixed schedule. Protocols <span class="bcp14">SHOULD</span> define such policies.<a href="#section-3.3.3-4.2.1" class="pilcrow">¶</a></p>
 </li>
           </ol>
 </section>
@@ -1553,9 +1552,9 @@ a fixed schedule. Protocols SHOULD define such policies.<a href="#section-3.3.3-
         <h3 id="name-well-known-url">
 <a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-well-known-url" class="section-name selfRef">Well known URL</a>
         </h3>
-<p id="section-3.4-1">It is RECOMMENDED protocol register a <span>[<a href="#WELL-KNOWN" class="cite xref">WELL-KNOWN</a>]</span>URL and associated
+<p id="section-3.4-1">It is <span class="bcp14">RECOMMENDED</span> protocol register a <span>[<a href="#WELL-KNOWN" class="cite xref">WELL-KNOWN</a>]</span>URL and associated
 content-type.<a href="#section-3.4-1" class="pilcrow">¶</a></p>
-<p id="section-3.4-2">A key directory server MUST support both GET and HEAD request on that endpoint.<a href="#section-3.4-2" class="pilcrow">¶</a></p>
+<p id="section-3.4-2">A key directory server <span class="bcp14">MUST</span> support both GET and HEAD request on that endpoint.<a href="#section-3.4-2" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-3.4-3">
 <pre>
 GET /.well-known/&lt;your-protocol&gt;
@@ -1618,8 +1617,8 @@ Proxy improves client experience and shields key directory server<a href="#secti
       </h2>
 <p id="section-5-1">TODO Privacy<a href="#section-5-1" class="pilcrow">¶</a></p>
 <p id="section-5-2">Clients fetching keys mean they reveal their IP, time, and other informations.
-When the key directory is for an external service, Clients SHOULD consider
-proxying their traffic through a mirror server. Mirrors SHOULD NOT collide with
+When the key directory is for an external service, Clients <span class="bcp14">SHOULD</span> consider
+proxying their traffic through a mirror server. Mirrors <span class="bcp14">SHOULD NOT</span> collide with
 the key server.<a href="#section-5-2" class="pilcrow">¶</a></p>
 </section>
 </div>
