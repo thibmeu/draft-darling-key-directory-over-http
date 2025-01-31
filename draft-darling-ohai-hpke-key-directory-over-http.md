@@ -90,16 +90,74 @@ Format is a lot more work (likely different as well), so reusing COSE key set an
 
 # System
 
-At a high level, keys are base64url encoded.
-Endpoint is in JSON and CBOR, with a specific Content-Type but NOT a different
-endpoint.
-Consistency can be done with [1]
-Integration with key transparency [2] should be considered.
-Rotation is done via HTTP headers. A key is valid until this header expires, even though it's removed before.
-A key has a `not-before` in Unix timestamp, but DOES NOT have `not-after`.
-Keys should .
-Key IDs MAY have pet names, but the actual IDs should be derived from the key data. This
-allows to provide some guarantees over key uniqueness/version. A key MUST NOT have a version.
+## Cache behaviour
+
+Cache control, intermediaries
+
+## Key id
+
+Protocol implementers pass a blob of data based on public key material/others
+Key ID = Hash(blob)
+
+Key ID have an associated truncated Key ID. The size of truncated Key ID depends
+on the number of keys a directory expects to serve at one point in time
+
+| Keys in directory | Truncated key ID bytes |
+|:------------------|:-----------------------|
+| 1-255             | 1                      |
+| 256-65535         | 2                      |
+| 65535-*           | Not supported          |
+
+Truncated key ID = last bytes of key ID in network byte order.
+
+## Rotation (kid, cache, others)
+
+### Algorithm
+
+We approach a public key generation by the function `Generate(params, RAND) -> (publickey, privatekey, metadata)`
+
+At any point in time, keys in the directory MUST have a unique truncated key id.
+When adding a key in the directory, that key MUST have a unique truncated key id.
+
+Generation looks as follow
+
+~~~
+do
+  (publickey, privatekey, metadata) <- Generate(params, RAND)
+  keyid <- H(publickey|metadata)
+  truncated_key_id <- last_bytes(keyid)
+while (truncated_key_id is not unique)
+~~~
+
+### Scheduled (server, client behaviour)
+
+Two options:
+* passive = rely on cache header to set not-after on the client side. stop
+  advertising the key at time t, and delete it at time t+maxage
+  take intermediate into consideration
+* active = keep serving the key but add not-after before expiration. It should
+  be NOW()+maxage
+
+In both case, the protocol MUST define an error to signal a key which is not
+supported. It is RECOMMENDED to use truncated token ID as a short identifier.
+
+### Immediate (server, client behaviour)
+
+There are moment where keys have to be rotated immediatly. Existing keys may
+have to be invalidated and/or new keys be provisioned. Immediate keys rotation
+may happen in the event of a key compromise, loss, or other imperious reason.
+
+Immediate key rotation will cause some client request to the server to fail
+until they retrieve a new version of the directory. The key directory endpoint
+is going to be placed under a higher load.
+
+Client requests are expected to fail.
+1. You MAY introduce a random backoff to spread the load of key distribution over
+time
+2. Clients on a scheduled rotation MAY be configured to distrust rotation outside
+a fixed schedule. Protocols SHOULD define such policies.
+
+## Well known URL
 
 ## Future considerations
 
@@ -128,6 +186,9 @@ directory, keys individually, privacy considerations.
 TODO Privacy
 
 Clients fetching keys mean they reveal their IP, time, and other informations.
+When the key directory is for an external service, Clients SHOULD consider
+proxying their traffic through a mirror server. Mirrors SHOULD NOT collide with
+the key server.
 
 
 # Security Considerations
