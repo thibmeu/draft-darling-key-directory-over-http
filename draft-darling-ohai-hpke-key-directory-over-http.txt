@@ -198,11 +198,14 @@ Table of Contents
 
 3.3.2.  Scheduled (server, client behaviour)
 
-   Two options: * passive = rely on cache header to set not-after on the
-   client side. stop advertising the key at time t, and delete it at
-   time t+maxage take intermediate into consideration * active = keep
-   serving the key but add not-after before expiration.  It should be
-   NOW()+maxage
+   Two options:
+
+   *  passive = rely on cache header to set not-after on the client
+      side. stop advertising the key at time t, and delete it at time
+      t+maxage take intermediate into consideration
+
+   *  active = keep serving the key but add not-after before expiration.
+      It should be NOW()+maxage
 
    In both case, the protocol MUST define an error to signal a key which
    is not supported.  It is RECOMMENDED to use truncated token ID as a
@@ -219,10 +222,14 @@ Table of Contents
    to fail until they retrieve a new version of the directory.  The key
    directory endpoint is going to be placed under a higher load.
 
-   Client requests are expected to fail. 1.  You MAY introduce a random
-   backoff to spread the load of key distribution over time 2.  Clients
-   on a scheduled rotation MAY be configured to distrust rotation
-   outside a fixed schedule.  Protocols SHOULD define such policies.
+   Client requests are expected to fail.
+
+   1.  You MAY introduce a random backoff to spread the load of key
+       distribution over time
+
+   2.  Clients on a scheduled rotation MAY be configured to distrust
+       rotation outside a fixed schedule.  Protocols SHOULD define such
+       policies.
 
 3.4.  Well known URL
 
@@ -316,8 +323,11 @@ B.1.  DAP
    uint16 HpkeKemId;  /* Defined in [HPKE] */
    uint16 HpkeKdfId;  /* Defined in [HPKE] */
 
-   Partially informed comments: * HpkeConfigId could be removed * Need
-   not-before to handle early capture
+   Partially informed comments:
+
+   *  HpkeConfigId could be removed
+
+   *  Need not-before to handle early capture
 
    [1] https://datatracker.ietf.org/doc/html/draft-ietf-ppm-dap-
    13#section-4.5.1
@@ -339,9 +349,13 @@ B.2.  OHTTP
      HPKE Symmetric Algorithms (32) ...,
    }
 
-   Partially informed comments: * Key Identifier could be removed/be
-   deterministic * No mention of not-before * No mention of HTTP Caching
-   for rotation
+   Partially informed comments:
+
+   *  Key Identifier could be removed/be deterministic
+
+   *  No mention of not-before
+
+   *  No mention of HTTP Caching for rotation
 
    [1] https://www.ietf.org/rfc/rfc9458.html#name-key-configuration
 
