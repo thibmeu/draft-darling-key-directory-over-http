@@ -90,17 +90,40 @@ Table of Contents
    4.  Security Considerations
    5.  IANA Considerations
    6.  Normative References
-   Appendix A.  Use cases
-     A.1.  DAP
-     A.2.  OHTTP
-     A.3.  Privacy Pass
-     A.4.  Masque relay
+   Appendix A.  Test vectors
+   Appendix B.  Use cases
+     B.1.  DAP
+     B.2.  OHTTP
+     B.3.  Privacy Pass
+     B.4.  Masque relay
    Acknowledgments
    Authors' Addresses
 
 1.  Introduction
 
-   TODO Introduction
+   Multiple Internet protocols rely on public key cryptography.  They
+   require keys to be distributed by servers to clients.  This could be
+   done via certificates, via software releases, or via HTTP.  This
+   document focuses on this last mechanism.  It aims to set
+   recommendation on how to design a key directory that should be served
+   over HTTP.
+
+   Distribution via HTTP allows for a more dynamic use of public keys,
+   for rotation, or caching on intermediate servers or clients.
+
+   The document covers:
+
+   1.  cache behaviour
+
+   2.  how to populate key id
+
+   3.  possibly well known url and client behaviour
+
+   4.  rotation considerations (kid, cache, others), to minimize key
+       compromise
+
+   Format is a lot more work (likely different as well), so reusing COSE
+   key set and jwk set could work for examples (maybe more, not sure)
 
 2.  Conventions and Definitions
 
@@ -146,12 +169,16 @@ Table of Contents
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
-Appendix A.  Use cases
+Appendix A.  Test vectors
+
+   List how to test cache List how to test rotation
+
+Appendix B.  Use cases
 
    See existing key directory on https://key-directory-over-
    http.research.cloudflare.com/
 
-A.1.  DAP
+B.1.  DAP
 
    HpkeConfigList [1]
 
@@ -176,7 +203,7 @@ A.1.  DAP
    [1] https://datatracker.ietf.org/doc/html/draft-ietf-ppm-dap-
    13#section-4.5.1
 
-A.2.  OHTTP
+B.2.  OHTTP
 
    Key Configutation [1]
 
@@ -199,7 +226,7 @@ A.2.  OHTTP
 
    [1] https://www.ietf.org/rfc/rfc9458.html#name-key-configuration
 
-A.3.  Privacy Pass
+B.3.  Privacy Pass
 
    Issuer directory [1]
 
@@ -223,7 +250,7 @@ A.3.  Privacy Pass
 
    [1] https://www.rfc-editor.org/rfc/rfc9578#name-configuration
 
-A.4.  Masque relay
+B.4.  Masque relay
 
    ..
 

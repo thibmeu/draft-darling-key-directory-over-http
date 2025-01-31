@@ -1205,27 +1205,30 @@ overhead we don't touch. I'm not confident in defining a jwk subset (all attribu
             <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
-            <p id="section-toc.1-1.7.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-use-cases" class="internal xref">Use cases</a></p>
+            <p id="section-toc.1-1.7.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-test-vectors" class="internal xref">Test vectors</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
+            <p id="section-toc.1-1.8.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-use-cases" class="internal xref">Use cases</a></p>
 <ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.1">
-                <p id="section-toc.1-1.7.2.1.1"><a href="#appendix-A.1" class="auto internal xref">A.1</a>.  <a href="#name-dap" class="internal xref">DAP</a></p>
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.1">
+                <p id="section-toc.1-1.8.2.1.1"><a href="#appendix-B.1" class="auto internal xref">B.1</a>.  <a href="#name-dap" class="internal xref">DAP</a></p>
 </li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.2">
-                <p id="section-toc.1-1.7.2.2.1"><a href="#appendix-A.2" class="auto internal xref">A.2</a>.  <a href="#name-ohttp" class="internal xref">OHTTP</a></p>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2">
+                <p id="section-toc.1-1.8.2.2.1"><a href="#appendix-B.2" class="auto internal xref">B.2</a>.  <a href="#name-ohttp" class="internal xref">OHTTP</a></p>
 </li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.3">
-                <p id="section-toc.1-1.7.2.3.1"><a href="#appendix-A.3" class="auto internal xref">A.3</a>.  <a href="#name-privacy-pass" class="internal xref">Privacy Pass</a></p>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.3">
+                <p id="section-toc.1-1.8.2.3.1"><a href="#appendix-B.3" class="auto internal xref">B.3</a>.  <a href="#name-privacy-pass" class="internal xref">Privacy Pass</a></p>
 </li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.4">
-                <p id="section-toc.1-1.7.2.4.1"><a href="#appendix-A.4" class="auto internal xref">A.4</a>.  <a href="#name-masque-relay" class="internal xref">Masque relay</a></p>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.4">
+                <p id="section-toc.1-1.8.2.4.1"><a href="#appendix-B.4" class="auto internal xref">B.4</a>.  <a href="#name-masque-relay" class="internal xref">Masque relay</a></p>
 </li>
             </ul>
 </li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
-            <p id="section-toc.1-1.8.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
-</li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
-            <p id="section-toc.1-1.9.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+            <p id="section-toc.1-1.9.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
+            <p id="section-toc.1-1.10.1"><a href="#appendix-D" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1236,7 +1239,29 @@ overhead we don't touch. I'm not confident in defining a jwk subset (all attribu
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">TODO Introduction<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-1">Multiple Internet protocols rely on public key cryptography. They require keys
+to be distributed by servers to clients. This could be done via certificates,
+via software releases, or via HTTP. This document focuses on this last mechanism.
+It aims to set recommendation on how to design a key directory that should be
+served over HTTP.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2">Distribution via HTTP allows for a more dynamic use of public keys, for rotation,
+or caching on intermediate servers or clients.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-3">The document covers:<a href="#section-1-3" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-1-4">
+<li id="section-1-4.1">
+          <p id="section-1-4.1.1">cache behaviour<a href="#section-1-4.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li id="section-1-4.2">
+          <p id="section-1-4.2.1">how to populate key id<a href="#section-1-4.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li id="section-1-4.3">
+          <p id="section-1-4.3.1">possibly well known url and client behaviour<a href="#section-1-4.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li id="section-1-4.4">
+          <p id="section-1-4.4.1">rotation considerations (kid, cache, others), to minimize key compromise<a href="#section-1-4.4.1" class="pilcrow">¶</a></p>
+</li>
+      </ol>
+<p id="section-1-5">Format is a lot more work (likely different as well), so reusing COSE key set and jwk set could work for examples (maybe more, not sure)<a href="#section-1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-definitions">
@@ -1302,19 +1327,28 @@ allows to provide some guarantees over key uniqueness/version. A key <span class
 </dl>
 </section>
 </div>
-<div id="use-cases">
+<div id="test-vectors">
 <section id="appendix-A">
-      <h2 id="name-use-cases">
-<a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-use-cases" class="section-name selfRef">Use cases</a>
+      <h2 id="name-test-vectors">
+<a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-test-vectors" class="section-name selfRef">Test vectors</a>
       </h2>
-<p id="appendix-A-1">See existing key directory on https://key-directory-over-http.research.cloudflare.com/<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<p id="appendix-A-1">List how to test cache
+List how to test rotation<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="use-cases">
+<section id="appendix-B">
+      <h2 id="name-use-cases">
+<a href="#appendix-B" class="section-number selfRef">Appendix B. </a><a href="#name-use-cases" class="section-name selfRef">Use cases</a>
+      </h2>
+<p id="appendix-B-1">See existing key directory on https://key-directory-over-http.research.cloudflare.com/<a href="#appendix-B-1" class="pilcrow">¶</a></p>
 <div id="dap">
-<section id="appendix-A.1">
+<section id="appendix-B.1">
         <h3 id="name-dap">
-<a href="#appendix-A.1" class="section-number selfRef">A.1. </a><a href="#name-dap" class="section-name selfRef">DAP</a>
+<a href="#appendix-B.1" class="section-number selfRef">B.1. </a><a href="#name-dap" class="section-name selfRef">DAP</a>
         </h3>
-<p id="appendix-A.1-1">HpkeConfigList [1]<a href="#appendix-A.1-1" class="pilcrow">¶</a></p>
-<div class="lang-tls sourcecode" id="appendix-A.1-2">
+<p id="appendix-B.1-1">HpkeConfigList [1]<a href="#appendix-B.1-1" class="pilcrow">¶</a></p>
+<div class="lang-tls sourcecode" id="appendix-B.1-2">
 <pre>
 HpkeConfig HpkeConfigList&lt;0..2^16-1&gt;;
 
@@ -1330,21 +1364,21 @@ opaque HpkePublicKey&lt;0..2^16-1&gt;;
 uint16 HpkeAeadId; /* Defined in [HPKE] */
 uint16 HpkeKemId;  /* Defined in [HPKE] */
 uint16 HpkeKdfId;  /* Defined in [HPKE] */
-</pre><a href="#appendix-A.1-2" class="pilcrow">¶</a>
+</pre><a href="#appendix-B.1-2" class="pilcrow">¶</a>
 </div>
-<p id="appendix-A.1-3">Partially informed comments:
+<p id="appendix-B.1-3">Partially informed comments:
 * HpkeConfigId could be removed
-* Need not-before to handle early capture<a href="#appendix-A.1-3" class="pilcrow">¶</a></p>
-<p id="appendix-A.1-4">[1] https://datatracker.ietf.org/doc/html/draft-ietf-ppm-dap-13#section-4.5.1<a href="#appendix-A.1-4" class="pilcrow">¶</a></p>
+* Need not-before to handle early capture<a href="#appendix-B.1-3" class="pilcrow">¶</a></p>
+<p id="appendix-B.1-4">[1] https://datatracker.ietf.org/doc/html/draft-ietf-ppm-dap-13#section-4.5.1<a href="#appendix-B.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="ohttp">
-<section id="appendix-A.2">
+<section id="appendix-B.2">
         <h3 id="name-ohttp">
-<a href="#appendix-A.2" class="section-number selfRef">A.2. </a><a href="#name-ohttp" class="section-name selfRef">OHTTP</a>
+<a href="#appendix-B.2" class="section-number selfRef">B.2. </a><a href="#name-ohttp" class="section-name selfRef">OHTTP</a>
         </h3>
-<p id="appendix-A.2-1">Key Configutation [1]<a href="#appendix-A.2-1" class="pilcrow">¶</a></p>
-<div class="lang-tls sourcecode" id="appendix-A.2-2">
+<p id="appendix-B.2-1">Key Configutation [1]<a href="#appendix-B.2-1" class="pilcrow">¶</a></p>
+<div class="lang-tls sourcecode" id="appendix-B.2-2">
 <pre>
 HPKE Symmetric Algorithms {
   HPKE KDF ID (16),
@@ -1358,22 +1392,22 @@ Key Config {
   HPKE Symmetric Algorithms Length (16) = 4..65532,
   HPKE Symmetric Algorithms (32) ...,
 }
-</pre><a href="#appendix-A.2-2" class="pilcrow">¶</a>
+</pre><a href="#appendix-B.2-2" class="pilcrow">¶</a>
 </div>
-<p id="appendix-A.2-3">Partially informed comments:
+<p id="appendix-B.2-3">Partially informed comments:
 * Key Identifier could be removed/be deterministic
 * No mention of not-before
-* No mention of HTTP Caching for rotation<a href="#appendix-A.2-3" class="pilcrow">¶</a></p>
-<p id="appendix-A.2-4">[1] https://www.ietf.org/rfc/rfc9458.html#name-key-configuration<a href="#appendix-A.2-4" class="pilcrow">¶</a></p>
+* No mention of HTTP Caching for rotation<a href="#appendix-B.2-3" class="pilcrow">¶</a></p>
+<p id="appendix-B.2-4">[1] https://www.ietf.org/rfc/rfc9458.html#name-key-configuration<a href="#appendix-B.2-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="privacy-pass">
-<section id="appendix-A.3">
+<section id="appendix-B.3">
         <h3 id="name-privacy-pass">
-<a href="#appendix-A.3" class="section-number selfRef">A.3. </a><a href="#name-privacy-pass" class="section-name selfRef">Privacy Pass</a>
+<a href="#appendix-B.3" class="section-number selfRef">B.3. </a><a href="#name-privacy-pass" class="section-name selfRef">Privacy Pass</a>
         </h3>
-<p id="appendix-A.3-1">Issuer directory [1]<a href="#appendix-A.3-1" class="pilcrow">¶</a></p>
-<div class="lang-tls sourcecode" id="appendix-A.3-2">
+<p id="appendix-B.3-1">Issuer directory [1]<a href="#appendix-B.3-1" class="pilcrow">¶</a></p>
+<div class="lang-tls sourcecode" id="appendix-B.3-2">
 <pre>
  {
     "issuer-request-uri": "https://issuer.example.net/request",
@@ -1389,34 +1423,34 @@ Key Config {
       }
     ]
  }
-</pre><a href="#appendix-A.3-2" class="pilcrow">¶</a>
+</pre><a href="#appendix-B.3-2" class="pilcrow">¶</a>
 </div>
-<p id="appendix-A.3-3">Partially informed comments:
+<p id="appendix-B.3-3">Partially informed comments:
 * Not as flexible as HPKE
-* Has some protocol metadata (token-type, issuer-request-uri, rate-limit)<a href="#appendix-A.3-3" class="pilcrow">¶</a></p>
-<p id="appendix-A.3-4">[1] https://www.rfc-editor.org/rfc/rfc9578#name-configuration<a href="#appendix-A.3-4" class="pilcrow">¶</a></p>
+* Has some protocol metadata (token-type, issuer-request-uri, rate-limit)<a href="#appendix-B.3-3" class="pilcrow">¶</a></p>
+<p id="appendix-B.3-4">[1] https://www.rfc-editor.org/rfc/rfc9578#name-configuration<a href="#appendix-B.3-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="masque-relay">
-<section id="appendix-A.4">
+<section id="appendix-B.4">
         <h3 id="name-masque-relay">
-<a href="#appendix-A.4" class="section-number selfRef">A.4. </a><a href="#name-masque-relay" class="section-name selfRef">Masque relay</a>
+<a href="#appendix-B.4" class="section-number selfRef">B.4. </a><a href="#name-masque-relay" class="section-name selfRef">Masque relay</a>
         </h3>
-<p id="appendix-A.4-1">..<a href="#appendix-A.4-1" class="pilcrow">¶</a></p>
+<p id="appendix-B.4-1">..<a href="#appendix-B.4-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
 </div>
 <div id="acknowledgments">
-<section id="appendix-B">
+<section id="appendix-C">
       <h2 id="name-acknowledgments">
 <a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
       </h2>
-<p id="appendix-B-1">TODO acknowledge.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
+<p id="appendix-C-1">TODO acknowledge.<a href="#appendix-C-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authors-addresses">
-<section id="appendix-C">
+<section id="appendix-D">
       <h2 id="name-authors-addresses">
 <a href="#name-authors-addresses" class="section-name selfRef">Authors' Addresses</a>
       </h2>
