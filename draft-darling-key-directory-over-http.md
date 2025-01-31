@@ -90,19 +90,25 @@ Format is a lot more work (likely different as well), so reusing COSE key set an
 
 The following terms are used throughout this document:
 
-Client: using public key material
+Client:
+: An entity using public key material
 
-Origin: Exposing public key material
+Origin:
+: An entity exposing public key material via HTTP
 
-Mirror: Intermediary between client and server. May cache data, and act as a
-   privacy proxy
+Mirror:
+: An intermediary entity between client and server. May cache data, and act as a
+  privacy proxy
 
-Key metadata: Public data associated to a public key
+Key metadata:
+: Public data associated to a public key
 
-Key Directory: Set of public keys
+Key Directory:
+: Set of public keys
 
-Directory Metadata: Public data associated to a key directory. This is protocol
-  specific.
+Directory Metadata:
+: Public data associated to a key directory. This is protocol specific.
+
 
 # Architecture
 
