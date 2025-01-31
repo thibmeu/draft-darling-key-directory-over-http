@@ -92,21 +92,57 @@ The following terms are used throughout this document:
 
 Client: using public key material
 
-Server: Exposing public key material
+Origin: Exposing public key material
 
 Mirror: Intermediary between client and server. May cache data, and act as a
    privacy proxy
 
-Metadata: Public data associated to a public key
+Key metadata: Public data associated to a public key
+
+Key Directory: Set of public keys
+
+Directory Metadata: Public data associated to a key directory. This is protocol
+  specific.
 
 # Architecture
 
-Participants
+A server is exposing a key directory for clients to fetch. Clients MAY fetch the
+directory from a Mirror, either to protect its privacy, or because the Server
+wants to leverage a content delivery network.
+
+This document focuses on the below interaction, which is triggered when the
+Client does not have valid key for the server. This can be because the Client is
+new, its cache is expired, or the server refuses requests with the current key set.
+
+~~~aasvg
++--------+                +--------+               +--------+
+| Client |                | Mirror |               | Origin |
++---+----+                +---+----+               +----+---+
+    |                         |                         |
+    +--- GET Key Directory -->|                         |
+    |                         +--- GET Key Directory -->|
+    |                         |<---- Key Directory -----+
+    |                         |--.                      |
+    |                         |   | cache               |
+    |                         |<-'                      |
+    |<---- Key Directory -----+                         |
+    |--.                      |                         |
+    |   | cache               |                         |--.       
+    |<-'                      |                         |   | rotate
+    |                         |                         |<-'       
+    |                         |                         |
+~~~
 
 
 ## Cache behaviour
 
 Cache control, intermediaries
+
+Client should use cache directive per key, so that if a key becomes invalid,
+they use the next one in their cache.
+
+TODO: write about key preference, based on not-before, not-after, or order in
+the directory.
 
 ## Key id
 
