@@ -2,14 +2,14 @@
 
 
 
-Oblivious HTTP Application Intermediation                     F. Darling
+???                                                           F. Darling
 Internet-Draft                                                T. Meunier
 Intended status: Informational                                 S. Newton
-Expires: 3 August 2025                                   Cloudflare Inc.
-                                                         30 January 2025
+Expires: 4 August 2025                                   Cloudflare Inc.
+                                                         31 January 2025
 
 
-                      HPKE Key Directory over HTTP
+                        Key Directory over HTTP
          draft-darling-ohai-hpke-key-directory-over-http-latest
 
 Abstract
@@ -42,10 +42,10 @@ About This Document
    https://datatracker.ietf.org/doc/draft-darling-ohai-hpke-key-
    directory-over-http/.
 
-   Discussion of this document takes place on the Oblivious HTTP
-   Application Intermediation mailing list (mailto:ohai@ietf.org), which
-   is archived at https://mailarchive.ietf.org/arch/browse/ohai/.
-   Subscribe at https://www.ietf.org/mailman/listinfo/ohai/.
+   Discussion of this document takes place on the ???  mailing list
+   (mailto:httpapi@ietf.org), which is archived at
+   https://mailarchive.ietf.org/arch/browse/httpapi/.  Subscribe at
+   https://www.ietf.org/mailman/listinfo/httpapi/.
 
    Source for this draft and an issue tracker can be found at
    https://github.com/thibmeu/draft-darling-ohai-hpke-key-directory-
@@ -66,7 +66,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 August 2025.
+   This Internet-Draft will expire on 4 August 2025.
 
 Copyright Notice
 
@@ -133,14 +133,20 @@ Table of Contents
 
    HpkeConfigList [1]
 
-   ``` HpkeConfig HpkeConfigList<0..2^16-1>;
+   HpkeConfig HpkeConfigList<0..2^16-1>;
 
-   struct { HpkeConfigId id; HpkeKemId kem_id; HpkeKdfId kdf_id;
-   HpkeAeadId aead_id; HpkePublicKey public_key; } HpkeConfig;
+   struct {
+     HpkeConfigId id;
+     HpkeKemId kem_id;
+     HpkeKdfId kdf_id;
+     HpkeAeadId aead_id;
+     HpkePublicKey public_key;
+   } HpkeConfig;
 
-   opaque HpkePublicKey<0..2^16-1>; uint16 HpkeAeadId; /* Defined in
-   [HPKE] _/ uint16 HpkeKemId; /_ Defined in [HPKE] _/ uint16 HpkeKdfId;
-   /_ Defined in [HPKE] */ ```
+   opaque HpkePublicKey<0..2^16-1>;
+   uint16 HpkeAeadId; /* Defined in [HPKE] */
+   uint16 HpkeKemId;  /* Defined in [HPKE] */
+   uint16 HpkeKdfId;  /* Defined in [HPKE] */
 
    Partially informed comments: * HpkeConfigId could be removed * Need
    not-before to handle early capture
@@ -152,12 +158,18 @@ Table of Contents
 
    Key Configutation [1]
 
-   ``` HPKE Symmetric Algorithms { HPKE KDF ID (16), HPKE AEAD ID (16),
+   HPKE Symmetric Algorithms {
+     HPKE KDF ID (16),
+     HPKE AEAD ID (16),
    }
 
-   Key Config { Key Identifier (8), HPKE KEM ID (16), HPKE Public Key
-   (Npk * 8), HPKE Symmetric Algorithms Length (16) = 4..65532, HPKE
-   Symmetric Algorithms (32) ..., } ```
+   Key Config {
+     Key Identifier (8),
+     HPKE KEM ID (16),
+     HPKE Public Key (Npk * 8),
+     HPKE Symmetric Algorithms Length (16) = 4..65532,
+     HPKE Symmetric Algorithms (32) ...,
+   }
 
    Partially informed comments: * Key Identifier could be removed/be
    deterministic * No mention of not-before * No mention of HTTP Caching
@@ -169,9 +181,20 @@ Table of Contents
 
    Issuer directory [1]
 
-   { "issuer-request-uri": "https://issuer.example.net/request", "token-
-   keys": [ { "token-type": 2, "token-key": "MI...AB", "not-before":
-   1686913811, }, { "token-type": 2, "token-key": "MI...AQ", } ] }
+    {
+       "issuer-request-uri": "https://issuer.example.net/request",
+       "token-keys": [
+         {
+           "token-type": 2,
+           "token-key": "MI...AB",
+           "not-before": 1686913811,
+         },
+         {
+           "token-type": 2,
+           "token-key": "MI...AQ",
+         }
+       ]
+    }
 
    Partially informed comments: * Not as flexible as HPKE * Has some
    protocol metadata (token-type, issuer-request-uri, rate-limit)
