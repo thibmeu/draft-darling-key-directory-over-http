@@ -88,13 +88,21 @@ Format is a lot more work (likely different as well), so reusing COSE key set an
 
 {::boilerplate bcp14-tagged}
 
-# System
+The following terms are used throughout this document:
+
+Client: using public key material
+
+Server: Exposing public key material
+
+Mirror: Intermediary between client and server. May cache data, and act as a
+   privacy proxy
+
+Metadata: Public data associated to a public key
+
+# Architecture
 
 Participants
-Client: using public key material
-Server: Exposing public key material
-Mirror: Intermediary between client and server. May cache data, and act as a
-privacy proxy
+
 
 ## Cache behaviour
 
@@ -167,6 +175,20 @@ a fixed schedule. Protocols SHOULD define such policies.
 
 ## Well known URL
 
+It is RECOMMENDED protocol register a {{!WELL-KNOWN=rfc8615}}URL and associated
+content-type.
+
+A key directory server MUST support both GET and HEAD request on that endpoint.
+
+~~~
+GET /.well-known/<your-protocol>
+
+HTTP/1.1 200 OK
+Cache-Control: max-age=300
+Content-Type: <your-protocol>
+~~~
+
+
 ## Future considerations
 
 These considerations should be addressed in future drafts.
@@ -187,6 +209,12 @@ Key Directory over HTTP should integrate with transparency, once the protocol ha
 been defined in {{!KEYTRANS=I-D.ietf-keytrans-protocol}}.
 There are specific consideration as to what goes in the log: the full
 directory, keys individually, privacy considerations.
+
+
+# Deployment Considerations
+
+Rotation schedule: fast?
+Proxy improves client experience and shields key directory server 
 
 
 # Privacy Considerations
