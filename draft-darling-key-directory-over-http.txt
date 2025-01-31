@@ -14,22 +14,10 @@ Expires: 4 August 2025                                   Cloudflare Inc.
 
 Abstract
 
-   Service owners have a use to share public key as part of a standard
-   directory.  This is meant to be convenient to share, allow for
-   rotation, and be secure to man-in-the-middle or split-view attack.
-   This document defines recommendations for protocol implementers.
-
-   Notes: JWK does not offer a standard endpoint either with jose or
-   cose.  It has a draft for HPKE [1]/[2].  There is an endpoint /.well-
-   known/jwks.json that is tribal knowledge but is not registered with
-   IANA.  Certificates could also be a similar mechanism, but there is
-   x509 as well.  This directory might be bootstraped with x509 backed
-   trust, but this is an overhead we don't touch.  I'm not confident in
-   defining a jwk subset (all attributes [3]).
-
-   [1] https://datatracker.ietf.org/doc/draft-ietf-jose-hpke-encrypt/
-   [2] https://datatracker.ietf.org/doc/draft-ietf-cose-hpke/ [3]
-   https://www.iana.org/assignments/jose/jose.xhtml
+   This document defines recommendations for protocol implementers that
+   which to expose public keys over HTTP.  This allows new protocols to
+   share public keys via HTTP with considerations for caching, rotation,
+   or providing a well-known URL.
 
 About This Document
 
