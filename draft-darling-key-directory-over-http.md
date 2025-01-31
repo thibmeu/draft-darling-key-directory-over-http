@@ -122,14 +122,14 @@ new, its cache is expired, or the server refuses requests with the current key s
     +--- GET Key Directory -->|                         |
     |                         +--- GET Key Directory -->|
     |                         |<---- Key Directory -----+
-    |                         |--.                      |
-    |                         |   | cache               |
-    |                         |<-'                      |
+    |                         +---.                     |
+    |                         |    | cache              |
+    |                         |<--'                     |
     |<---- Key Directory -----+                         |
-    |--.                      |                         |
-    |   | cache               |                         |--.
-    |<-'                      |                         |   | rotate
-    |                         |                         |<-'
+    +---.                     |                         |
+    |    | cache              |                         +---.
+    |<--'                     |                         |    | rotate
+    |                         |                         |<--'
     |                         |                         |
 ~~~
 
