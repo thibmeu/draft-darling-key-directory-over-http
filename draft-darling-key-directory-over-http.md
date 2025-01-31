@@ -127,9 +127,9 @@ new, its cache is expired, or the server refuses requests with the current key s
     |                         |<-'                      |
     |<---- Key Directory -----+                         |
     |--.                      |                         |
-    |   | cache               |                         |--.       
+    |   | cache               |                         |--.
     |<-'                      |                         |   | rotate
-    |                         |                         |<-'       
+    |                         |                         |<-'
     |                         |                         |
 ~~~
 
@@ -250,7 +250,7 @@ directory, keys individually, privacy considerations.
 # Deployment Considerations
 
 Rotation schedule: fast?
-Proxy improves client experience and shields key directory server 
+Proxy improves client experience and shields key directory server
 
 
 # Privacy Considerations
