@@ -138,6 +138,7 @@ while (truncated_key_id is not unique)
 ### Scheduled (server, client behaviour)
 
 Two options:
+
 * passive = rely on cache header to set not-after on the client side. stop
   advertising the key at time t, and delete it at time t+maxage
   take intermediate into consideration
@@ -158,6 +159,7 @@ until they retrieve a new version of the directory. The key directory endpoint
 is going to be placed under a higher load.
 
 Client requests are expected to fail.
+
 1. You MAY introduce a random backoff to spread the load of key distribution over
 time
 2. Clients on a scheduled rotation MAY be configured to distrust rotation outside
@@ -240,6 +242,7 @@ uint16 HpkeKdfId;  /* Defined in [HPKE] */
 ~~~
 
 Partially informed comments:
+
 * HpkeConfigId could be removed
 * Need not-before to handle early capture
 
@@ -265,6 +268,7 @@ Key Config {
 ~~~
 
 Partially informed comments:
+
 * Key Identifier could be removed/be deterministic
 * No mention of not-before
 * No mention of HTTP Caching for rotation
