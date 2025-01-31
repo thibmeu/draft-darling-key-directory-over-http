@@ -65,7 +65,23 @@ overhead we don't touch. I'm not confident in defining a jwk subset (all attribu
 
 # Introduction
 
-TODO Introduction
+Multiple Internet protocols rely on public key cryptography. They require keys
+to be distributed by servers to clients. This could be done via certificates,
+via software releases, or via HTTP. This document focuses on this last mechanism.
+It aims to set recommendation on how to design a key directory that should be
+served over HTTP.
+
+Distribution via HTTP allows for a more dynamic use of public keys, for rotation,
+or caching on intermediate servers or clients.
+
+The document covers:
+
+1. cache behaviour
+2. how to populate key id
+3. possibly well known url and client behaviour
+4. rotation considerations (kid, cache, others), to minimize key compromise
+
+Format is a lot more work (likely different as well), so reusing COSE key set and jwk set could work for examples (maybe more, not sure)
 
 
 # Conventions and Definitions
@@ -101,6 +117,11 @@ This document has no IANA actions.
 
 
 --- back
+
+# Test vectors
+
+List how to test cache
+List how to test rotation
 
 # Use cases
 
