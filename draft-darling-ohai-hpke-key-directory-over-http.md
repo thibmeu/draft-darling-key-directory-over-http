@@ -172,7 +172,7 @@ These considerations should be addressed in future drafts.
 ### Consistency
 
 Consistency allows client to prevent themselves from split view attack. A
-proposal that has been made for Privacy Pass is to use multiple mirrors 
+proposal that has been made for Privacy Pass is to use multiple mirrors
 {{!CONSISTENCY=I-D.ietf-privacypass-consistency-mirror}}. With a
 sufficiently high quorum, clients get more confident that they are not singled
 out.
