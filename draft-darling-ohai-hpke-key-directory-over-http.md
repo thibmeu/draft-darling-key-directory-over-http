@@ -2,7 +2,7 @@
 title: "Key Directory over HTTP"
 category: info
 
-docname: draft-darling-ohai-hpke-key-directory-over-http-latest
+docname: draft-darling-ohai-key-directory-over-http-latest
 submissiontype: IETF
 consensus: true
 v: 3
