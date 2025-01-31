@@ -101,9 +101,33 @@ Keys should .
 Key IDs MAY have pet names, but the actual IDs should be derived from the key data. This
 allows to provide some guarantees over key uniqueness/version. A key MUST NOT have a version.
 
-[1] https://datatracker.ietf.org/doc/draft-group-privacypass-consistency-mirror/
-[2] https://datatracker.ietf.org/wg/keytrans/about/
+## Future considerations
 
+These considerations should be addressed in future drafts.
+
+### Consistency
+
+Consistency allows client to prevent themselves from split view attack. A
+proposal that has been made for Privacy Pass is to use multiple mirrors 
+{{!CONSISTENCY=I-D.ietf-privacypass-consistency-mirror}}. With a
+sufficiently high quorum, clients get more confident that they are not singled
+out.
+It presents scalability issues as you need multiple mirrors, and have one more
+requests from client per mirror in the quorum.
+
+### Key Transparency
+
+Key Directory over HTTP should integrate with transparency, once the protocol has
+been defined in {{!KEYTRANS=I-D.ietf-keytrans-protocol}}.
+There are specific consideration as to what goes in the log: the full
+directory, keys individually, privacy considerations.
+
+
+# Privacy Considerations
+
+TODO Privacy
+
+Clients fetching keys mean they reveal their IP, time, and other informations.
 
 
 # Security Considerations
