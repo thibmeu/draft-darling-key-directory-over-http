@@ -87,9 +87,20 @@ Table of Contents
    1.  Introduction
    2.  Conventions and Definitions
    3.  System
-   4.  Security Considerations
-   5.  IANA Considerations
-   6.  Normative References
+     3.1.  Cache behaviour
+     3.2.  Key id
+     3.3.  Rotation (kid, cache, others)
+       3.3.1.  Algorithm
+       3.3.2.  Scheduled (server, client behaviour)
+       3.3.3.  Immediate (server, client behaviour)
+     3.4.  Well known URL
+     3.5.  Future considerations
+       3.5.1.  Consistency
+       3.5.2.  Key Transparency
+   4.  Privacy Considerations
+   5.  Security Considerations
+   6.  IANA Considerations
+   7.  Normative References
    Appendix A.  Test vectors
    Appendix B.  Use cases
      B.1.  DAP
@@ -135,30 +146,138 @@ Table of Contents
 
 3.  System
 
-   At a high level, keys are base64url encoded.  Endpoint is in JSON and
-   CBOR, with a specific Content-Type but NOT a different endpoint.
-   Consistency can be done with [1] Integration with key transparency
-   [2] should be considered.  Rotation is done via HTTP headers.  A key
-   is valid until this header expires, even though it's removed before.
-   A key has a not-before in Unix timestamp, but DOES NOT have not-
-   after.  Keys should . Key IDs MAY have pet names, but the actual IDs
-   should be derived from the key data.  This allows to provide some
-   guarantees over key uniqueness/version.  A key MUST NOT have a
-   version.
+   Participants Client: using public key material Server: Exposing
+   public key material Mirror: Intermediary between client and server.
+   May cache data, and act as a privacy proxy
 
-   [1] https://datatracker.ietf.org/doc/draft-group-privacypass-
-   consistency-mirror/ [2] https://datatracker.ietf.org/wg/keytrans/
-   about/
+3.1.  Cache behaviour
 
-4.  Security Considerations
+   Cache control, intermediaries
+
+3.2.  Key id
+
+   Protocol implementers pass a blob of data based on public key
+   material/others Key ID = Hash(blob)
+
+   Key ID have an associated truncated Key ID.  The size of truncated
+   Key ID depends on the number of keys a directory expects to serve at
+   one point in time
+
+              +===================+========================+
+              | Keys in directory | Truncated key ID bytes |
+              +===================+========================+
+              | 1-255             | 1                      |
+              +-------------------+------------------------+
+              | 256-65535         | 2                      |
+              +-------------------+------------------------+
+              | 65535-*           | Not supported          |
+              +-------------------+------------------------+
+
+                                 Table 1
+
+   Truncated key ID = last bytes of key ID in network byte order.
+
+3.3.  Rotation (kid, cache, others)
+
+3.3.1.  Algorithm
+
+   We approach a public key generation by the function Generate(params,
+   RAND) -> (publickey, privatekey, metadata)
+
+   At any point in time, keys in the directory MUST have a unique
+   truncated key id.  When adding a key in the directory, that key MUST
+   have a unique truncated key id.
+
+   Generation looks as follow
+
+   do
+     (publickey, privatekey, metadata) <- Generate(params, RAND)
+     keyid <- H(publickey|metadata)
+     truncated_key_id <- last_bytes(keyid)
+   while (truncated_key_id is not unique)
+
+3.3.2.  Scheduled (server, client behaviour)
+
+   Two options: * passive = rely on cache header to set not-after on the
+   client side. stop advertising the key at time t, and delete it at
+   time t+maxage take intermediate into consideration * active = keep
+   serving the key but add not-after before expiration.  It should be
+   NOW()+maxage
+
+   In both case, the protocol MUST define an error to signal a key which
+   is not supported.  It is RECOMMENDED to use truncated token ID as a
+   short identifier.
+
+3.3.3.  Immediate (server, client behaviour)
+
+   There are moment where keys have to be rotated immediatly.  Existing
+   keys may have to be invalidated and/or new keys be provisioned.
+   Immediate keys rotation may happen in the event of a key compromise,
+   loss, or other imperious reason.
+
+   Immediate key rotation will cause some client request to the server
+   to fail until they retrieve a new version of the directory.  The key
+   directory endpoint is going to be placed under a higher load.
+
+   Client requests are expected to fail. 1.  You MAY introduce a random
+   backoff to spread the load of key distribution over time 2.  Clients
+   on a scheduled rotation MAY be configured to distrust rotation
+   outside a fixed schedule.  Protocols SHOULD define such policies.
+
+3.4.  Well known URL
+
+3.5.  Future considerations
+
+   These considerations should be addressed in future drafts.
+
+3.5.1.  Consistency
+
+   Consistency allows client to prevent themselves from split view
+   attack.  A proposal that has been made for Privacy Pass is to use
+   multiple mirrors [CONSISTENCY].  With a sufficiently high quorum,
+   clients get more confident that they are not singled out.  It
+   presents scalability issues as you need multiple mirrors, and have
+   one more requests from client per mirror in the quorum.
+
+3.5.2.  Key Transparency
+
+   Key Directory over HTTP should integrate with transparency, once the
+   protocol has been defined in [KEYTRANS].  There are specific
+   consideration as to what goes in the log: the full directory, keys
+   individually, privacy considerations.
+
+4.  Privacy Considerations
+
+   TODO Privacy
+
+   Clients fetching keys mean they reveal their IP, time, and other
+   informations.  When the key directory is for an external service,
+   Clients SHOULD consider proxying their traffic through a mirror
+   server.  Mirrors SHOULD NOT collide with the key server.
+
+5.  Security Considerations
 
    TODO Security
 
-5.  IANA Considerations
+6.  IANA Considerations
 
    This document has no IANA actions.
 
-6.  Normative References
+7.  Normative References
+
+   [CONSISTENCY]
+              Beurdouche, B., Finkel, M., Valdez, S., Wood, C. A., and
+              T. Pauly, "Checking Resource Consistency with HTTP
+              Mirrors", Work in Progress, Internet-Draft, draft-ietf-
+              privacypass-consistency-mirror-00, 30 January 2024,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-
+              privacypass-consistency-mirror-00>.
+
+   [KEYTRANS] McMillion, B. and F. Linker, "Key Transparency Protocol",
+              Work in Progress, Internet-Draft, draft-ietf-keytrans-
+              protocol-00, 10 December 2024,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-
+              keytrans-protocol-00>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
