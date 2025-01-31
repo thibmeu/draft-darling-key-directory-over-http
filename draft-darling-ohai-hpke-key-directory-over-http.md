@@ -1,24 +1,25 @@
 ---
-title: "HPKE Key Directory over HTTP"
+title: "Key Directory over HTTP"
 category: info
 
 docname: draft-darling-ohai-hpke-key-directory-over-http-latest
 submissiontype: IETF
-number:
-date:
 consensus: true
 v: 3
 area: ""
-workgroup: "Oblivious HTTP Application Intermediation"
+workgroup: "???"
 keyword:
- - next generation
- - unicorn
- - sparkling distributed ledger
+ - Internet Draft
+ - Publickey
+ - Key directory
+ - Key rotation
+ - Key cache
+ - Key ID
 venue:
-  group: "Oblivious HTTP Application Intermediation" # consider HTTP API group "Building blocks for HTTP API"
+  group: "???"
   type: ""
-  mail: "ohai@ietf.org"
-  arch: "https://mailarchive.ietf.org/arch/browse/ohai/"
+  mail: "httpapi@ietf.org"
+  arch: "https://mailarchive.ietf.org/arch/browse/httpapi/"
   github: "thibmeu/draft-darling-ohai-hpke-key-directory-over-http"
   latest: "https://thibmeu.github.io/draft-darling-ohai-hpke-key-directory-over-http/draft-darling-ohai-hpke-key-directory-over-http.html"
 
@@ -96,7 +97,7 @@ allows to provide some guarantees over key uniqueness/version. A key MUST NOT ha
 
 HpkeConfigList [1]
 
-```
+~~~tls
 HpkeConfig HpkeConfigList<0..2^16-1>;
 
 struct {
@@ -111,7 +112,7 @@ opaque HpkePublicKey<0..2^16-1>;
 uint16 HpkeAeadId; /* Defined in [HPKE] */
 uint16 HpkeKemId;  /* Defined in [HPKE] */
 uint16 HpkeKdfId;  /* Defined in [HPKE] */
-```
+~~~
 
 Partially informed comments:
 * HpkeConfigId could be removed
@@ -123,7 +124,7 @@ Partially informed comments:
 
 Key Configutation [1]
 
-```
+~~~tls
 HPKE Symmetric Algorithms {
   HPKE KDF ID (16),
   HPKE AEAD ID (16),
@@ -136,7 +137,7 @@ Key Config {
   HPKE Symmetric Algorithms Length (16) = 4..65532,
   HPKE Symmetric Algorithms (32) ...,
 }
-```
+~~~
 
 Partially informed comments:
 * Key Identifier could be removed/be deterministic
@@ -149,7 +150,7 @@ Partially informed comments:
 
 Issuer directory [1]
 
-```
+~~~tls
  {
     "issuer-request-uri": "https://issuer.example.net/request",
     "token-keys": [
@@ -164,7 +165,7 @@ Issuer directory [1]
       }
     ]
  }
-```
+~~~
 
 Partially informed comments:
 * Not as flexible as HPKE
