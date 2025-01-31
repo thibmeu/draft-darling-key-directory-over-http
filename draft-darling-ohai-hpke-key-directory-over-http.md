@@ -90,6 +90,12 @@ Format is a lot more work (likely different as well), so reusing COSE key set an
 
 # System
 
+Participants
+Client: using public key material
+Server: Exposing public key material
+Mirror: Intermediary between client and server. May cache data, and act as a
+privacy proxy
+
 ## Cache behaviour
 
 Cache control, intermediaries
