@@ -44,7 +44,7 @@ informative:
 
 --- abstract
 
-This document defines recommendations for protocol implementers that which to
+This document defines recommendations for protocol implementers that wish to
 expose public keys over HTTP. This allows new protocols to share public keys
 via HTTP with considerations for caching, rotation, or providing a well-known
 URL.
