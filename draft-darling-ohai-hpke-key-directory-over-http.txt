@@ -87,14 +87,14 @@ Table of Contents
    1.  Introduction
    2.  Conventions and Definitions
    3.  System
-   4.  Use cases
-     4.1.  DAP
-     4.2.  OHTTP
-     4.3.  Privacy Pass
-     4.4.  Masque relay
-   5.  Security Considerations
-   6.  IANA Considerations
-   7.  Normative References
+   4.  Security Considerations
+   5.  IANA Considerations
+   6.  Normative References
+   Appendix A.  Use cases
+     A.1.  DAP
+     A.2.  OHTTP
+     A.3.  Privacy Pass
+     A.4.  Masque relay
    Acknowledgments
    Authors' Addresses
 
@@ -127,9 +127,31 @@ Table of Contents
    consistency-mirror/ [2] https://datatracker.ietf.org/wg/keytrans/
    about/
 
-4.  Use cases
+4.  Security Considerations
 
-4.1.  DAP
+   TODO Security
+
+5.  IANA Considerations
+
+   This document has no IANA actions.
+
+6.  Normative References
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/rfc/rfc2119>.
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+Appendix A.  Use cases
+
+   See existing key directory on https://key-directory-over-
+   http.research.cloudflare.com/
+
+A.1.  DAP
 
    HpkeConfigList [1]
 
@@ -154,7 +176,7 @@ Table of Contents
    [1] https://datatracker.ietf.org/doc/html/draft-ietf-ppm-dap-
    13#section-4.5.1
 
-4.2.  OHTTP
+A.2.  OHTTP
 
    Key Configutation [1]
 
@@ -177,7 +199,7 @@ Table of Contents
 
    [1] https://www.ietf.org/rfc/rfc9458.html#name-key-configuration
 
-4.3.  Privacy Pass
+A.3.  Privacy Pass
 
    Issuer directory [1]
 
@@ -201,28 +223,9 @@ Table of Contents
 
    [1] https://www.rfc-editor.org/rfc/rfc9578#name-configuration
 
-4.4.  Masque relay
+A.4.  Masque relay
 
    ..
-
-5.  Security Considerations
-
-   TODO Security
-
-6.  IANA Considerations
-
-   This document has no IANA actions.
-
-7.  Normative References
-
-   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
-              Requirement Levels", BCP 14, RFC 2119,
-              DOI 10.17487/RFC2119, March 1997,
-              <https://www.rfc-editor.org/rfc/rfc2119>.
-
-   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
-              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
-              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
 Acknowledgments
 
