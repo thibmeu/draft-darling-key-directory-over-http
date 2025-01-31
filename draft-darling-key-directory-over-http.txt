@@ -177,14 +177,14 @@ Table of Contents
        +--- GET Key Directory -->|                         |
        |                         +--- GET Key Directory -->|
        |                         |<---- Key Directory -----+
-       |                         |--.                      |
-       |                         |   | cache               |
-       |                         |<-'                      |
+       |                         +---.                     |
+       |                         |    | cache              |
+       |                         |<--'                     |
        |<---- Key Directory -----+                         |
-       |--.                      |                         |
-       |   | cache               |                         |--.
-       |<-'                      |                         |   | rotate
-       |                         |                         |<-'
+       +---.                     |                         |
+       |    | cache              |                         +---.
+       |<--'                     |                         |    | rotate
+       |                         |                         |<--'
        |                         |                         |
 
 3.1.  Cache behaviour
