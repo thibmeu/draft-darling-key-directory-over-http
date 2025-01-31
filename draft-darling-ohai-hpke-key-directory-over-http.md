@@ -90,8 +90,21 @@ allows to provide some guarantees over key uniqueness/version. A key MUST NOT ha
 
 
 
+# Security Considerations
+
+TODO Security
+
+
+# IANA Considerations
+
+This document has no IANA actions.
+
+
+--- back
 
 # Use cases
+
+See existing key directory on https://key-directory-over-http.research.cloudflare.com/
 
 ## DAP
 
@@ -176,18 +189,6 @@ Partially informed comments:
 ## Masque relay
 
 ..
-
-# Security Considerations
-
-TODO Security
-
-
-# IANA Considerations
-
-This document has no IANA actions.
-
-
---- back
 
 # Acknowledgments
 {:numbered="false"}
