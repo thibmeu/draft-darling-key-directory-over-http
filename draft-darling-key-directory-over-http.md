@@ -57,7 +57,7 @@ URL.
 Multiple Internet protocols rely on public key cryptography. They require keys
 to be distributed by origins to clients. This is done via certificates,
 via software releases, or via HTTP. This document focuses on this last mechanism.
-It aims to set recommendation on how to design a key directory that should be
+It aims to set recommendations on how to design a key directory that should be
 served over HTTP.
 
 Distribution via HTTP allows for a more dynamic use of public keys, for rotation,
@@ -67,6 +67,43 @@ set by origins, how origins should expose their key directory, and rotate them.
 The document does not cover a specific directory format, as these needs might
 vary from one protocol to the next.
 
+# Motivation
+
+JOSE and COSE both define ways to structure key sets, but not way to serve them.
+This creates issues when serving these keys over HTTP because caching is not
+taken into account, and there is no standard way to derive an ID from a key.
+Privacy Pass, OHTTP, and DAP also went down the road of defining their own
+directory, and were faced with similar issues. While Privacy Pass seems to have
+been the most thorough, even started considering consistency, these all seem to
+be duplicated efforts that would benefit from being consolidated into one
+specification.
+
+# Presentation Language
+
+This document uses the TLS presentation language {{!RFC8446}} to describe the
+structure of protocol messages.  In addition to the base syntax, it uses two
+additional features: the ability for fields to be optional and the ability for
+vectors to have variable-size length headers.
+
+## Variable-Size Vector Length Headers
+
+In the TLS presentation language, vectors are encoded as a sequence of encoded
+elements prefixed with a length.  The length field has a fixed size set by
+specifying the minimum and maximum lengths of the encoded sequence of elements.
+
+In this document, there are several vectors whose sizes vary over significant
+ranges.  So instead of using a fixed-size length field, it uses a variable-size
+length using a variable-length integer encoding based on the one described in
+{{Section 16 of ?RFC9000}}. They differ only in that the one here requires a
+minimum-size encoding. Instead of presenting min and max values, the vector
+description simply includes a `V`. For example:
+
+~~~ tls-presentation
+struct {
+    uint32 fixed<0..255>;
+    opaque variable<V>;
+} StructWithVectors;
+~~~
 
 # Conventions and Definitions
 
@@ -134,21 +171,35 @@ they use the next one in their cache.
 TODO: write about key preference, based on not-before, not-after, or order in
 the directory.
 
-## Key id
+## Key ID
 
-Protocol implementers pass a blob of data based on public key material/others
-Key ID = Hash(blob)
+Each key in the directory MUST be associated with a unique Key ID.
 
-Key ID have an associated truncated Key ID. The size of truncated Key ID depends
-on the number of keys a directory expects to serve at one point in time
+Key ID is derived from key material that can be shared publicly.
+Protocol implementers SHOULD provide the following blob of data.
 
-| Keys in directory | Truncated key ID bytes |
-|:------------------|:-----------------------|
-| 1-255             | 1                      |
-| 256-65535         | 2                      |
-| 65535-*           | Not supported          |
+~~~tls
+struct {
+  opaque ProtocolBlob<V>;
+} PublicKeyMaterial;
+~~~
 
-Truncated key ID = last bytes of key ID in network byte order.
+Key ID is defined has follow
+
+~~~
+key_id = H(PublicKeyMaterial)
+~~~
+
+where
+
+* PublicKeyMaterial is a length-prefix-encoded blob of data
+* H is a hash function
+
+Open question about H:
+* Should the draft provide specific H
+* Should the draft define an IANA registry and require protocols to register
+  their H
+
 
 ## Rotation (kid, cache, others)
 
