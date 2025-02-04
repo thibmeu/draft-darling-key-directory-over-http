@@ -184,6 +184,8 @@ struct {
 } PublicKeyMaterial;
 ~~~
 
+PublicKeyMaterial can be composed of both cryptographic material and metadata.
+
 Key ID is defined has follow
 
 ~~~
@@ -215,9 +217,9 @@ Generation looks as follow
 ~~~
 do
   (publickey, privatekey, metadata) <- Generate(params, RAND)
-  keyid <- H(publickey|metadata)
-  truncated_key_id <- last_bytes(keyid)
-while (truncated_key_id is not unique)
+  public_key_material = (publickey | metadata)
+  key_id <- H(public_key_material)
+while (key_id is not unique)
 ~~~
 
 ### Scheduled (server, client behaviour)
