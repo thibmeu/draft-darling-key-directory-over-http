@@ -1492,25 +1492,26 @@ struct {
 } PublicKeyMaterial;
 </pre><a href="#section-5.2-3" class="pilcrow">¶</a>
 </div>
-<p id="section-5.2-4">Key ID is defined has follow<a href="#section-5.2-4" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.2-5">
+<p id="section-5.2-4">PublicKeyMaterial can be composed of both cryptographic material and metadata.<a href="#section-5.2-4" class="pilcrow">¶</a></p>
+<p id="section-5.2-5">Key ID is defined has follow<a href="#section-5.2-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.2-6">
 <pre>
 key_id = H(PublicKeyMaterial)
-</pre><a href="#section-5.2-5" class="pilcrow">¶</a>
+</pre><a href="#section-5.2-6" class="pilcrow">¶</a>
 </div>
-<p id="section-5.2-6">where<a href="#section-5.2-6" class="pilcrow">¶</a></p>
+<p id="section-5.2-7">where<a href="#section-5.2-7" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.2-7.1">
-            <p id="section-5.2-7.1.1">PublicKeyMaterial is a length-prefix-encoded blob of data<a href="#section-5.2-7.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-5.2-8.1">
+            <p id="section-5.2-8.1.1">PublicKeyMaterial is a length-prefix-encoded blob of data<a href="#section-5.2-8.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.2-7.2">
-            <p id="section-5.2-7.2.1">H is a hash function<a href="#section-5.2-7.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-5.2-8.2">
+            <p id="section-5.2-8.2.1">H is a hash function<a href="#section-5.2-8.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-5.2-8">Open question about H:
+<p id="section-5.2-9">Open question about H:
 * Should the draft provide specific H
 * Should the draft define an IANA registry and require protocols to register
-  their H<a href="#section-5.2-8" class="pilcrow">¶</a></p>
+  their H<a href="#section-5.2-9" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="rotation-kid-cache-others">
@@ -1531,9 +1532,9 @@ When adding a key in the directory, that key <span class="bcp14">MUST</span> hav
 <pre>
 do
   (publickey, privatekey, metadata) &lt;- Generate(params, RAND)
-  keyid &lt;- H(publickey|metadata)
-  truncated_key_id &lt;- last_bytes(keyid)
-while (truncated_key_id is not unique)
+  public_key_material = (publickey | metadata)
+  key_id &lt;- H(public_key_material)
+while (key_id is not unique)
 </pre><a href="#section-5.3.1-4" class="pilcrow">¶</a>
 </div>
 </section>
