@@ -14,7 +14,7 @@ expose public keys over HTTP. This allows new protocols to share public keys
 via HTTP with considerations for caching, rotation, or providing a well-known
 URL. 
     " name="description">
-<meta content="xml2rfc 3.25.0" name="generator">
+<meta content="xml2rfc 3.26.0" name="generator">
 <meta content="Internet Draft" name="keyword">
 <meta content="Publickey" name="keyword">
 <meta content="Key directory" name="keyword">
@@ -23,7 +23,7 @@ URL.
 <meta content="Key ID" name="keyword">
 <meta content="draft-darling-key-directory-over-http-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.25.0
+  xml2rfc 3.26.0
     Python 3.12.8
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
@@ -1054,11 +1054,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">Key Directory over HTTP</td>
-<td class="right">January 2025</td>
+<td class="right">February 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Darling, et al.</td>
-<td class="center">Expires 4 August 2025</td>
+<td class="center">Expires 8 August 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1071,12 +1071,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-darling-key-directory-over-http-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-01-31" class="published">31 January 2025</time>
+<time datetime="2025-02-04" class="published">4 February 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-08-04">4 August 2025</time></dd>
+<dd class="expires"><time datetime="2025-08-08">8 August 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1137,7 +1137,7 @@ URL.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 4 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 8 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1170,87 +1170,106 @@ URL.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
             <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="auto internal xref">1</a>.  <a href="#name-introduction" class="internal xref">Introduction</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2">
-            <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-conventions-and-definitions" class="internal xref">Conventions and Definitions</a></p>
+            <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-motivation" class="internal xref">Motivation</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
-            <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-architecture" class="internal xref">Architecture</a></p>
+            <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-presentation-language" class="internal xref">Presentation Language</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1">
-                <p id="section-toc.1-1.3.2.1.1" class="keepWithNext"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-cache-behaviour" class="internal xref">Cache behaviour</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2">
-                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-key-id" class="internal xref">Key id</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3">
-                <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="auto internal xref">3.3</a>.  <a href="#name-rotation-kid-cache-others" class="internal xref">Rotation (kid, cache, others)</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3.2.1">
-                    <p id="section-toc.1-1.3.2.3.2.1.1"><a href="#section-3.3.1" class="auto internal xref">3.3.1</a>.  <a href="#name-algorithm" class="internal xref">Algorithm</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3.2.2">
-                    <p id="section-toc.1-1.3.2.3.2.2.1"><a href="#section-3.3.2" class="auto internal xref">3.3.2</a>.  <a href="#name-scheduled-server-client-beh" class="internal xref">Scheduled (server, client behaviour)</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3.2.3">
-                    <p id="section-toc.1-1.3.2.3.2.3.1"><a href="#section-3.3.3" class="auto internal xref">3.3.3</a>.  <a href="#name-immediate-server-client-beh" class="internal xref">Immediate (server, client behaviour)</a></p>
-</li>
-                </ul>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4">
-                <p id="section-toc.1-1.3.2.4.1"><a href="#section-3.4" class="auto internal xref">3.4</a>.  <a href="#name-well-known-url" class="internal xref">Well known URL</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.5">
-                <p id="section-toc.1-1.3.2.5.1"><a href="#section-3.5" class="auto internal xref">3.5</a>.  <a href="#name-future-considerations" class="internal xref">Future considerations</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.5.2.1">
-                    <p id="section-toc.1-1.3.2.5.2.1.1"><a href="#section-3.5.1" class="auto internal xref">3.5.1</a>.  <a href="#name-consistency" class="internal xref">Consistency</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.5.2.2">
-                    <p id="section-toc.1-1.3.2.5.2.2.1"><a href="#section-3.5.2" class="auto internal xref">3.5.2</a>.  <a href="#name-key-transparency" class="internal xref">Key Transparency</a></p>
-</li>
-                </ul>
+                <p id="section-toc.1-1.3.2.1.1" class="keepWithNext"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-variable-size-vector-length" class="internal xref">Variable-Size Vector Length Headers</a></p>
 </li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
-            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-deployment-considerations" class="internal xref">Deployment Considerations</a></p>
+            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-conventions-and-definitions" class="internal xref">Conventions and Definitions</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
-            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-privacy-considerations" class="internal xref">Privacy Considerations</a></p>
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-architecture" class="internal xref">Architecture</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
+                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-cache-behaviour" class="internal xref">Cache behaviour</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
+                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-key-id" class="internal xref">Key ID</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3">
+                <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="auto internal xref">5.3</a>.  <a href="#name-rotation-kid-cache-others" class="internal xref">Rotation (kid, cache, others)</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3.2.1">
+                    <p id="section-toc.1-1.5.2.3.2.1.1"><a href="#section-5.3.1" class="auto internal xref">5.3.1</a>.  <a href="#name-algorithm" class="internal xref">Algorithm</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3.2.2">
+                    <p id="section-toc.1-1.5.2.3.2.2.1"><a href="#section-5.3.2" class="auto internal xref">5.3.2</a>.  <a href="#name-scheduled-server-client-beh" class="internal xref">Scheduled (server, client behaviour)</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3.2.3">
+                    <p id="section-toc.1-1.5.2.3.2.3.1"><a href="#section-5.3.3" class="auto internal xref">5.3.3</a>.  <a href="#name-immediate-server-client-beh" class="internal xref">Immediate (server, client behaviour)</a></p>
+</li>
+                </ul>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.4">
+                <p id="section-toc.1-1.5.2.4.1"><a href="#section-5.4" class="auto internal xref">5.4</a>.  <a href="#name-well-known-url" class="internal xref">Well known URL</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.5">
+                <p id="section-toc.1-1.5.2.5.1"><a href="#section-5.5" class="auto internal xref">5.5</a>.  <a href="#name-future-considerations" class="internal xref">Future considerations</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.5.2.1">
+                    <p id="section-toc.1-1.5.2.5.2.1.1"><a href="#section-5.5.1" class="auto internal xref">5.5.1</a>.  <a href="#name-consistency" class="internal xref">Consistency</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.5.2.2">
+                    <p id="section-toc.1-1.5.2.5.2.2.1"><a href="#section-5.5.2" class="auto internal xref">5.5.2</a>.  <a href="#name-key-transparency" class="internal xref">Key Transparency</a></p>
+</li>
+                </ul>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
-            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-deployment-considerations" class="internal xref">Deployment Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
-            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-privacy-considerations" class="internal xref">Privacy Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
-            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
-            <p id="section-toc.1-1.9.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-test-vectors" class="internal xref">Test vectors</a></p>
+            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
-            <p id="section-toc.1-1.10.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-use-cases" class="internal xref">Use cases</a></p>
+            <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-references" class="internal xref">References</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.1">
-                <p id="section-toc.1-1.10.2.1.1"><a href="#appendix-B.1" class="auto internal xref">B.1</a>.  <a href="#name-dap" class="internal xref">DAP</a></p>
+                <p id="section-toc.1-1.10.2.1.1"><a href="#section-10.1" class="auto internal xref">10.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.2">
-                <p id="section-toc.1-1.10.2.2.1"><a href="#appendix-B.2" class="auto internal xref">B.2</a>.  <a href="#name-ohttp" class="internal xref">OHTTP</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.3">
-                <p id="section-toc.1-1.10.2.3.1"><a href="#appendix-B.3" class="auto internal xref">B.3</a>.  <a href="#name-privacy-pass" class="internal xref">Privacy Pass</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.4">
-                <p id="section-toc.1-1.10.2.4.1"><a href="#appendix-B.4" class="auto internal xref">B.4</a>.  <a href="#name-masque-relay" class="internal xref">Masque relay</a></p>
+                <p id="section-toc.1-1.10.2.2.1"><a href="#section-10.2" class="auto internal xref">10.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
 </li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
-            <p id="section-toc.1-1.11.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+            <p id="section-toc.1-1.11.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-test-vectors" class="internal xref">Test vectors</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
-            <p id="section-toc.1-1.12.1"><a href="#appendix-D" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+            <p id="section-toc.1-1.12.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-use-cases" class="internal xref">Use cases</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.1">
+                <p id="section-toc.1-1.12.2.1.1"><a href="#appendix-B.1" class="auto internal xref">B.1</a>.  <a href="#name-dap" class="internal xref">DAP</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.2">
+                <p id="section-toc.1-1.12.2.2.1"><a href="#appendix-B.2" class="auto internal xref">B.2</a>.  <a href="#name-ohttp" class="internal xref">OHTTP</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.3">
+                <p id="section-toc.1-1.12.2.3.1"><a href="#appendix-B.3" class="auto internal xref">B.3</a>.  <a href="#name-privacy-pass" class="internal xref">Privacy Pass</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.4">
+                <p id="section-toc.1-1.12.2.4.1"><a href="#appendix-B.4" class="auto internal xref">B.4</a>.  <a href="#name-masque-relay" class="internal xref">Masque relay</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13">
+            <p id="section-toc.1-1.13.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.14">
+            <p id="section-toc.1-1.14.1"><a href="#appendix-D" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1264,7 +1283,7 @@ URL.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 <p id="section-1-1">Multiple Internet protocols rely on public key cryptography. They require keys
 to be distributed by origins to clients. This is done via certificates,
 via software releases, or via HTTP. This document focuses on this last mechanism.
-It aims to set recommendation on how to design a key directory that should be
+It aims to set recommendations on how to design a key directory that should be
 served over HTTP.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">Distribution via HTTP allows for a more dynamic use of public keys, for rotation,
 or caching on intermediate servers or clients.
@@ -1274,64 +1293,114 @@ The document does not cover a specific directory format, as these needs might
 vary from one protocol to the next.<a href="#section-1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="conventions-and-definitions">
+<div id="motivation">
 <section id="section-2">
-      <h2 id="name-conventions-and-definitions">
-<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-conventions-and-definitions" class="section-name selfRef">Conventions and Definitions</a>
+      <h2 id="name-motivation">
+<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-motivation" class="section-name selfRef">Motivation</a>
       </h2>
-<p id="section-2-1">The key words "<span class="bcp14">MUST</span>", "<span class="bcp14">MUST NOT</span>", "<span class="bcp14">REQUIRED</span>", "<span class="bcp14">SHALL</span>", "<span class="bcp14">SHALL NOT</span>", "<span class="bcp14">SHOULD</span>", "<span class="bcp14">SHOULD NOT</span>", "<span class="bcp14">RECOMMENDED</span>", "<span class="bcp14">NOT RECOMMENDED</span>",
+<p id="section-2-1">JOSE and COSE both define ways to structure key sets, but not way to serve them.
+This creates issues when serving these keys over HTTP because caching is not
+taken into account, and there is no standard way to derive an ID from a key.
+Privacy Pass, OHTTP, and DAP also went down the road of defining their own
+directory, and were faced with similar issues. While Privacy Pass seems to have
+been the most thorough, even started considering consistency, these all seem to
+be duplicated efforts that would benefit from being consolidated into one
+specification.<a href="#section-2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="presentation-language">
+<section id="section-3">
+      <h2 id="name-presentation-language">
+<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-presentation-language" class="section-name selfRef">Presentation Language</a>
+      </h2>
+<p id="section-3-1">This document uses the TLS presentation language <span>[<a href="#RFC8446" class="cite xref">RFC8446</a>]</span> to describe the
+structure of protocol messages.  In addition to the base syntax, it uses two
+additional features: the ability for fields to be optional and the ability for
+vectors to have variable-size length headers.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<div id="variable-size-vector-length-headers">
+<section id="section-3.1">
+        <h3 id="name-variable-size-vector-length">
+<a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-variable-size-vector-length" class="section-name selfRef">Variable-Size Vector Length Headers</a>
+        </h3>
+<p id="section-3.1-1">In the TLS presentation language, vectors are encoded as a sequence of encoded
+elements prefixed with a length.  The length field has a fixed size set by
+specifying the minimum and maximum lengths of the encoded sequence of elements.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.1-2">In this document, there are several vectors whose sizes vary over significant
+ranges.  So instead of using a fixed-size length field, it uses a variable-size
+length using a variable-length integer encoding based on the one described in
+<span><a href="https://rfc-editor.org/rfc/rfc9000#section-16" class="relref">Section 16</a> of [<a href="#RFC9000" class="cite xref">RFC9000</a>]</span>. They differ only in that the one here requires a
+minimum-size encoding. Instead of presenting min and max values, the vector
+description simply includes a <code>V</code>. For example:<a href="#section-3.1-2" class="pilcrow">¶</a></p>
+<div class="lang-tls-presentation sourcecode" id="section-3.1-3">
+<pre>
+struct {
+    uint32 fixed&lt;0..255&gt;;
+    opaque variable&lt;V&gt;;
+} StructWithVectors;
+</pre><a href="#section-3.1-3" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="conventions-and-definitions">
+<section id="section-4">
+      <h2 id="name-conventions-and-definitions">
+<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-conventions-and-definitions" class="section-name selfRef">Conventions and Definitions</a>
+      </h2>
+<p id="section-4-1">The key words "<span class="bcp14">MUST</span>", "<span class="bcp14">MUST NOT</span>", "<span class="bcp14">REQUIRED</span>", "<span class="bcp14">SHALL</span>", "<span class="bcp14">SHALL NOT</span>", "<span class="bcp14">SHOULD</span>", "<span class="bcp14">SHOULD NOT</span>", "<span class="bcp14">RECOMMENDED</span>", "<span class="bcp14">NOT RECOMMENDED</span>",
 "<span class="bcp14">MAY</span>", and "<span class="bcp14">OPTIONAL</span>" in this document are to be interpreted as
 described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they
-appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶</a></p>
-<p id="section-2-2">The following terms are used throughout this document:<a href="#section-2-2" class="pilcrow">¶</a></p>
-<span class="break"></span><dl class="dlParallel" id="section-2-3">
-        <dt id="section-2-3.1">Client:</dt>
-        <dd style="margin-left: 1.5em" id="section-2-3.2">
-          <p id="section-2-3.2.1">An entity using public key material<a href="#section-2-3.2.1" class="pilcrow">¶</a></p>
+appear in all capitals, as shown here.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-2">The following terms are used throughout this document:<a href="#section-4-2" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-4-3">
+        <dt id="section-4-3.1">Client:</dt>
+        <dd style="margin-left: 1.5em" id="section-4-3.2">
+          <p id="section-4-3.2.1">An entity using public key material<a href="#section-4-3.2.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-2-3.3">Origin:</dt>
-        <dd style="margin-left: 1.5em" id="section-2-3.4">
-          <p id="section-2-3.4.1">An entity exposing public key material via HTTP<a href="#section-2-3.4.1" class="pilcrow">¶</a></p>
+<dt id="section-4-3.3">Origin:</dt>
+        <dd style="margin-left: 1.5em" id="section-4-3.4">
+          <p id="section-4-3.4.1">An entity exposing public key material via HTTP<a href="#section-4-3.4.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-2-3.5">Mirror:</dt>
-        <dd style="margin-left: 1.5em" id="section-2-3.6">
-          <p id="section-2-3.6.1">An intermediary entity between client and server. May cache data, and act as a
-privacy proxy<a href="#section-2-3.6.1" class="pilcrow">¶</a></p>
+<dt id="section-4-3.5">Mirror:</dt>
+        <dd style="margin-left: 1.5em" id="section-4-3.6">
+          <p id="section-4-3.6.1">An intermediary entity between client and server. May cache data, and act as a
+privacy proxy<a href="#section-4-3.6.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-2-3.7">Key metadata:</dt>
-        <dd style="margin-left: 1.5em" id="section-2-3.8">
-          <p id="section-2-3.8.1">Public data associated to a public key<a href="#section-2-3.8.1" class="pilcrow">¶</a></p>
+<dt id="section-4-3.7">Key metadata:</dt>
+        <dd style="margin-left: 1.5em" id="section-4-3.8">
+          <p id="section-4-3.8.1">Public data associated to a public key<a href="#section-4-3.8.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-2-3.9">Key Directory:</dt>
-        <dd style="margin-left: 1.5em" id="section-2-3.10">
-          <p id="section-2-3.10.1">Set of public keys<a href="#section-2-3.10.1" class="pilcrow">¶</a></p>
+<dt id="section-4-3.9">Key Directory:</dt>
+        <dd style="margin-left: 1.5em" id="section-4-3.10">
+          <p id="section-4-3.10.1">Set of public keys<a href="#section-4-3.10.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
-<dt id="section-2-3.11">Directory Metadata:</dt>
-        <dd style="margin-left: 1.5em" id="section-2-3.12">
-          <p id="section-2-3.12.1">Public data associated to a key directory. This is protocol specific.<a href="#section-2-3.12.1" class="pilcrow">¶</a></p>
+<dt id="section-4-3.11">Directory Metadata:</dt>
+        <dd style="margin-left: 1.5em" id="section-4-3.12">
+          <p id="section-4-3.12.1">Public data associated to a key directory. This is protocol specific.<a href="#section-4-3.12.1" class="pilcrow">¶</a></p>
 </dd>
       <dd class="break"></dd>
 </dl>
 </section>
 </div>
 <div id="architecture">
-<section id="section-3">
+<section id="section-5">
       <h2 id="name-architecture">
-<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-architecture" class="section-name selfRef">Architecture</a>
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-architecture" class="section-name selfRef">Architecture</a>
       </h2>
-<p id="section-3-1">A server is exposing a key directory for clients to fetch. Clients <span class="bcp14">MAY</span> fetch the
+<p id="section-5-1">A server is exposing a key directory for clients to fetch. Clients <span class="bcp14">MAY</span> fetch the
 directory from a Mirror, either to protect its privacy, or because the Server
-wants to leverage a content delivery network.<a href="#section-3-1" class="pilcrow">¶</a></p>
-<p id="section-3-2">This document focuses on the below interaction, which is triggered when the
+wants to leverage a content delivery network.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-2">This document focuses on the below interaction, which is triggered when the
 Client does not have valid key for the server. This can be because the Client is
-new, its cache is expired, or the server refuses requests with the current key set.<a href="#section-3-2" class="pilcrow">¶</a></p>
-<div id="section-3-3">
-        <div class="alignLeft art-svg artwork" id="section-3-3.1">
+new, its cache is expired, or the server refuses requests with the current key set.<a href="#section-5-2" class="pilcrow">¶</a></p>
+<div id="section-5-3">
+        <div class="alignLeft art-svg artwork" id="section-5-3.1">
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="288" width="560" viewBox="0 0 560 288" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
             <path d="M 8,32 L 8,64" fill="none" stroke="black"></path>
             <path d="M 40,64 L 40,272" fill="none" stroke="black"></path>
@@ -1393,122 +1462,123 @@ new, its cache is expired, or the server refuses requests with the current key s
               <text x="112" y="228">cache</text>
               <text x="532" y="244">rotate</text>
             </g>
-          </svg><a href="#section-3-3.1" class="pilcrow">¶</a>
+          </svg><a href="#section-5-3.1" class="pilcrow">¶</a>
 </div>
 </div>
 <div id="cache-behaviour">
-<section id="section-3.1">
+<section id="section-5.1">
         <h3 id="name-cache-behaviour">
-<a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-cache-behaviour" class="section-name selfRef">Cache behaviour</a>
+<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-cache-behaviour" class="section-name selfRef">Cache behaviour</a>
         </h3>
-<p id="section-3.1-1">Cache control, intermediaries<a href="#section-3.1-1" class="pilcrow">¶</a></p>
-<p id="section-3.1-2">Client should use cache directive per key, so that if a key becomes invalid,
-they use the next one in their cache.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
-<p id="section-3.1-3">TODO: write about key preference, based on not-before, not-after, or order in
-the directory.<a href="#section-3.1-3" class="pilcrow">¶</a></p>
+<p id="section-5.1-1">Cache control, intermediaries<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.1-2">Client should use cache directive per key, so that if a key becomes invalid,
+they use the next one in their cache.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
+<p id="section-5.1-3">TODO: write about key preference, based on not-before, not-after, or order in
+the directory.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="key-id">
-<section id="section-3.2">
+<section id="section-5.2">
         <h3 id="name-key-id">
-<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-key-id" class="section-name selfRef">Key id</a>
+<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-key-id" class="section-name selfRef">Key ID</a>
         </h3>
-<p id="section-3.2-1">Protocol implementers pass a blob of data based on public key material/others
-Key ID = Hash(blob)<a href="#section-3.2-1" class="pilcrow">¶</a></p>
-<p id="section-3.2-2">Key ID have an associated truncated Key ID. The size of truncated Key ID depends
-on the number of keys a directory expects to serve at one point in time<a href="#section-3.2-2" class="pilcrow">¶</a></p>
-<table class="center" id="table-1">
-          <caption><a href="#table-1" class="selfRef">Table 1</a></caption>
-<thead>
-            <tr>
-              <th class="text-left" rowspan="1" colspan="1">Keys in directory</th>
-              <th class="text-left" rowspan="1" colspan="1">Truncated key ID bytes</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="text-left" rowspan="1" colspan="1">1-255</td>
-              <td class="text-left" rowspan="1" colspan="1">1</td>
-            </tr>
-            <tr>
-              <td class="text-left" rowspan="1" colspan="1">256-65535</td>
-              <td class="text-left" rowspan="1" colspan="1">2</td>
-            </tr>
-            <tr>
-              <td class="text-left" rowspan="1" colspan="1">65535-*</td>
-              <td class="text-left" rowspan="1" colspan="1">Not supported</td>
-            </tr>
-          </tbody>
-        </table>
-<p id="section-3.2-4">Truncated key ID = last bytes of key ID in network byte order.<a href="#section-3.2-4" class="pilcrow">¶</a></p>
+<p id="section-5.2-1">Each key in the directory <span class="bcp14">MUST</span> be associated with a unique Key ID.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.2-2">Key ID is derived from key material that can be shared publicly.
+Protocol implementers <span class="bcp14">SHOULD</span> provide the following blob of data.<a href="#section-5.2-2" class="pilcrow">¶</a></p>
+<div class="lang-tls sourcecode" id="section-5.2-3">
+<pre>
+struct {
+  opaque ProtocolBlob&lt;V&gt;;
+} PublicKeyMaterial;
+</pre><a href="#section-5.2-3" class="pilcrow">¶</a>
+</div>
+<p id="section-5.2-4">Key ID is defined has follow<a href="#section-5.2-4" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.2-5">
+<pre>
+key_id = H(PublicKeyMaterial)
+</pre><a href="#section-5.2-5" class="pilcrow">¶</a>
+</div>
+<p id="section-5.2-6">where<a href="#section-5.2-6" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.2-7.1">
+            <p id="section-5.2-7.1.1">PublicKeyMaterial is a length-prefix-encoded blob of data<a href="#section-5.2-7.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.2-7.2">
+            <p id="section-5.2-7.2.1">H is a hash function<a href="#section-5.2-7.2.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-5.2-8">Open question about H:
+* Should the draft provide specific H
+* Should the draft define an IANA registry and require protocols to register
+  their H<a href="#section-5.2-8" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="rotation-kid-cache-others">
-<section id="section-3.3">
+<section id="section-5.3">
         <h3 id="name-rotation-kid-cache-others">
-<a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-rotation-kid-cache-others" class="section-name selfRef">Rotation (kid, cache, others)</a>
+<a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-rotation-kid-cache-others" class="section-name selfRef">Rotation (kid, cache, others)</a>
         </h3>
 <div id="algorithm">
-<section id="section-3.3.1">
+<section id="section-5.3.1">
           <h4 id="name-algorithm">
-<a href="#section-3.3.1" class="section-number selfRef">3.3.1. </a><a href="#name-algorithm" class="section-name selfRef">Algorithm</a>
+<a href="#section-5.3.1" class="section-number selfRef">5.3.1. </a><a href="#name-algorithm" class="section-name selfRef">Algorithm</a>
           </h4>
-<p id="section-3.3.1-1">We approach a public key generation by the function <code>Generate(params, RAND) -&gt; (publickey, privatekey, metadata)</code><a href="#section-3.3.1-1" class="pilcrow">¶</a></p>
-<p id="section-3.3.1-2">At any point in time, keys in the directory <span class="bcp14">MUST</span> have a unique truncated key id.
-When adding a key in the directory, that key <span class="bcp14">MUST</span> have a unique truncated key id.<a href="#section-3.3.1-2" class="pilcrow">¶</a></p>
-<p id="section-3.3.1-3">Generation looks as follow<a href="#section-3.3.1-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.3.1-4">
+<p id="section-5.3.1-1">We approach a public key generation by the function <code>Generate(params, RAND) -&gt; (publickey, privatekey, metadata)</code><a href="#section-5.3.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.3.1-2">At any point in time, keys in the directory <span class="bcp14">MUST</span> have a unique truncated key id.
+When adding a key in the directory, that key <span class="bcp14">MUST</span> have a unique truncated key id.<a href="#section-5.3.1-2" class="pilcrow">¶</a></p>
+<p id="section-5.3.1-3">Generation looks as follow<a href="#section-5.3.1-3" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.3.1-4">
 <pre>
 do
   (publickey, privatekey, metadata) &lt;- Generate(params, RAND)
   keyid &lt;- H(publickey|metadata)
   truncated_key_id &lt;- last_bytes(keyid)
 while (truncated_key_id is not unique)
-</pre><a href="#section-3.3.1-4" class="pilcrow">¶</a>
+</pre><a href="#section-5.3.1-4" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 <div id="scheduled-server-client-behaviour">
-<section id="section-3.3.2">
+<section id="section-5.3.2">
           <h4 id="name-scheduled-server-client-beh">
-<a href="#section-3.3.2" class="section-number selfRef">3.3.2. </a><a href="#name-scheduled-server-client-beh" class="section-name selfRef">Scheduled (server, client behaviour)</a>
+<a href="#section-5.3.2" class="section-number selfRef">5.3.2. </a><a href="#name-scheduled-server-client-beh" class="section-name selfRef">Scheduled (server, client behaviour)</a>
           </h4>
-<p id="section-3.3.2-1">Two options:<a href="#section-3.3.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.3.2-1">Two options:<a href="#section-5.3.2-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.3.2-2.1">
-              <p id="section-3.3.2-2.1.1">passive = rely on cache header to set not-after on the client side. stop
+<li class="normal" id="section-5.3.2-2.1">
+              <p id="section-5.3.2-2.1.1">passive = rely on cache header to set not-after on the client side. stop
 advertising the key at time t, and delete it at time t+maxage
-take intermediate into consideration<a href="#section-3.3.2-2.1.1" class="pilcrow">¶</a></p>
+take intermediate into consideration<a href="#section-5.3.2-2.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-3.3.2-2.2">
-              <p id="section-3.3.2-2.2.1">active = keep serving the key but add not-after before expiration. It should
-be NOW()+maxage<a href="#section-3.3.2-2.2.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-5.3.2-2.2">
+              <p id="section-5.3.2-2.2.1">active = keep serving the key but add not-after before expiration. It should
+be NOW()+maxage<a href="#section-5.3.2-2.2.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-3.3.2-3">In both case, the protocol <span class="bcp14">MUST</span> define an error to signal a key which is not
-supported. It is <span class="bcp14">RECOMMENDED</span> to use truncated token ID as a short identifier.<a href="#section-3.3.2-3" class="pilcrow">¶</a></p>
+<p id="section-5.3.2-3">In both case, the protocol <span class="bcp14">MUST</span> define an error to signal a key which is not
+supported. It is <span class="bcp14">RECOMMENDED</span> to use truncated token ID as a short identifier.<a href="#section-5.3.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="immediate-server-client-behaviour">
-<section id="section-3.3.3">
+<section id="section-5.3.3">
           <h4 id="name-immediate-server-client-beh">
-<a href="#section-3.3.3" class="section-number selfRef">3.3.3. </a><a href="#name-immediate-server-client-beh" class="section-name selfRef">Immediate (server, client behaviour)</a>
+<a href="#section-5.3.3" class="section-number selfRef">5.3.3. </a><a href="#name-immediate-server-client-beh" class="section-name selfRef">Immediate (server, client behaviour)</a>
           </h4>
-<p id="section-3.3.3-1">There are moment where keys have to be rotated immediatly. Existing keys may
+<p id="section-5.3.3-1">There are moment where keys have to be rotated immediatly. Existing keys may
 have to be invalidated and/or new keys be provisioned. Immediate keys rotation
-may happen in the event of a key compromise, loss, or other imperious reason.<a href="#section-3.3.3-1" class="pilcrow">¶</a></p>
-<p id="section-3.3.3-2">Immediate key rotation will cause some client request to the server to fail
+may happen in the event of a key compromise, loss, or other imperious reason.<a href="#section-5.3.3-1" class="pilcrow">¶</a></p>
+<p id="section-5.3.3-2">Immediate key rotation will cause some client request to the server to fail
 until they retrieve a new version of the directory. The key directory endpoint
-is going to be placed under a higher load.<a href="#section-3.3.3-2" class="pilcrow">¶</a></p>
-<p id="section-3.3.3-3">Client requests are expected to fail.<a href="#section-3.3.3-3" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-3.3.3-4">
-<li id="section-3.3.3-4.1">
-              <p id="section-3.3.3-4.1.1">You <span class="bcp14">MAY</span> introduce a random backoff to spread the load of key distribution over
-time<a href="#section-3.3.3-4.1.1" class="pilcrow">¶</a></p>
+is going to be placed under a higher load.<a href="#section-5.3.3-2" class="pilcrow">¶</a></p>
+<p id="section-5.3.3-3">Client requests are expected to fail.<a href="#section-5.3.3-3" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-5.3.3-4">
+<li id="section-5.3.3-4.1">
+              <p id="section-5.3.3-4.1.1">You <span class="bcp14">MAY</span> introduce a random backoff to spread the load of key distribution over
+time<a href="#section-5.3.3-4.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-3.3.3-4.2">
-              <p id="section-3.3.3-4.2.1">Clients on a scheduled rotation <span class="bcp14">MAY</span> be configured to distrust rotation outside
-a fixed schedule. Protocols <span class="bcp14">SHOULD</span> define such policies.<a href="#section-3.3.3-4.2.1" class="pilcrow">¶</a></p>
+            <li id="section-5.3.3-4.2">
+              <p id="section-5.3.3-4.2.1">Clients on a scheduled rotation <span class="bcp14">MAY</span> be configured to distrust rotation outside
+a fixed schedule. Protocols <span class="bcp14">SHOULD</span> define such policies.<a href="#section-5.3.3-4.2.1" class="pilcrow">¶</a></p>
 </li>
           </ol>
 </section>
@@ -1516,53 +1586,53 @@ a fixed schedule. Protocols <span class="bcp14">SHOULD</span> define such polici
 </section>
 </div>
 <div id="well-known-url">
-<section id="section-3.4">
+<section id="section-5.4">
         <h3 id="name-well-known-url">
-<a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-well-known-url" class="section-name selfRef">Well known URL</a>
+<a href="#section-5.4" class="section-number selfRef">5.4. </a><a href="#name-well-known-url" class="section-name selfRef">Well known URL</a>
         </h3>
-<p id="section-3.4-1">It is <span class="bcp14">RECOMMENDED</span> protocol register a <span>[<a href="#WELL-KNOWN" class="cite xref">WELL-KNOWN</a>]</span>URL and associated
-content-type.<a href="#section-3.4-1" class="pilcrow">¶</a></p>
-<p id="section-3.4-2">A key directory server <span class="bcp14">MUST</span> support both GET and HEAD request on that endpoint.<a href="#section-3.4-2" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.4-3">
+<p id="section-5.4-1">It is <span class="bcp14">RECOMMENDED</span> protocol register a <span>[<a href="#WELL-KNOWN" class="cite xref">WELL-KNOWN</a>]</span>URL and associated
+content-type.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
+<p id="section-5.4-2">A key directory server <span class="bcp14">MUST</span> support both GET and HEAD request on that endpoint.<a href="#section-5.4-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.4-3">
 <pre>
 GET /.well-known/&lt;your-protocol&gt;
 
 HTTP/1.1 200 OK
 Cache-Control: max-age=300
 Content-Type: &lt;your-protocol&gt;
-</pre><a href="#section-3.4-3" class="pilcrow">¶</a>
+</pre><a href="#section-5.4-3" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 <div id="future-considerations">
-<section id="section-3.5">
+<section id="section-5.5">
         <h3 id="name-future-considerations">
-<a href="#section-3.5" class="section-number selfRef">3.5. </a><a href="#name-future-considerations" class="section-name selfRef">Future considerations</a>
+<a href="#section-5.5" class="section-number selfRef">5.5. </a><a href="#name-future-considerations" class="section-name selfRef">Future considerations</a>
         </h3>
-<p id="section-3.5-1">These considerations should be addressed in future drafts.<a href="#section-3.5-1" class="pilcrow">¶</a></p>
+<p id="section-5.5-1">These considerations should be addressed in future drafts.<a href="#section-5.5-1" class="pilcrow">¶</a></p>
 <div id="consistency">
-<section id="section-3.5.1">
+<section id="section-5.5.1">
           <h4 id="name-consistency">
-<a href="#section-3.5.1" class="section-number selfRef">3.5.1. </a><a href="#name-consistency" class="section-name selfRef">Consistency</a>
+<a href="#section-5.5.1" class="section-number selfRef">5.5.1. </a><a href="#name-consistency" class="section-name selfRef">Consistency</a>
           </h4>
-<p id="section-3.5.1-1">Consistency allows client to prevent themselves from split view attack. A
+<p id="section-5.5.1-1">Consistency allows client to prevent themselves from split view attack. A
 proposal that has been made for Privacy Pass is to use multiple mirrors
 <span>[<a href="#CONSISTENCY" class="cite xref">CONSISTENCY</a>]</span>. With a
 sufficiently high quorum, clients get more confident that they are not singled
 out.
 It presents scalability issues as you need multiple mirrors, and have one more
-requests from client per mirror in the quorum.<a href="#section-3.5.1-1" class="pilcrow">¶</a></p>
+requests from client per mirror in the quorum.<a href="#section-5.5.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="key-transparency">
-<section id="section-3.5.2">
+<section id="section-5.5.2">
           <h4 id="name-key-transparency">
-<a href="#section-3.5.2" class="section-number selfRef">3.5.2. </a><a href="#name-key-transparency" class="section-name selfRef">Key Transparency</a>
+<a href="#section-5.5.2" class="section-number selfRef">5.5.2. </a><a href="#name-key-transparency" class="section-name selfRef">Key Transparency</a>
           </h4>
-<p id="section-3.5.2-1">Key Directory over HTTP should integrate with transparency, once the protocol has
+<p id="section-5.5.2-1">Key Directory over HTTP should integrate with transparency, once the protocol has
 been defined in <span>[<a href="#KEYTRANS" class="cite xref">KEYTRANS</a>]</span>.
 There are specific consideration as to what goes in the log: the full
-directory, keys individually, privacy considerations.<a href="#section-3.5.2-1" class="pilcrow">¶</a></p>
+directory, keys individually, privacy considerations.<a href="#section-5.5.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1570,69 +1640,93 @@ directory, keys individually, privacy considerations.<a href="#section-3.5.2-1" 
 </section>
 </div>
 <div id="deployment-considerations">
-<section id="section-4">
+<section id="section-6">
       <h2 id="name-deployment-considerations">
-<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-deployment-considerations" class="section-name selfRef">Deployment Considerations</a>
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-deployment-considerations" class="section-name selfRef">Deployment Considerations</a>
       </h2>
-<p id="section-4-1">Rotation schedule: fast?
-Proxy improves client experience and shields key directory server<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-6-1">Rotation schedule: fast?
+Proxy improves client experience and shields key directory server<a href="#section-6-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="privacy-considerations">
-<section id="section-5">
+<section id="section-7">
       <h2 id="name-privacy-considerations">
-<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-privacy-considerations" class="section-name selfRef">Privacy Considerations</a>
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-privacy-considerations" class="section-name selfRef">Privacy Considerations</a>
       </h2>
-<p id="section-5-1">TODO Privacy<a href="#section-5-1" class="pilcrow">¶</a></p>
-<p id="section-5-2">Clients fetching keys mean they reveal their IP, time, and other informations.
+<p id="section-7-1">TODO Privacy<a href="#section-7-1" class="pilcrow">¶</a></p>
+<p id="section-7-2">Clients fetching keys mean they reveal their IP, time, and other informations.
 When the key directory is for an external service, Clients <span class="bcp14">SHOULD</span> consider
 proxying their traffic through a mirror server. Mirrors <span class="bcp14">SHOULD NOT</span> collide with
-the key server.<a href="#section-5-2" class="pilcrow">¶</a></p>
+the key server.<a href="#section-7-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="security-considerations">
-<section id="section-6">
+<section id="section-8">
       <h2 id="name-security-considerations">
-<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
+<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-6-1">TODO Security<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-8-1">TODO Security<a href="#section-8-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
-<section id="section-7">
+<section id="section-9">
       <h2 id="name-iana-considerations">
-<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
+<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-7-1">This document has no IANA actions.<a href="#section-7-1" class="pilcrow">¶</a></p>
+<p id="section-9-1">This document has no IANA actions.<a href="#section-9-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="sec-normative-references">
-<section id="section-8">
-      <h2 id="name-normative-references">
-<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+<div id="sec-combined-references">
+<section id="section-10">
+      <h2 id="name-references">
+<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-references" class="section-name selfRef">References</a>
       </h2>
+<div id="sec-normative-references">
+<section id="section-10.1">
+        <h3 id="name-normative-references">
+<a href="#section-10.1" class="section-number selfRef">10.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+        </h3>
 <dl class="references">
 <dt id="CONSISTENCY">[CONSISTENCY]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Beurdouche, B.</span>, <span class="refAuthor">Finkel, M.</span>, <span class="refAuthor">Valdez, S.</span>, <span class="refAuthor">Wood, C. A.</span>, and <span class="refAuthor">T. Pauly</span>, <span class="refTitle">"Checking Resource Consistency with HTTP Mirrors"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-privacypass-consistency-mirror-00</span>, <time datetime="2024-01-30" class="refDate">30 January 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-privacypass-consistency-mirror-00">https://datatracker.ietf.org/doc/html/draft-ietf-privacypass-consistency-mirror-00</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="KEYTRANS">[KEYTRANS]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">McMillion, B.</span> and <span class="refAuthor">F. Linker</span>, <span class="refTitle">"Key Transparency Protocol"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-keytrans-protocol-00</span>, <time datetime="2024-12-10" class="refDate">10 December 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-keytrans-protocol-00">https://datatracker.ietf.org/doc/html/draft-ietf-keytrans-protocol-00</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8174">[RFC8174]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC8446">[RFC8446]</dt>
+        <dd>
+<span class="refAuthor">Rescorla, E.</span>, <span class="refTitle">"The Transport Layer Security (TLS) Protocol Version 1.3"</span>, <span class="seriesInfo">RFC 8446</span>, <span class="seriesInfo">DOI 10.17487/RFC8446</span>, <time datetime="2018-08" class="refDate">August 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8446">https://www.rfc-editor.org/rfc/rfc8446</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="WELL-KNOWN">[WELL-KNOWN]</dt>
-    <dd>
+      <dd>
 <span class="refAuthor">Nottingham, M.</span>, <span class="refTitle">"Well-Known Uniform Resource Identifiers (URIs)"</span>, <span class="seriesInfo">RFC 8615</span>, <span class="seriesInfo">DOI 10.17487/RFC8615</span>, <time datetime="2019-05" class="refDate">May 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8615">https://www.rfc-editor.org/rfc/rfc8615</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
+</section>
+</div>
+<div id="sec-informative-references">
+<section id="section-10.2">
+        <h3 id="name-informative-references">
+<a href="#section-10.2" class="section-number selfRef">10.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+        </h3>
+<dl class="references">
+<dt id="RFC9000">[RFC9000]</dt>
+      <dd>
+<span class="refAuthor">Iyengar, J., Ed.</span> and <span class="refAuthor">M. Thomson, Ed.</span>, <span class="refTitle">"QUIC: A UDP-Based Multiplexed and Secure Transport"</span>, <span class="seriesInfo">RFC 9000</span>, <span class="seriesInfo">DOI 10.17487/RFC9000</span>, <time datetime="2021-05" class="refDate">May 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9000">https://www.rfc-editor.org/rfc/rfc9000</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+</div>
 </section>
 </div>
 <div id="test-vectors">

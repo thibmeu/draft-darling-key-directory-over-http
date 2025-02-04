@@ -5,8 +5,8 @@
 ???                                                           F. Darling
 Internet-Draft                                                T. Meunier
 Intended status: Informational                                 S. Newton
-Expires: 4 August 2025                                   Cloudflare Inc.
-                                                         31 January 2025
+Expires: 8 August 2025                                   Cloudflare Inc.
+                                                         4 February 2025
 
 
                         Key Directory over HTTP
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 4 August 2025.
+   This Internet-Draft will expire on 8 August 2025.
 
 Copyright Notice
 
@@ -71,23 +71,28 @@ Copyright Notice
 Table of Contents
 
    1.  Introduction
-   2.  Conventions and Definitions
-   3.  Architecture
-     3.1.  Cache behaviour
-     3.2.  Key id
-     3.3.  Rotation (kid, cache, others)
-       3.3.1.  Algorithm
-       3.3.2.  Scheduled (server, client behaviour)
-       3.3.3.  Immediate (server, client behaviour)
-     3.4.  Well known URL
-     3.5.  Future considerations
-       3.5.1.  Consistency
-       3.5.2.  Key Transparency
-   4.  Deployment Considerations
-   5.  Privacy Considerations
-   6.  Security Considerations
-   7.  IANA Considerations
-   8.  Normative References
+   2.  Motivation
+   3.  Presentation Language
+     3.1.  Variable-Size Vector Length Headers
+   4.  Conventions and Definitions
+   5.  Architecture
+     5.1.  Cache behaviour
+     5.2.  Key ID
+     5.3.  Rotation (kid, cache, others)
+       5.3.1.  Algorithm
+       5.3.2.  Scheduled (server, client behaviour)
+       5.3.3.  Immediate (server, client behaviour)
+     5.4.  Well known URL
+     5.5.  Future considerations
+       5.5.1.  Consistency
+       5.5.2.  Key Transparency
+   6.  Deployment Considerations
+   7.  Privacy Considerations
+   8.  Security Considerations
+   9.  IANA Considerations
+   10. References
+     10.1.  Normative References
+     10.2.  Informative References
    Appendix A.  Test vectors
    Appendix B.  Use cases
      B.1.  DAP
@@ -102,8 +107,8 @@ Table of Contents
    Multiple Internet protocols rely on public key cryptography.  They
    require keys to be distributed by origins to clients.  This is done
    via certificates, via software releases, or via HTTP.  This document
-   focuses on this last mechanism.  It aims to set recommendation on how
-   to design a key directory that should be served over HTTP.
+   focuses on this last mechanism.  It aims to set recommendations on
+   how to design a key directory that should be served over HTTP.
 
    Distribution via HTTP allows for a more dynamic use of public keys,
    for rotation, or caching on intermediate servers or clients.  This
@@ -113,7 +118,47 @@ Table of Contents
    directory format, as these needs might vary from one protocol to the
    next.
 
-2.  Conventions and Definitions
+2.  Motivation
+
+   JOSE and COSE both define ways to structure key sets, but not way to
+   serve them.  This creates issues when serving these keys over HTTP
+   because caching is not taken into account, and there is no standard
+   way to derive an ID from a key.  Privacy Pass, OHTTP, and DAP also
+   went down the road of defining their own directory, and were faced
+   with similar issues.  While Privacy Pass seems to have been the most
+   thorough, even started considering consistency, these all seem to be
+   duplicated efforts that would benefit from being consolidated into
+   one specification.
+
+3.  Presentation Language
+
+   This document uses the TLS presentation language [RFC8446] to
+   describe the structure of protocol messages.  In addition to the base
+   syntax, it uses two additional features: the ability for fields to be
+   optional and the ability for vectors to have variable-size length
+   headers.
+
+3.1.  Variable-Size Vector Length Headers
+
+   In the TLS presentation language, vectors are encoded as a sequence
+   of encoded elements prefixed with a length.  The length field has a
+   fixed size set by specifying the minimum and maximum lengths of the
+   encoded sequence of elements.
+
+   In this document, there are several vectors whose sizes vary over
+   significant ranges.  So instead of using a fixed-size length field,
+   it uses a variable-size length using a variable-length integer
+   encoding based on the one described in Section 16 of [RFC9000].  They
+   differ only in that the one here requires a minimum-size encoding.
+   Instead of presenting min and max values, the vector description
+   simply includes a V.  For example:
+
+   struct {
+       uint32 fixed<0..255>;
+       opaque variable<V>;
+   } StructWithVectors;
+
+4.  Conventions and Definitions
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
@@ -137,7 +182,7 @@ Table of Contents
    Directory Metadata:  Public data associated to a key directory.  This
       is protocol specific.
 
-3.  Architecture
+5.  Architecture
 
    A server is exposing a key directory for clients to fetch.  Clients
    MAY fetch the directory from a Mirror, either to protect its privacy,
@@ -165,7 +210,7 @@ Table of Contents
        |                         |                         |<--'
        |                         |                         |
 
-3.1.  Cache behaviour
+5.1.  Cache behaviour
 
    Cache control, intermediaries
 
@@ -175,32 +220,34 @@ Table of Contents
    TODO: write about key preference, based on not-before, not-after, or
    order in the directory.
 
-3.2.  Key id
+5.2.  Key ID
 
-   Protocol implementers pass a blob of data based on public key
-   material/others Key ID = Hash(blob)
+   Each key in the directory MUST be associated with a unique Key ID.
 
-   Key ID have an associated truncated Key ID.  The size of truncated
-   Key ID depends on the number of keys a directory expects to serve at
-   one point in time
+   Key ID is derived from key material that can be shared publicly.
+   Protocol implementers SHOULD provide the following blob of data.
 
-              +===================+========================+
-              | Keys in directory | Truncated key ID bytes |
-              +===================+========================+
-              | 1-255             | 1                      |
-              +-------------------+------------------------+
-              | 256-65535         | 2                      |
-              +-------------------+------------------------+
-              | 65535-*           | Not supported          |
-              +-------------------+------------------------+
+   struct {
+     opaque ProtocolBlob<V>;
+   } PublicKeyMaterial;
 
-                                 Table 1
+   Key ID is defined has follow
 
-   Truncated key ID = last bytes of key ID in network byte order.
+   key_id = H(PublicKeyMaterial)
 
-3.3.  Rotation (kid, cache, others)
+   where
 
-3.3.1.  Algorithm
+   *  PublicKeyMaterial is a length-prefix-encoded blob of data
+
+   *  H is a hash function
+
+   Open question about H: * Should the draft provide specific H * Should
+   the draft define an IANA registry and require protocols to register
+   their H
+
+5.3.  Rotation (kid, cache, others)
+
+5.3.1.  Algorithm
 
    We approach a public key generation by the function Generate(params,
    RAND) -> (publickey, privatekey, metadata)
@@ -217,7 +264,7 @@ Table of Contents
      truncated_key_id <- last_bytes(keyid)
    while (truncated_key_id is not unique)
 
-3.3.2.  Scheduled (server, client behaviour)
+5.3.2.  Scheduled (server, client behaviour)
 
    Two options:
 
@@ -232,7 +279,7 @@ Table of Contents
    is not supported.  It is RECOMMENDED to use truncated token ID as a
    short identifier.
 
-3.3.3.  Immediate (server, client behaviour)
+5.3.3.  Immediate (server, client behaviour)
 
    There are moment where keys have to be rotated immediatly.  Existing
    keys may have to be invalidated and/or new keys be provisioned.
@@ -252,7 +299,7 @@ Table of Contents
        rotation outside a fixed schedule.  Protocols SHOULD define such
        policies.
 
-3.4.  Well known URL
+5.4.  Well known URL
 
    It is RECOMMENDED protocol register a [WELL-KNOWN]URL and associated
    content-type.
@@ -266,11 +313,11 @@ Table of Contents
    Cache-Control: max-age=300
    Content-Type: <your-protocol>
 
-3.5.  Future considerations
+5.5.  Future considerations
 
    These considerations should be addressed in future drafts.
 
-3.5.1.  Consistency
+5.5.1.  Consistency
 
    Consistency allows client to prevent themselves from split view
    attack.  A proposal that has been made for Privacy Pass is to use
@@ -279,19 +326,19 @@ Table of Contents
    presents scalability issues as you need multiple mirrors, and have
    one more requests from client per mirror in the quorum.
 
-3.5.2.  Key Transparency
+5.5.2.  Key Transparency
 
    Key Directory over HTTP should integrate with transparency, once the
    protocol has been defined in [KEYTRANS].  There are specific
    consideration as to what goes in the log: the full directory, keys
    individually, privacy considerations.
 
-4.  Deployment Considerations
+6.  Deployment Considerations
 
    Rotation schedule: fast?  Proxy improves client experience and
    shields key directory server
 
-5.  Privacy Considerations
+7.  Privacy Considerations
 
    TODO Privacy
 
@@ -300,15 +347,17 @@ Table of Contents
    Clients SHOULD consider proxying their traffic through a mirror
    server.  Mirrors SHOULD NOT collide with the key server.
 
-6.  Security Considerations
+8.  Security Considerations
 
    TODO Security
 
-7.  IANA Considerations
+9.  IANA Considerations
 
    This document has no IANA actions.
 
-8.  Normative References
+10.  References
+
+10.1.  Normative References
 
    [CONSISTENCY]
               Beurdouche, B., Finkel, M., Valdez, S., Wood, C. A., and
@@ -333,10 +382,21 @@ Table of Contents
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
+   [RFC8446]  Rescorla, E., "The Transport Layer Security (TLS) Protocol
+              Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
+              <https://www.rfc-editor.org/rfc/rfc8446>.
+
    [WELL-KNOWN]
               Nottingham, M., "Well-Known Uniform Resource Identifiers
               (URIs)", RFC 8615, DOI 10.17487/RFC8615, May 2019,
               <https://www.rfc-editor.org/rfc/rfc8615>.
+
+10.2.  Informative References
+
+   [RFC9000]  Iyengar, J., Ed. and M. Thomson, Ed., "QUIC: A UDP-Based
+              Multiplexed and Secure Transport", RFC 9000,
+              DOI 10.17487/RFC9000, May 2021,
+              <https://www.rfc-editor.org/rfc/rfc9000>.
 
 Appendix A.  Test vectors
 
