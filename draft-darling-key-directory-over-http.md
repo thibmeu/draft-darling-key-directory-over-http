@@ -27,7 +27,7 @@ author:
  -
     fullname: Fisher Darling
     organization: Cloudflare Inc.
-    # email: your.email@example.com
+    email: fisher@darling.dev
  -
     fullname: Thibault Meunier
     organization: Cloudflare Inc.
@@ -55,9 +55,9 @@ URL.
 # Introduction
 
 Multiple Internet protocols rely on public key cryptography. They require keys
-to be distributed by origins to clients. This is done via certificates,
-via software releases, or via HTTP. This document focuses on this last mechanism.
-It aims to set recommendations on how to design a key directory that should be
+to be distributed by origins to clients. This can be done via certificates,
+software releases, or HTTP. This document focuses on this last mechanism. It
+aims to set recommendations on how to design a key directory that should be
 served over HTTP.
 
 Distribution via HTTP allows for a more dynamic use of public keys, for rotation,
@@ -69,7 +69,7 @@ vary from one protocol to the next.
 
 # Motivation
 
-JOSE and COSE both define ways to structure key sets, but not way to serve them.
+JOSE and COSE both define ways to structure key sets, but no way to serve them.
 This creates issues when serving these keys over HTTP because caching is not
 taken into account, and there is no standard way to derive an ID from a key.
 Privacy Pass, OHTTP, and DAP also went down the road of defining their own
@@ -189,13 +189,18 @@ PublicKeyMaterial can be composed of both cryptographic material and metadata.
 Key ID is defined has follow
 
 ~~~
-key_id = H(PublicKeyMaterial)
+key_id = encode(H(PublicKeyMaterial))
 ~~~
 
 where
 
-* PublicKeyMaterial is a length-prefix-encoded blob of data
-* H is a hash function
+* `PublicKeyMaterial` is a length-prefix-encoded blob of data
+* `H` is a hash function
+* `encode` is some encoding function
+
+The Truncated Key ID is derived from the Key ID and uniquely identifies a Key
+within a Key Directory. For example, Privacy Pass uses the last byte of the the
+Key ID in network byte order. Other protocols use other schemes.
 
 Open question about H:
 * Should the draft provide specific H
@@ -209,10 +214,10 @@ Open question about H:
 
 We approach a public key generation by the function `Generate(params, RAND) -> (publickey, privatekey, metadata)`
 
-At any point in time, keys in the directory MUST have a unique truncated key id.
+At any point in time, all keys in the directory MUST have a unique truncated key id.
 When adding a key in the directory, that key MUST have a unique truncated key id.
 
-Generation looks as follow
+Generation looks as follows
 
 ~~~
 do
@@ -237,18 +242,18 @@ supported. It is RECOMMENDED to use truncated token ID as a short identifier.
 
 ### Immediate (server, client behaviour)
 
-There are moment where keys have to be rotated immediatly. Existing keys may
-have to be invalidated and/or new keys be provisioned. Immediate keys rotation
+There are moment where keys have to be rotated immediately. Existing keys may
+have to be invalidated and/or new keys be provisioned. Immediate key rotation
 may happen in the event of a key compromise, loss, or other imperious reason.
 
-Immediate key rotation will cause some client request to the server to fail
-until they retrieve a new version of the directory. The key directory endpoint
-is going to be placed under a higher load.
+Immediate key rotation will cause some client requests to the server to fail
+until the client retrieves a new version of the directory. The key directory
+endpoint is going to be placed under a higher load.
 
 Client requests are expected to fail.
 
 1. You MAY introduce a random backoff to spread the load of key distribution over
-time
+time. See #<TODO link to caching section>
 2. Clients on a scheduled rotation MAY be configured to distrust rotation outside
 a fixed schedule. Protocols SHOULD define such policies.
 
@@ -267,6 +272,8 @@ Cache-Control: max-age=300
 Content-Type: <your-protocol>
 ~~~
 
+HEAD requests can be used by clients to cheaply determine if the directory has
+changed.
 
 ## Future considerations
 
