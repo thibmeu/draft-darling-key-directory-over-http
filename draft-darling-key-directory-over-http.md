@@ -160,17 +160,6 @@ new, its cache is expired, or the server refuses requests with the current key s
     |                         |                         |
 ~~~
 
-
-## Cache behaviour
-
-Cache control, intermediaries
-
-Client should use cache directive per key, so that if a key becomes invalid,
-they use the next one in their cache.
-
-TODO: write about key preference, based on not-before, not-after, or order in
-the directory.
-
 ## Key ID
 
 Each key in the directory MUST be associated with a unique Key ID.
@@ -213,29 +202,28 @@ The following is a deterministic algorithm for determining which Key a client
 should use to fulfill their cryptographic needs. By using a deterministic
 algorithm, Origins can more easily predict the effects of a Key rotation and
 implement grace periods, soak times, etc., without modifications to a Key
-Directory’s protocol representation.
+Directory’s protocol.
 
 Key Selection Algorithm:
 1. Remove keys which cannot satisfy a request. E.g., their not-after fields are
    in the past, their not-before fields are in the future, or they don’t have
    the necessary cryptographic properties, etc.
-2. If the not-before field exists, Sort the remaining keys by their not-before
+2. If a not-before field exists, sort the remaining keys by their not-before
    field in descending order.
-3. Use the first key.
+3. Use the first key of the key directory, as it appears in the Key Directory
+   format.
+
+Clients SHOULD implement the Key Selection Algorithm. Origins SHOULD present
+the newest Keys first.
 
 For protocols which define a not-before field, the above algorithm minimizes the
 chance that the used key has not expired between reading the directory and
 performing the protocol.
 
-For protocols without a `not-before` field, using the first key allows Key
+For protocols without a not-before field, using the first key allows Key
 Directories to order their keys in a way where the newest is always first, and
 the soon-to-be-removed key is last. This minimizes the chance of a client using
 an expired key.
-
-Some protocols, like the OHTTP Key Directory *TODO LINK RFC*, do not define a not-before field
-within the protocol itself. Key Directories which do not define a not-before
-SHOULD sort Keys by the internal not-before before presenting them in the Key
-Directory (step 2).
 
 ## Rotation (kid, cache, others)
 
@@ -276,8 +264,8 @@ have to be invalidated and/or new keys be provisioned. Immediate key rotation
 may happen in the event of a key compromise, loss, or other imperious reason.
 
 Immediate key rotation will cause some client requests to the server to fail
-until the client retrieves a new version of the directory. The key directory
-endpoint is going to be placed under a higher load.
+until the client and mirrors retrieve a new version of the directory. The key
+directory endpoint is going to be placed under a higher load.
 
 Client requests are expected to fail.
 
@@ -285,6 +273,52 @@ Client requests are expected to fail.
 time. See #TODO link to caching section
 2. Clients on a scheduled rotation MAY be configured to distrust rotation outside
 a fixed schedule. Protocols SHOULD define such policies.
+
+## Cache behaviour
+
+Caching the Key Directory lowers latency and reduces resource usage on the
+Mirror and the Origin. An optimal caching strategy should minimize resource
+usage for both the Client and Origin while preventing the client from using an
+invalid key.
+
+These two requirements, minimizing resource usage and never using an invalid
+key, are at odds with each other. In the event of an unplanned key rotation, a
+client might use an invalid key. However, if a client fetched the keys for every
+request, it would waste time and network resources.
+
+### not-before fields
+
+Origins SHOULD, when possible in the Key Directory format, add a not-before
+field or equivalent to each Key in the Directory. The not-before field allows
+the directory to signal to a client when a Key is safe to use and reduces the
+chance a client uses an expired key. When the unit of time used for the
+not-before field is ambiguous, it MUST be a Unix epoch timestamp in seconds.
+
+### cache directives
+
+Origins SHOULD respond with cache directives{{!HTTP-CACHE=rfc9111}} which
+control when the Key Directory should be refreshed. Origins SHOULD provide a
+`Cache-Control: max-age` header, or `Expires` header which is slightly less than
+the grace period given for a key about to rotate. Clients SHOULD respect the
+`max-age` cache directive and MAY respect other directives. If an Origin
+provides a `max-age` header AND a Mirror is used, the Origin MUST provide a
+`s-maxage` header that is equivalent to `max-age`.
+
+To prevent Clients refreshing their Key Directories at the same time
+(synchronization), Mirrors MAY provide to its clients a `max-age` cache directive
+with duration in the range `[0, Origin s-maxage]`.
+
+Mirrors MUST respect all provided cache directives. Mirrors SHOULD issue a
+`max-age` value which matches the remaining time to live (TTL) value of the key
+directory in the Mirror’s local cache.
+
+### Client cache refresh
+
+The primary method a Client SHOULD use to determine when it refreshes its view
+of the Key Directory is through the delta seconds described in the `max-age`
+cache directive. The higher the delta, the less frequent a Client will update
+its cache. The lower the delta, the quicker clients will respond to unplanned
+key rotations.
 
 ## Well known URL
 
