@@ -207,6 +207,35 @@ Open question about H:
 * Should the draft define an IANA registry and require protocols to register
   their H
 
+## Key Selection
+
+The following is a deterministic algorithm for determining which Key a client
+should use to fulfill their cryptographic needs. By using a deterministic
+algorithm, Origins can more easily predict the effects of a Key rotation and
+implement grace periods, soak times, etc., without modifications to a Key
+Directory’s protocol representation.
+
+Key Selection Algorithm:
+1. Remove keys which cannot satisfy a request. E.g., their not-after fields are
+   in the past, their not-before fields are in the future, or they don’t have
+   the necessary cryptographic properties, etc.
+2. If the not-before field exists, Sort the remaining keys by their not-before
+   field in descending order.
+3. Use the first key.
+
+For protocols which define a not-before field, the above algorithm minimizes the
+chance that the used key has not expired between reading the directory and
+performing the protocol.
+
+For protocols without a `not-before` field, using the first key allows Key
+Directories to order their keys in a way where the newest is always first, and
+the soon-to-be-removed key is last. This minimizes the chance of a client using
+an expired key.
+
+Some protocols, like the OHTTP Key Directory *TODO LINK RFC*, do not define a not-before field
+within the protocol itself. Key Directories which do not define a not-before
+SHOULD sort Keys by the internal not-before before presenting them in the Key
+Directory (step 2).
 
 ## Rotation (kid, cache, others)
 
