@@ -5,8 +5,8 @@
 ???                                                           F. Darling
 Internet-Draft                                                T. Meunier
 Intended status: Informational                                 S. Newton
-Expires: 8 August 2025                                   Cloudflare Inc.
-                                                         4 February 2025
+Expires: 10 August 2025                                  Cloudflare Inc.
+                                                         6 February 2025
 
 
                         Key Directory over HTTP
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 August 2025.
+   This Internet-Draft will expire on 10 August 2025.
 
 Copyright Notice
 
@@ -105,8 +105,8 @@ Table of Contents
 1.  Introduction
 
    Multiple Internet protocols rely on public key cryptography.  They
-   require keys to be distributed by origins to clients.  This is done
-   via certificates, via software releases, or via HTTP.  This document
+   require keys to be distributed by origins to clients.  This can be
+   done via certificates, software releases, or HTTP.  This document
    focuses on this last mechanism.  It aims to set recommendations on
    how to design a key directory that should be served over HTTP.
 
@@ -120,7 +120,7 @@ Table of Contents
 
 2.  Motivation
 
-   JOSE and COSE both define ways to structure key sets, but not way to
+   JOSE and COSE both define ways to structure key sets, but no way to
    serve them.  This creates issues when serving these keys over HTTP
    because caching is not taken into account, and there is no standard
    way to derive an ID from a key.  Privacy Pass, OHTTP, and DAP also
@@ -236,13 +236,20 @@ Table of Contents
 
    Key ID is defined has follow
 
-   key_id = H(PublicKeyMaterial)
+   key_id = encode(H(PublicKeyMaterial))
 
    where
 
    *  PublicKeyMaterial is a length-prefix-encoded blob of data
 
    *  H is a hash function
+
+   *  encode is some encoding function
+
+   The Truncated Key ID is derived from the Key ID and uniquely
+   identifies a Key within a Key Directory.  For example, Privacy Pass
+   uses the last byte of the the Key ID in network byte order.  Other
+   protocols use other schemes.
 
    Open question about H: * Should the draft provide specific H * Should
    the draft define an IANA registry and require protocols to register
@@ -255,11 +262,11 @@ Table of Contents
    We approach a public key generation by the function Generate(params,
    RAND) -> (publickey, privatekey, metadata)
 
-   At any point in time, keys in the directory MUST have a unique
+   At any point in time, all keys in the directory MUST have a unique
    truncated key id.  When adding a key in the directory, that key MUST
    have a unique truncated key id.
 
-   Generation looks as follow
+   Generation looks as follows
 
    do
      (publickey, privatekey, metadata) <- Generate(params, RAND)
@@ -284,19 +291,19 @@ Table of Contents
 
 5.3.3.  Immediate (server, client behaviour)
 
-   There are moment where keys have to be rotated immediatly.  Existing
+   There are moment where keys have to be rotated immediately.  Existing
    keys may have to be invalidated and/or new keys be provisioned.
-   Immediate keys rotation may happen in the event of a key compromise,
+   Immediate key rotation may happen in the event of a key compromise,
    loss, or other imperious reason.
 
-   Immediate key rotation will cause some client request to the server
-   to fail until they retrieve a new version of the directory.  The key
-   directory endpoint is going to be placed under a higher load.
+   Immediate key rotation will cause some client requests to the server
+   to fail until the client retrieves a new version of the directory.
+   The key directory endpoint is going to be placed under a higher load.
 
    Client requests are expected to fail.
 
    1.  You MAY introduce a random backoff to spread the load of key
-       distribution over time
+       distribution over time.  See #TODO link to caching section
 
    2.  Clients on a scheduled rotation MAY be configured to distrust
        rotation outside a fixed schedule.  Protocols SHOULD define such
@@ -315,6 +322,9 @@ Table of Contents
    HTTP/1.1 200 OK
    Cache-Control: max-age=300
    Content-Type: <your-protocol>
+
+   HEAD requests can be used by clients to cheaply determine if the
+   directory has changed.
 
 5.5.  Future considerations
 
@@ -501,6 +511,7 @@ Authors' Addresses
 
    Fisher Darling
    Cloudflare Inc.
+   Email: fisher@darling.dev
 
 
    Thibault Meunier

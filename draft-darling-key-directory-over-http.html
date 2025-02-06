@@ -1058,7 +1058,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Darling, et al.</td>
-<td class="center">Expires 8 August 2025</td>
+<td class="center">Expires 10 August 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1071,12 +1071,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-darling-key-directory-over-http-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-02-04" class="published">4 February 2025</time>
+<time datetime="2025-02-06" class="published">6 February 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-08-08">8 August 2025</time></dd>
+<dd class="expires"><time datetime="2025-08-10">10 August 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1137,7 +1137,7 @@ URL.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 8 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 10 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1281,9 +1281,9 @@ URL.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
 <p id="section-1-1">Multiple Internet protocols rely on public key cryptography. They require keys
-to be distributed by origins to clients. This is done via certificates,
-via software releases, or via HTTP. This document focuses on this last mechanism.
-It aims to set recommendations on how to design a key directory that should be
+to be distributed by origins to clients. This can be done via certificates,
+software releases, or HTTP. This document focuses on this last mechanism. It
+aims to set recommendations on how to design a key directory that should be
 served over HTTP.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">Distribution via HTTP allows for a more dynamic use of public keys, for rotation,
 or caching on intermediate servers or clients.
@@ -1298,7 +1298,7 @@ vary from one protocol to the next.<a href="#section-1-2" class="pilcrow">¶</a>
       <h2 id="name-motivation">
 <a href="#section-2" class="section-number selfRef">2. </a><a href="#name-motivation" class="section-name selfRef">Motivation</a>
       </h2>
-<p id="section-2-1">JOSE and COSE both define ways to structure key sets, but not way to serve them.
+<p id="section-2-1">JOSE and COSE both define ways to structure key sets, but no way to serve them.
 This creates issues when serving these keys over HTTP because caching is not
 taken into account, and there is no standard way to derive an ID from a key.
 Privacy Pass, OHTTP, and DAP also went down the road of defining their own
@@ -1496,22 +1496,28 @@ struct {
 <p id="section-5.2-5">Key ID is defined has follow<a href="#section-5.2-5" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-5.2-6">
 <pre>
-key_id = H(PublicKeyMaterial)
+key_id = encode(H(PublicKeyMaterial))
 </pre><a href="#section-5.2-6" class="pilcrow">¶</a>
 </div>
 <p id="section-5.2-7">where<a href="#section-5.2-7" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-5.2-8.1">
-            <p id="section-5.2-8.1.1">PublicKeyMaterial is a length-prefix-encoded blob of data<a href="#section-5.2-8.1.1" class="pilcrow">¶</a></p>
+            <p id="section-5.2-8.1.1"><code>PublicKeyMaterial</code> is a length-prefix-encoded blob of data<a href="#section-5.2-8.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-5.2-8.2">
-            <p id="section-5.2-8.2.1">H is a hash function<a href="#section-5.2-8.2.1" class="pilcrow">¶</a></p>
+            <p id="section-5.2-8.2.1"><code>H</code> is a hash function<a href="#section-5.2-8.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.2-8.3">
+            <p id="section-5.2-8.3.1"><code>encode</code> is some encoding function<a href="#section-5.2-8.3.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-5.2-9">Open question about H:
+<p id="section-5.2-9">The Truncated Key ID is derived from the Key ID and uniquely identifies a Key
+within a Key Directory. For example, Privacy Pass uses the last byte of the the
+Key ID in network byte order. Other protocols use other schemes.<a href="#section-5.2-9" class="pilcrow">¶</a></p>
+<p id="section-5.2-10">Open question about H:
 * Should the draft provide specific H
 * Should the draft define an IANA registry and require protocols to register
-  their H<a href="#section-5.2-9" class="pilcrow">¶</a></p>
+  their H<a href="#section-5.2-10" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="rotation-kid-cache-others">
@@ -1525,9 +1531,9 @@ key_id = H(PublicKeyMaterial)
 <a href="#section-5.3.1" class="section-number selfRef">5.3.1. </a><a href="#name-algorithm" class="section-name selfRef">Algorithm</a>
           </h4>
 <p id="section-5.3.1-1">We approach a public key generation by the function <code>Generate(params, RAND) -&gt; (publickey, privatekey, metadata)</code><a href="#section-5.3.1-1" class="pilcrow">¶</a></p>
-<p id="section-5.3.1-2">At any point in time, keys in the directory <span class="bcp14">MUST</span> have a unique truncated key id.
+<p id="section-5.3.1-2">At any point in time, all keys in the directory <span class="bcp14">MUST</span> have a unique truncated key id.
 When adding a key in the directory, that key <span class="bcp14">MUST</span> have a unique truncated key id.<a href="#section-5.3.1-2" class="pilcrow">¶</a></p>
-<p id="section-5.3.1-3">Generation looks as follow<a href="#section-5.3.1-3" class="pilcrow">¶</a></p>
+<p id="section-5.3.1-3">Generation looks as follows<a href="#section-5.3.1-3" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-5.3.1-4">
 <pre>
 do
@@ -1565,17 +1571,17 @@ supported. It is <span class="bcp14">RECOMMENDED</span> to use truncated token I
           <h4 id="name-immediate-server-client-beh">
 <a href="#section-5.3.3" class="section-number selfRef">5.3.3. </a><a href="#name-immediate-server-client-beh" class="section-name selfRef">Immediate (server, client behaviour)</a>
           </h4>
-<p id="section-5.3.3-1">There are moment where keys have to be rotated immediatly. Existing keys may
-have to be invalidated and/or new keys be provisioned. Immediate keys rotation
+<p id="section-5.3.3-1">There are moment where keys have to be rotated immediately. Existing keys may
+have to be invalidated and/or new keys be provisioned. Immediate key rotation
 may happen in the event of a key compromise, loss, or other imperious reason.<a href="#section-5.3.3-1" class="pilcrow">¶</a></p>
-<p id="section-5.3.3-2">Immediate key rotation will cause some client request to the server to fail
-until they retrieve a new version of the directory. The key directory endpoint
-is going to be placed under a higher load.<a href="#section-5.3.3-2" class="pilcrow">¶</a></p>
+<p id="section-5.3.3-2">Immediate key rotation will cause some client requests to the server to fail
+until the client retrieves a new version of the directory. The key directory
+endpoint is going to be placed under a higher load.<a href="#section-5.3.3-2" class="pilcrow">¶</a></p>
 <p id="section-5.3.3-3">Client requests are expected to fail.<a href="#section-5.3.3-3" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-5.3.3-4">
 <li id="section-5.3.3-4.1">
               <p id="section-5.3.3-4.1.1">You <span class="bcp14">MAY</span> introduce a random backoff to spread the load of key distribution over
-time<a href="#section-5.3.3-4.1.1" class="pilcrow">¶</a></p>
+time. See #TODO link to caching section<a href="#section-5.3.3-4.1.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-5.3.3-4.2">
               <p id="section-5.3.3-4.2.1">Clients on a scheduled rotation <span class="bcp14">MAY</span> be configured to distrust rotation outside
@@ -1603,6 +1609,8 @@ Cache-Control: max-age=300
 Content-Type: &lt;your-protocol&gt;
 </pre><a href="#section-5.4-3" class="pilcrow">¶</a>
 </div>
+<p id="section-5.4-4">HEAD requests can be used by clients to cheaply determine if the directory has
+changed.<a href="#section-5.4-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="future-considerations">
@@ -1874,6 +1882,10 @@ Key Config {
 <address class="vcard">
         <div dir="auto" class="left"><span class="fn nameRole">Fisher Darling</span></div>
 <div dir="auto" class="left"><span class="org">Cloudflare Inc.</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:fisher@darling.dev" class="email">fisher@darling.dev</a>
+</div>
 </address>
 <address class="vcard">
         <div dir="auto" class="left"><span class="fn nameRole">Thibault Meunier</span></div>
