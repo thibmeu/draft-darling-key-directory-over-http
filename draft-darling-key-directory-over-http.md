@@ -253,7 +253,7 @@ endpoint is going to be placed under a higher load.
 Client requests are expected to fail.
 
 1. You MAY introduce a random backoff to spread the load of key distribution over
-time. See #<TODO link to caching section>
+time. See #TODO link to caching section
 2. Clients on a scheduled rotation MAY be configured to distrust rotation outside
 a fixed schedule. Protocols SHOULD define such policies.
 
