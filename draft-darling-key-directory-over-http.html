@@ -1516,10 +1516,16 @@ key_id = encode(H(PublicKeyMaterial))
 <p id="section-5.1-9">The Truncated Key ID is derived from the Key ID and uniquely identifies a Key
 within a Key Directory. For example, Privacy Pass uses the last byte of the the
 Key ID in network byte order. Other protocols use other schemes.<a href="#section-5.1-9" class="pilcrow">¶</a></p>
-<p id="section-5.1-10">Open question about H:
-* Should the draft provide specific H
-* Should the draft define an IANA registry and require protocols to register
-  their H<a href="#section-5.1-10" class="pilcrow">¶</a></p>
+<p id="section-5.1-10">Open question about H:<a href="#section-5.1-10" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.1-11.1">
+            <p id="section-5.1-11.1.1">Should the draft provide specific H<a href="#section-5.1-11.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.1-11.2">
+            <p id="section-5.1-11.2.1">Should the draft define an IANA registry and require protocols to register
+their H<a href="#section-5.1-11.2.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
 </section>
 </div>
 <div id="key-selection">
@@ -1532,23 +1538,31 @@ should use to fulfill their cryptographic needs. By using a deterministic
 algorithm, Origins can more easily predict the effects of a Key rotation and
 implement grace periods, soak times, etc., without modifications to a Key
 Directory’s protocol.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
-<p id="section-5.2-2">Key Selection Algorithm:
-1. Remove keys which cannot satisfy a request. E.g., their not-after fields are
-   in the past, their not-before fields are in the future, or they don’t have
-   the necessary cryptographic properties, etc.
-2. If a not-before field exists, sort the remaining keys by their not-before
-   field in descending order.
-3. Use the first key of the key directory, as it appears in the Key Directory
-   format.<a href="#section-5.2-2" class="pilcrow">¶</a></p>
-<p id="section-5.2-3">Clients <span class="bcp14">SHOULD</span> implement the Key Selection Algorithm. Origins <span class="bcp14">SHOULD</span> present
-the newest Keys first.<a href="#section-5.2-3" class="pilcrow">¶</a></p>
-<p id="section-5.2-4">For protocols which define a not-before field, the above algorithm minimizes the
+<p id="section-5.2-2">Key Selection Algorithm:<a href="#section-5.2-2" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-5.2-3">
+<li id="section-5.2-3.1">
+            <p id="section-5.2-3.1.1">Remove keys which cannot satisfy a request. E.g., their not-after fields are
+in the past, their not-before fields are in the future, or they don’t have
+the necessary cryptographic properties, etc.<a href="#section-5.2-3.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li id="section-5.2-3.2">
+            <p id="section-5.2-3.2.1">If a not-before field exists, sort the remaining keys by their not-before
+field in descending order.<a href="#section-5.2-3.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li id="section-5.2-3.3">
+            <p id="section-5.2-3.3.1">Use the first key of the key directory, as it appears in the Key Directory
+format.<a href="#section-5.2-3.3.1" class="pilcrow">¶</a></p>
+</li>
+        </ol>
+<p id="section-5.2-4">Clients <span class="bcp14">SHOULD</span> implement the Key Selection Algorithm. Origins <span class="bcp14">SHOULD</span> present
+the newest Keys first.<a href="#section-5.2-4" class="pilcrow">¶</a></p>
+<p id="section-5.2-5">For protocols which define a not-before field, the above algorithm minimizes the
 chance that the used key has not expired between reading the directory and
-performing the protocol.<a href="#section-5.2-4" class="pilcrow">¶</a></p>
-<p id="section-5.2-5">For protocols without a not-before field, using the first key allows Key
+performing the protocol.<a href="#section-5.2-5" class="pilcrow">¶</a></p>
+<p id="section-5.2-6">For protocols without a not-before field, using the first key allows Key
 Directories to order their keys in a way where the newest is always first, and
 the soon-to-be-removed key is last. This minimizes the chance of a client using
-an expired key.<a href="#section-5.2-5" class="pilcrow">¶</a></p>
+an expired key.<a href="#section-5.2-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="rotation-kid-cache-others">
