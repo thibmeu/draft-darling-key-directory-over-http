@@ -1,0 +1,2011 @@
+<!DOCTYPE html>
+<html lang="en" class="Internet-Draft">
+<head>
+<meta charset="utf-8">
+<meta content="Common,Latin" name="scripts">
+<meta content="initial-scale=1.0" name="viewport">
+<title>Key Directory over HTTP</title>
+<meta content="Fisher Darling" name="author">
+<meta content="Thibault Meunier" name="author">
+<meta content="Simon Newton" name="author">
+<meta content="
+       This document defines recommendations for protocol implementers that wish to
+expose public keys over HTTP. This allows new protocols to share public keys
+via HTTP with considerations for caching, rotation, or providing a well-known
+URL. 
+    " name="description">
+<meta content="xml2rfc 3.26.0" name="generator">
+<meta content="Internet Draft" name="keyword">
+<meta content="Publickey" name="keyword">
+<meta content="Key directory" name="keyword">
+<meta content="Key rotation" name="keyword">
+<meta content="Key cache" name="keyword">
+<meta content="Key ID" name="keyword">
+<meta content="draft-darling-key-directory-over-http-latest" name="ietf.draft">
+<!-- Generator version information:
+  xml2rfc 3.26.0
+    Python 3.12.8
+    ConfigArgParse 1.7
+    google-i18n-address 3.1.1
+    intervaltree 3.1.0
+    Jinja2 3.1.5
+    lxml 5.3.0
+    platformdirs 4.3.6
+    pycountry 24.6.1
+    PyYAML 6.0.2
+    requests 2.32.3
+    setuptools 70.3.0
+    wcwidth 0.2.13
+-->
+<link href="draft-darling-key-directory-over-http.xml" rel="alternate" type="application/rfc+xml">
+<link href="#copyright" rel="license">
+<style type="text/css">@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Lora';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-cyrillic.woff2') format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-cyrillic.woff2') format('woff2');
+  unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-vietnamese.woff2') format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local('Lora SemiBold'), local('Lora-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-semibold-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Oxygen Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Oxygen Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-cyrillic.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-greek.woff2') format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: italic;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-italic-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-cyrillic-ext.woff2') format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-cyrillic.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-greek.woff2') format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Sofia Sans Semi Condensed';
+  font-style: normal;
+  font-weight: 1 1000;
+  src: url('https://martinthomson.github.io/rfc-css/fonts/sofiasanssemicondensed-regular-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  color-scheme: light dark;
+  --background-color: #fff;
+  --text-color: #222;
+  --title-color: #191919;
+  --link-color: #2a6496;
+  --highlight-color: #f9f9f9;
+  --line-color: #eee;
+  --pilcrow-weak: #ddd;
+  --pilcrow-strong: #bbb;
+  --small-font-size: 14.5px;
+  --font-mono: 'Oxygen Mono', monospace;
+  --font-title: "Sofia Sans Semi Condensed", sans-serif;
+  scrollbar-color: #bbb #eee;
+}
+body {
+  max-width: 600px;
+  margin: 75px auto;
+  padding: 0 5px;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  font: 16px/22px "Lora", serif;
+  scroll-behavior: smooth;
+}
+
+.ears {
+  display: none;
+}
+
+/* headings */
+section {
+  clear: both;
+}
+.section-number {
+  padding-right: 0.5em;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-title);
+  font-weight: 680;
+  margin: 0.8em 0 0.3em;
+  font-size-adjust: 0.5;
+  color: var(--title-color);
+}
+h1#title {
+  font-size: 32px;
+  line-height: 40px;
+  clear: both;
+}
+h1#title, h1#rfcnum {
+  margin: 1.5em 0 0.2em;
+}
+h1#rfcnum + h1#title {
+  margin: 0.2em 0;
+}
+
+h1, h2, h3 {
+  font-size: 22px;
+  line-height: 27px;
+}
+h4, h5, h6 {
+  font-size: 20px;
+  line-height: 24px;
+}
+
+/* general structure */
+.author {
+  padding-bottom: 0.3em;
+  vertical-align: top;
+}
+#abstract+p {
+  font-size: 18px;
+  line-height: 24px;
+}
+#abstract+p code, #abstract+p samp, #abstract+p tt {
+  font-size: 16px;
+  line-height: 0;
+}
+
+p {
+  padding: 0;
+  margin: 0.5em 0;
+  text-align: left;
+}
+div {
+  margin: 0;
+}
+.alignRight.art-text {
+  background-color: var(--highlight-color);
+  border: 1px solid var(--line-color);
+  border-radius: 3px;
+  padding: 0.5em 1em 0;
+  margin-bottom: 0.5em;
+}
+.alignRight.art-text pre {
+  padding: 0;
+  width: auto;
+}
+.alignRight {
+  margin: 1em 0;
+}
+.alignRight > *:first-child {
+  border: none;
+  margin: 0;
+  float: right;
+  clear: both;
+}
+.alignRight > *:nth-child(2) {
+  clear: both;
+  display: block;
+  border: none;
+}
+svg {
+  display: block;
+}
+/* font-family isn't space-separated, but =~ will have to do */
+svg[font-family~="monospace" i], svg [font-family~="monospace" i] {
+  font-family: var(--font-mono);
+}
+.alignCenter.art-text {
+  background-color: var(--highlight-color);
+  border: 1px solid var(--line-color);
+  border-radius: 3px;
+  padding: 0.5em 1em 0;
+  margin-bottom: 0.5em;
+}
+.alignCenter.art-text pre {
+  padding: 0;
+  width: auto;
+}
+.alignCenter {
+  margin: 1em 0;
+}
+.alignCenter > *:first-child {
+  border: none;
+  /* this isn't optimal, but it's an existence proof.  PrinceXML doesn't
+     support flexbox yet.
+  */
+  display: table;
+  margin: 0 auto;
+}
+
+/* lists */
+ol, ul {
+  padding: 0;
+  margin: 0 0 0.5em 2em;
+  & :is(ol, ul) {
+    margin-left: 1em;
+  }
+}
+li {
+  margin: 0 0 0.25em 0;
+}
+ul.empty, .ulEmpty {
+  list-style-type: none;
+  & li {
+    margin-top: 0.5em;
+  }
+}
+:is(ul, ol).compact, .ulCompact, .olCompact {
+  margin: 0 0 0 2em;
+  & li {
+    margin: 0;
+    & :first-child { margin-top: 0; }
+    & :last-child { margin-bottom: 0; }
+  }
+}
+
+/* definition lists */
+dl {
+  clear: left;
+  --indent: 3ch;
+  /* --indent: attr(indent ch); not supported in any browser, but we can dream */
+  &.olPercent {
+    --indent: 5ch;
+    & > dt {
+      min-width: calc(var(--indent) - 2ch);
+    }
+  }
+  &.olPercent > dt {
+    float: none;
+  }
+
+  dl > dd > & {
+    margin-top: 0.5em;
+    margin-bottom: 0;
+  }
+}
+dl > dt {
+  float: left;
+  margin-right: 2ch;
+  min-width: 8ch;
+}
+dl > dd {
+  margin-bottom: .8em;
+  margin-left: var(--indent) !important; /* stupid element overrides */
+  min-height: 2ex;
+}
+:is(dl.compact, .dlCompact) > dd {
+  margin-bottom: 0;
+  & > :is(:first-child, .break:first-child + *) {
+    margin-top: 0;
+  }
+  & > :is(:last-child) {
+    margin-bottom: 0;
+  }
+}
+:is(dd, span).break {
+  display: none;
+}
+
+/* links */
+a, a[href].selfRef:hover {
+  text-decoration: none;
+}
+a[href] {
+  color: var(--link-color);
+}
+a[href].selfRef, .iref + a[href].internal {
+  color: var(--text-color);
+}
+a[href]:hover {
+  text-decoration: underline;
+}
+a[href].selfRef:hover {
+  background-color: var(--highlight-color);
+}
+a.xref:is(.cite, .auto), :is(#status-of-memo, #copyright) a {
+  white-space: nowrap;
+}
+
+/* Figures */
+tt, code, pre {
+  background-color: var(--highlight-color);
+  font: 14px/22px var(--font-mono);
+}
+tt, code {
+  /* changing the font for inline elements leads to different ascender
+     and descender heights; as we want to retain baseline alignment,
+     remove leading to avoid altering the final height of lines
+     note: this fails if these blocks take an entire line,
+     a different solution would be great */
+  line-height: 0;
+}
+:is(h1, h2, h3, h4, h5, h6) :is(tt, code) {
+  font-size: 84%;
+}
+pre {
+  border: 1px solid var(--line-color);
+  font-size: 13.5px;
+  line-height: 16px;
+  letter-spacing: -0.2px;
+  margin: 5px;
+  padding: 5px;
+}
+img {
+  max-width: 100%;
+}
+figure {
+  margin: 0.5em 0;
+  padding: 0;
+}
+figure blockquote {
+  margin: 0.8em 0.4em 0.4em;
+}
+figcaption, caption {
+  font-style: italic;
+  margin: 0.5em 1.5em;
+  text-align: left;
+  caption-side: bottom;
+}
+@media screen {
+  /* Auto-collapse boilerplate. */
+  :is(#status-of-memo, #copyright) p {
+    margin: -2px 0;
+    max-height: 0;
+    transition: max-height 2s ease, margin 0.5s ease 0.5s;
+    overflow: hidden;
+  }
+  :is(#status-of-memo, #copyright):hover p,
+  :is(#status-of-memo, #copyright) h2:target ~ p {
+    margin: 0.5em 0;
+    max-height: 500px;
+    overflow: auto;
+  }
+  pre, svg {
+    display: inline-block;
+    /* In the horizontal direction, sometimes people make over-sized figures.
+       Scrollbars for those is therefore necessary: auto adds them as necessary..
+       In the vertical direction, the line-height can combine with the font
+       asender/descender height to produce scrollbars: hidden avoids that. */
+    overflow: auto hidden;
+  }
+  pre {
+    max-width: 100%;
+    width: calc(100% - 22px - 1em);
+  }
+  svg {
+    max-width: calc(100% - 22px - 1em);
+  }
+  figure pre {
+    display: block;
+    width: calc(100% - 25px);
+  }
+  :is(pre, svg) + .pilcrow {
+    display: inline-block;
+    vertical-align: text-bottom;
+    padding-bottom: 8px;
+  }
+}
+
+/* aside, blockquote */
+aside, blockquote {
+  margin-left: 0;
+  padding: 0 2em;
+  font-style: italic;
+}
+blockquote {
+  margin: 1em 0;
+}
+cite {
+  display: block;
+  text-align: right;
+  font-style: italic;
+}
+
+/* tables */
+table {
+  width: auto;
+  max-width: 100%;
+  margin: 0 0 1em;
+  border-collapse: collapse;
+}
+table.right {
+  margin-left: auto;
+}
+table.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+table.left {
+  margin-right: auto;
+}
+table .text-left {
+  text-align: left;
+}
+table .text-center {
+  text-align: center;
+}
+table .text-right {
+  text-align: right;
+}
+
+thead, tbody {
+  border: 1px solid var(--line-color);
+}
+th, td {
+  text-align: left;
+  vertical-align: top;
+  padding: 5px 10px;
+}
+th {
+  background-color: var(--line-color);
+}
+:is(tr:nth-child(2n), thead+tbody > tr:nth-child(2n+1)) > td {
+  background-color: var(--background-color);
+}
+:is(tr:nth-child(2n+1), thead+tbody > tr:nth-child(2n)) > td {
+  background-color: var(--highlight-color);
+}
+table caption {
+  margin: 0;
+  padding: 3px 0 3px 1em;
+}
+table p {
+  margin: 0;
+}
+
+/* pilcrow */
+a.pilcrow {
+  margin-left: 3px;
+  opacity: 0.2;
+  user-select: none;
+  &[href] {
+    color: var(--pilcrow-weak);
+    &:hover { text-decoration: none; }
+  }
+}
+@media not print {
+  :hover > a.pilcrow {
+    opacity: 1;
+  }
+  a.pilcrow[href]:hover {
+    color: var(--pilcrow-strong);
+    background-color: transparent;
+  }
+}
+@media print {
+  a.pilcrow {
+    display: none;
+  }
+}
+
+/* misc */
+hr {
+  border: 0;
+  border-top: 1px solid var(--line-color);
+}
+.bcp14 {
+  font-variant: small-caps;
+  font-weight: 600;
+  font-size: var(--small-font-size);
+}
+.role {
+  font-variant: all-small-caps;
+}
+sub, sup {
+  line-height: 1;
+  font-size: 80%;
+}
+
+/* info block */
+#identifiers {
+  margin: 0;
+  font-size: var(--small-font-size);
+  line-height: 18px;
+  --identifier-width: 15ch;
+  & dt {
+    width: var(--identifier-width);
+    min-width: var(--identifier-width);
+    clear: left;
+    float: left;
+    text-align: right;
+    margin-right: 1ch;
+  }
+  & dd {
+    margin: 0;
+    margin-left: calc(1em + var(--identifier-width)) !important;
+    min-width: 5em;
+  }
+  & .authors {
+    & .author {
+      display: inline-block;
+      margin-right: 1.5em;
+    }
+    & .org {
+      font-style: italic;
+    }
+  }
+}
+
+/* The prepared/rendered info at the very bottom of the page */
+.docInfo {
+  color: #999;
+  font-size: 0.9em;
+  font-style: italic;
+  margin-top: 2em;
+}
+.docInfo .prepared {
+  float: right;
+}
+
+/* table of contents */
+#toc {
+  padding: 0.75em 0 2em 0;
+  margin-bottom: 1em;
+
+  & nav {
+    & ul {
+      margin: 0 0.5em 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    & li {
+      line-height: 1.3em;
+      margin: 2px 0;
+      padding-left: 1.2em;
+      text-indent: -1.2em;
+    }
+  }
+  & a.xref {
+    white-space: normal;
+  }
+}
+
+.references {
+  & > dt {
+    text-align: right;
+    font-weight: bold;
+    min-width: 10ch;
+    margin-right: 1.5ch;
+    &:target::before {
+      content: "⇒";
+      margin: 0 10px 0 -25px;
+    }
+  }
+  & > dd {
+    margin-left: 12ch !important;
+    overflow: visible;
+    & .refInstance {
+      margin-bottom: 0.8em;
+    }
+    & .ascii {
+      margin-bottom: 0.25em;
+    }
+  }
+}
+
+#rfc\.index\.index + ul {
+  margin-left: 0;
+}
+
+/* authors */
+address.vcard {
+  font-style: normal;
+  max-width: 20em;
+  margin: 1em auto 1em 0;
+
+  & .nameRole {
+    font-weight: 700;
+    margin-left: 0;
+  }
+  & .label {
+    margin: 0.5em 0;
+  }
+  & .type {
+    display: none;
+  }
+  & .alternative-contact {
+    margin: 0.5em 0 0.25em 0;
+  }
+  & .non-ascii {
+    margin: 0 0 0 2em;
+  }
+  & div.left {
+    text-align: left;
+  }
+  & div.right {
+    text-align: right;
+  }
+}
+
+hr.addr {
+  border-top: 1px dashed;
+  margin: 0;
+  color: #ddd;
+  max-width: calc(100% - 16px);
+}
+@media (min-width: 500px) {
+  #authors-addresses > section {
+    column-count: 2;
+    column-gap: 20px;
+  }
+  #authors-addresses > section > h2 {
+    column-span: all;
+  }
+  /* hack for break-inside: avoid-column */
+  #authors-addresses address {
+    display: inline-block;
+    break-inside: avoid-column;
+  }
+}
+
+/* Comments */
+.rfcEditorRemove p:first-of-type {
+  font-style: italic;
+}
+.cref {
+  background-color: rgba(249, 232, 105, 0.3);
+  padding: 2px 4px;
+}
+.crefSource {
+  font-style: italic;
+}
+
+@media screen {
+  #toc nav {
+    font-family: var(--font-title);
+    font-weight: 360;
+    & > ul { margin-bottom: 2em; }
+    & ul {
+      margin: 0 0 0 4px;
+      & :is(p, li) {
+        margin: 2px 0;
+      }
+    }
+  }
+  #toc a.toplink {
+    float: right;
+  }
+}
+@media not screen {
+  #toc a.toplink {
+    display: none;
+  }
+}
+
+
+/* TOC layout for smaller screens */
+@media screen and (max-width: 929px) {
+  #toc {
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    padding: 1px 0 0 0;
+    margin: 0;
+    border-bottom: 1px solid #ccc;
+    opacity: 0.6;
+  }
+  #toc h2 {
+    margin: 0;
+    padding: 2px 0 2px 6px;
+    padding-right: 1em;
+    font-size: 18px;
+    line-height: 24px;
+    min-width: 190px;
+    text-align: right;
+    background-color: #444;
+    color: white;
+    cursor: pointer;
+    &::before { /* css hamburger */
+      float: right;
+      position: relative;
+      width: 1em;
+      height: 1px;
+      left: -164px;
+      margin: 8px 0 0 0;
+      background: white none repeat scroll 0 0;
+      box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
+      content: "";
+    }
+  }
+  #toc nav {
+    display: none;
+    background-color: var(--background-color);
+    padding: 0.5em 1em 1em;
+    overflow: auto;
+    overscroll-behavior: contain;
+    height: calc(100vh - 48px);
+    border-left: 1px solid #ddd;
+  }
+  #toc.active {
+    opacity: 1;
+    & nav { display: block; }
+  }
+  /* Make the collapsed ToC header render white on gray also when it's a link */
+  #toc h2 a,
+  #toc h2 a:is(:link, :focus, :hover),
+  #toc a.toplink,
+  #toc a.toplink:hover {
+    color: white;
+    background-color: #444;
+    text-decoration: none;
+  }
+  #toc a.toplink {
+    margin: 2px 0.5em 0;
+  }
+}
+
+/* TOC layout for wide screens */
+@media screen and (min-width: 930px) {
+  body {
+    padding-right: 360px;
+    padding-right: calc(min(180px + 20%, 500px));
+  }
+  #toc {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    right: calc(50vw - 480px);
+    width: 312px;
+    margin: 0;
+    padding: 0;
+    z-index: 1;
+  }
+  #toc h2 {
+    margin: 0;
+    padding: 0.25em 1em 1em 0;
+  }
+  #toc nav {
+    display: block;
+    height: calc(90vh - 84px);
+    bottom: 0;
+    padding: 0.5em 0 2em;
+    overflow: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+  }
+  img { /* future proofing */
+    max-width: 100%;
+    height: auto;
+  }
+  #toc a.toplink {
+    margin: 8px 0.5em 0;
+  }
+}
+
+/* pagination */
+@media print {
+  body {
+    width: 100%;
+  }
+  p {
+    orphans: 3;
+    widows: 3;
+  }
+  #n-copyright-notice {
+    border-bottom: none;
+  }
+  #toc, #n-introduction {
+    page-break-before: always;
+  }
+  #toc {
+    border-top: none;
+    padding-top: 0;
+  }
+  figure, pre, .vcard {
+    page-break-inside: avoid;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+  }
+  :is(h2, h3, h4, h5, h6)+*, dd {
+    page-break-before: avoid;
+  }
+  pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 10pt;
+  }
+  table {
+    border: 1px solid #ddd;
+  }
+  td {
+    border-top: 1px solid #ddd;
+  }
+}
+
+@page :first {
+  padding-top: 0;
+  @top-left {
+    content: normal;
+    border: none;
+  }
+  @top-center {
+    content: normal;
+    border: none;
+  }
+  @top-right {
+    content: normal;
+    border: none;
+  }
+}
+
+@page {
+  size: A4;
+  margin-bottom: 45mm;
+  padding-top: 20px;
+}
+
+/* Dark mode. */
+@media (prefers-color-scheme: dark) {
+:root {
+  --background-color: #121212;
+  --text-color: #f0f0f0;
+  --title-color: #fff;
+  --link-color: #4da4f0;
+  --highlight-color: #282828;
+  --line-color: #444;
+  --pilcrow-weak: #444;
+  --pilcrow-strong: #666;
+  scrollbar-color: #777 #333;
+}
+}
+
+/* SVG Trick: a prefix match works because only black and white are allowed */
+svg :is([stroke="black"], [stroke^="#000"]) {
+  stroke: var(--text-color);
+}
+svg :is([stroke="white"], [stroke^="#fff"]) {
+  stroke: var(--background-color);
+}
+svg :is([fill="black"], [fill^="#000"], :not([fill])) {
+  fill: var(--text-color);
+}
+svg :is([fill="white"], [fill^="#fff"]) {
+  fill: var(--background-color);
+}
+</style>
+
+</head>
+<body class="xml2rfc">
+<table class="ears">
+<thead><tr>
+<td class="left">Internet-Draft</td>
+<td class="center">Key Directory over HTTP</td>
+<td class="right">February 2025</td>
+</tr></thead>
+<tfoot><tr>
+<td class="left">Darling, et al.</td>
+<td class="center">Expires 11 August 2025</td>
+<td class="right">[Page]</td>
+</tr></tfoot>
+</table>
+<div id="external-metadata" class="document-information"></div>
+<div id="internal-metadata" class="document-information">
+<dl id="identifiers">
+<dt class="label-workgroup">Workgroup:</dt>
+<dd class="workgroup">???</dd>
+<dt class="label-internet-draft">Internet-Draft:</dt>
+<dd class="internet-draft">draft-darling-key-directory-over-http-latest</dd>
+<dt class="label-published">Published:</dt>
+<dd class="published">
+<time datetime="2025-02-07" class="published">7 February 2025</time>
+    </dd>
+<dt class="label-intended-status">Intended Status:</dt>
+<dd class="intended-status">Informational</dd>
+<dt class="label-expires">Expires:</dt>
+<dd class="expires"><time datetime="2025-08-11">11 August 2025</time></dd>
+<dt class="label-authors">Authors:</dt>
+<dd class="authors">
+<div class="author">
+      <div class="author-name">F. Darling</div>
+<div class="org">Cloudflare Inc.</div>
+</div>
+<div class="author">
+      <div class="author-name">T. Meunier</div>
+<div class="org">Cloudflare Inc.</div>
+</div>
+<div class="author">
+      <div class="author-name">S. Newton</div>
+<div class="org">Cloudflare Inc.</div>
+</div>
+</dd>
+</dl>
+</div>
+<h1 id="title">Key Directory over HTTP</h1>
+<section id="section-abstract">
+      <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
+<p id="section-abstract-1">This document defines recommendations for protocol implementers that wish to
+expose public keys over HTTP. This allows new protocols to share public keys
+via HTTP with considerations for caching, rotation, or providing a well-known
+URL.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+</section>
+<section class="note rfcEditorRemove" id="section-note.1">
+      <h2 id="name-about-this-document">
+<a href="#name-about-this-document" class="section-name selfRef">About This Document</a>
+      </h2>
+<p id="section-note.1-1">This note is to be removed before publishing as an RFC.<a href="#section-note.1-1" class="pilcrow">¶</a></p>
+<p id="section-note.1-2">
+        The latest revision of this draft can be found at <span><a href="https://thibmeu.github.io/draft-darling-key-directory-over-http/draft-darling-key-directory-over-http.html">https://thibmeu.github.io/draft-darling-key-directory-over-http/draft-darling-key-directory-over-http.html</a></span>.
+        Status information for this document may be found at <span><a href="https://datatracker.ietf.org/doc/draft-darling-key-directory-over-http/">https://datatracker.ietf.org/doc/draft-darling-key-directory-over-http/</a></span>.<a href="#section-note.1-2" class="pilcrow">¶</a></p>
+<p id="section-note.1-3">
+        Discussion of this document takes place on the
+        ???  mailing list (<span><a href="mailto:httpapi@ietf.org">mailto:httpapi@ietf.org</a></span>),
+        which is archived at <span><a href="https://mailarchive.ietf.org/arch/browse/httpapi/">https://mailarchive.ietf.org/arch/browse/httpapi/</a></span>.
+        Subscribe at <span><a href="https://www.ietf.org/mailman/listinfo/httpapi/">https://www.ietf.org/mailman/listinfo/httpapi/</a></span>.<a href="#section-note.1-3" class="pilcrow">¶</a></p>
+<p id="section-note.1-4">Source for this draft and an issue tracker can be found at
+        <span><a href="https://github.com/thibmeu/draft-darling-key-directory-over-http">https://github.com/thibmeu/draft-darling-key-directory-over-http</a></span>.<a href="#section-note.1-4" class="pilcrow">¶</a></p>
+</section>
+<div id="status-of-memo">
+<section id="section-boilerplate.1">
+        <h2 id="name-status-of-this-memo">
+<a href="#name-status-of-this-memo" class="section-name selfRef">Status of This Memo</a>
+        </h2>
+<p id="section-boilerplate.1-1">
+        This Internet-Draft is submitted in full conformance with the
+        provisions of BCP 78 and BCP 79.<a href="#section-boilerplate.1-1" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-2">
+        Internet-Drafts are working documents of the Internet Engineering Task
+        Force (IETF). Note that other groups may also distribute working
+        documents as Internet-Drafts. The list of current Internet-Drafts is
+        at <span><a href="https://datatracker.ietf.org/drafts/current/">https://datatracker.ietf.org/drafts/current/</a></span>.<a href="#section-boilerplate.1-2" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-3">
+        Internet-Drafts are draft documents valid for a maximum of six months
+        and may be updated, replaced, or obsoleted by other documents at any
+        time. It is inappropriate to use Internet-Drafts as reference
+        material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.1-4">
+        This Internet-Draft will expire on 11 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="copyright">
+<section id="section-boilerplate.2">
+        <h2 id="name-copyright-notice">
+<a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
+        </h2>
+<p id="section-boilerplate.2-1">
+            Copyright (c) 2025 IETF Trust and the persons identified as the
+            document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
+<p id="section-boilerplate.2-2">
+            This document is subject to BCP 78 and the IETF Trust's Legal
+            Provisions Relating to IETF Documents
+            (<span><a href="https://trustee.ietf.org/license-info">https://trustee.ietf.org/license-info</a></span>) in effect on the date of
+            publication of this document. Please review these documents
+            carefully, as they describe your rights and restrictions with
+            respect to this document. Code Components extracted from this
+            document must include Revised BSD License text as described in
+            Section 4.e of the Trust Legal Provisions and are provided without
+            warranty as described in the Revised BSD License.<a href="#section-boilerplate.2-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="toc">
+<section id="section-toc.1">
+        <a href="#" onclick="scroll(0,0)" class="toplink">▲</a><h2 id="name-table-of-contents">
+<a href="#name-table-of-contents" class="section-name selfRef">Table of Contents</a>
+        </h2>
+<nav class="toc"><ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1">
+            <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="auto internal xref">1</a>.  <a href="#name-introduction" class="internal xref">Introduction</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2">
+            <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-motivation" class="internal xref">Motivation</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
+            <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-presentation-language" class="internal xref">Presentation Language</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1">
+                <p id="section-toc.1-1.3.2.1.1" class="keepWithNext"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-variable-size-vector-length" class="internal xref">Variable-Size Vector Length Headers</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
+            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-conventions-and-definitions" class="internal xref">Conventions and Definitions</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-architecture" class="internal xref">Architecture</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
+                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-key-id" class="internal xref">Key ID</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
+                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-key-selection" class="internal xref">Key Selection</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3">
+                <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="auto internal xref">5.3</a>.  <a href="#name-rotation-kid-cache-others" class="internal xref">Rotation (kid, cache, others)</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3.2.1">
+                    <p id="section-toc.1-1.5.2.3.2.1.1"><a href="#section-5.3.1" class="auto internal xref">5.3.1</a>.  <a href="#name-algorithm" class="internal xref">Algorithm</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3.2.2">
+                    <p id="section-toc.1-1.5.2.3.2.2.1"><a href="#section-5.3.2" class="auto internal xref">5.3.2</a>.  <a href="#name-scheduled-server-client-beh" class="internal xref">Scheduled (server, client behaviour)</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3.2.3">
+                    <p id="section-toc.1-1.5.2.3.2.3.1"><a href="#section-5.3.3" class="auto internal xref">5.3.3</a>.  <a href="#name-immediate-server-client-beh" class="internal xref">Immediate (server, client behaviour)</a></p>
+</li>
+                </ul>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.4">
+                <p id="section-toc.1-1.5.2.4.1"><a href="#section-5.4" class="auto internal xref">5.4</a>.  <a href="#name-cache-behaviour" class="internal xref">Cache behaviour</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.4.2.1">
+                    <p id="section-toc.1-1.5.2.4.2.1.1"><a href="#section-5.4.1" class="auto internal xref">5.4.1</a>.  <a href="#name-not-before-fields" class="internal xref">not-before fields</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.4.2.2">
+                    <p id="section-toc.1-1.5.2.4.2.2.1"><a href="#section-5.4.2" class="auto internal xref">5.4.2</a>.  <a href="#name-cache-directives" class="internal xref">cache directives</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.4.2.3">
+                    <p id="section-toc.1-1.5.2.4.2.3.1"><a href="#section-5.4.3" class="auto internal xref">5.4.3</a>.  <a href="#name-client-cache-refresh" class="internal xref">Client cache refresh</a></p>
+</li>
+                </ul>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.5">
+                <p id="section-toc.1-1.5.2.5.1"><a href="#section-5.5" class="auto internal xref">5.5</a>.  <a href="#name-well-known-url" class="internal xref">Well known URL</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.6">
+                <p id="section-toc.1-1.5.2.6.1"><a href="#section-5.6" class="auto internal xref">5.6</a>.  <a href="#name-future-considerations" class="internal xref">Future considerations</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.6.2.1">
+                    <p id="section-toc.1-1.5.2.6.2.1.1"><a href="#section-5.6.1" class="auto internal xref">5.6.1</a>.  <a href="#name-consistency" class="internal xref">Consistency</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.6.2.2">
+                    <p id="section-toc.1-1.5.2.6.2.2.1"><a href="#section-5.6.2" class="auto internal xref">5.6.2</a>.  <a href="#name-key-transparency" class="internal xref">Key Transparency</a></p>
+</li>
+                </ul>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-deployment-considerations" class="internal xref">Deployment Considerations</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-privacy-considerations" class="internal xref">Privacy Considerations</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
+            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
+            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
+            <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-references" class="internal xref">References</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.1">
+                <p id="section-toc.1-1.10.2.1.1"><a href="#section-10.1" class="auto internal xref">10.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.2">
+                <p id="section-toc.1-1.10.2.2.1"><a href="#section-10.2" class="auto internal xref">10.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
+            <p id="section-toc.1-1.11.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-test-vectors" class="internal xref">Test vectors</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
+            <p id="section-toc.1-1.12.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-use-cases" class="internal xref">Use cases</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.1">
+                <p id="section-toc.1-1.12.2.1.1"><a href="#appendix-B.1" class="auto internal xref">B.1</a>.  <a href="#name-dap" class="internal xref">DAP</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.2">
+                <p id="section-toc.1-1.12.2.2.1"><a href="#appendix-B.2" class="auto internal xref">B.2</a>.  <a href="#name-ohttp" class="internal xref">OHTTP</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.3">
+                <p id="section-toc.1-1.12.2.3.1"><a href="#appendix-B.3" class="auto internal xref">B.3</a>.  <a href="#name-privacy-pass" class="internal xref">Privacy Pass</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.4">
+                <p id="section-toc.1-1.12.2.4.1"><a href="#appendix-B.4" class="auto internal xref">B.4</a>.  <a href="#name-masque-relay" class="internal xref">Masque relay</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13">
+            <p id="section-toc.1-1.13.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.14">
+            <p id="section-toc.1-1.14.1"><a href="#appendix-D" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+</li>
+        </ul>
+</nav>
+</section>
+</div>
+<div id="introduction">
+<section id="section-1">
+      <h2 id="name-introduction">
+<a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
+      </h2>
+<p id="section-1-1">Multiple Internet protocols rely on public key cryptography. They require keys
+to be distributed by origins to clients. This can be done via certificates,
+software releases, or HTTP. This document focuses on this last mechanism. It
+aims to set recommendations on how to design a key directory that should be
+served over HTTP.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2">Distribution via HTTP allows for a more dynamic use of public keys, for rotation,
+or caching on intermediate servers or clients.
+This document specifies how clients and mirrors should consume cache directive
+set by origins, how origins should expose their key directory, and rotate them.
+The document does not cover a specific directory format, as these needs might
+vary from one protocol to the next.<a href="#section-1-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="motivation">
+<section id="section-2">
+      <h2 id="name-motivation">
+<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-motivation" class="section-name selfRef">Motivation</a>
+      </h2>
+<p id="section-2-1">JOSE and COSE both define ways to structure key sets, but no way to serve them.
+This creates issues when serving these keys over HTTP because caching is not
+taken into account, and there is no standard way to derive an ID from a key.
+Privacy Pass, OHTTP, and DAP also went down the road of defining their own
+directory, and were faced with similar issues. While Privacy Pass seems to have
+been the most thorough, even started considering consistency, these all seem to
+be duplicated efforts that would benefit from being consolidated into one
+specification.<a href="#section-2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="presentation-language">
+<section id="section-3">
+      <h2 id="name-presentation-language">
+<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-presentation-language" class="section-name selfRef">Presentation Language</a>
+      </h2>
+<p id="section-3-1">This document uses the TLS presentation language <span>[<a href="#RFC8446" class="cite xref">RFC8446</a>]</span> to describe the
+structure of protocol messages.  In addition to the base syntax, it uses two
+additional features: the ability for fields to be optional and the ability for
+vectors to have variable-size length headers.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<div id="variable-size-vector-length-headers">
+<section id="section-3.1">
+        <h3 id="name-variable-size-vector-length">
+<a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-variable-size-vector-length" class="section-name selfRef">Variable-Size Vector Length Headers</a>
+        </h3>
+<p id="section-3.1-1">In the TLS presentation language, vectors are encoded as a sequence of encoded
+elements prefixed with a length.  The length field has a fixed size set by
+specifying the minimum and maximum lengths of the encoded sequence of elements.<a href="#section-3.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.1-2">In this document, there are several vectors whose sizes vary over significant
+ranges.  So instead of using a fixed-size length field, it uses a variable-size
+length using a variable-length integer encoding based on the one described in
+<span><a href="https://rfc-editor.org/rfc/rfc9000#section-16" class="relref">Section 16</a> of [<a href="#RFC9000" class="cite xref">RFC9000</a>]</span>. They differ only in that the one here requires a
+minimum-size encoding. Instead of presenting min and max values, the vector
+description simply includes a <code>V</code>. For example:<a href="#section-3.1-2" class="pilcrow">¶</a></p>
+<div class="lang-tls-presentation sourcecode" id="section-3.1-3">
+<pre>
+struct {
+    uint32 fixed&lt;0..255&gt;;
+    opaque variable&lt;V&gt;;
+} StructWithVectors;
+</pre><a href="#section-3.1-3" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="conventions-and-definitions">
+<section id="section-4">
+      <h2 id="name-conventions-and-definitions">
+<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-conventions-and-definitions" class="section-name selfRef">Conventions and Definitions</a>
+      </h2>
+<p id="section-4-1">The key words "<span class="bcp14">MUST</span>", "<span class="bcp14">MUST NOT</span>", "<span class="bcp14">REQUIRED</span>", "<span class="bcp14">SHALL</span>", "<span class="bcp14">SHALL NOT</span>", "<span class="bcp14">SHOULD</span>", "<span class="bcp14">SHOULD NOT</span>", "<span class="bcp14">RECOMMENDED</span>", "<span class="bcp14">NOT RECOMMENDED</span>",
+"<span class="bcp14">MAY</span>", and "<span class="bcp14">OPTIONAL</span>" in this document are to be interpreted as
+described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they
+appear in all capitals, as shown here.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-2">The following terms are used throughout this document:<a href="#section-4-2" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-4-3">
+        <dt id="section-4-3.1">Client:</dt>
+        <dd style="margin-left: 1.5em" id="section-4-3.2">
+          <p id="section-4-3.2.1">An entity using public key material<a href="#section-4-3.2.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="section-4-3.3">Origin:</dt>
+        <dd style="margin-left: 1.5em" id="section-4-3.4">
+          <p id="section-4-3.4.1">An entity exposing public key material via HTTP<a href="#section-4-3.4.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="section-4-3.5">Mirror:</dt>
+        <dd style="margin-left: 1.5em" id="section-4-3.6">
+          <p id="section-4-3.6.1">An intermediary entity between client and server. May cache data, and act as a
+privacy proxy<a href="#section-4-3.6.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="section-4-3.7">Key metadata:</dt>
+        <dd style="margin-left: 1.5em" id="section-4-3.8">
+          <p id="section-4-3.8.1">Public data associated to a public key<a href="#section-4-3.8.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="section-4-3.9">Key Directory:</dt>
+        <dd style="margin-left: 1.5em" id="section-4-3.10">
+          <p id="section-4-3.10.1">Set of public keys<a href="#section-4-3.10.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+<dt id="section-4-3.11">Directory Metadata:</dt>
+        <dd style="margin-left: 1.5em" id="section-4-3.12">
+          <p id="section-4-3.12.1">Public data associated to a key directory. This is protocol specific.<a href="#section-4-3.12.1" class="pilcrow">¶</a></p>
+</dd>
+      <dd class="break"></dd>
+</dl>
+</section>
+</div>
+<div id="architecture">
+<section id="section-5">
+      <h2 id="name-architecture">
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-architecture" class="section-name selfRef">Architecture</a>
+      </h2>
+<p id="section-5-1">A server is exposing a key directory for clients to fetch. Clients <span class="bcp14">MAY</span> fetch the
+directory from a Mirror, either to protect its privacy, or because the Server
+wants to leverage a content delivery network.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-2">This document focuses on the below interaction, which is triggered when the
+Client does not have valid key for the server. This can be because the Client is
+new, its cache is expired, or the server refuses requests with the current key set.<a href="#section-5-2" class="pilcrow">¶</a></p>
+<div id="section-5-3">
+        <div class="alignLeft art-svg artwork" id="section-5-3.1">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="288" width="560" viewBox="0 0 560 288" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
+            <path d="M 8,32 L 8,64" fill="none" stroke="black"></path>
+            <path d="M 40,64 L 40,272" fill="none" stroke="black"></path>
+            <path d="M 80,32 L 80,64" fill="none" stroke="black"></path>
+            <path d="M 216,32 L 216,64" fill="none" stroke="black"></path>
+            <path d="M 248,64 L 248,272" fill="none" stroke="black"></path>
+            <path d="M 288,32 L 288,64" fill="none" stroke="black"></path>
+            <path d="M 416,32 L 416,64" fill="none" stroke="black"></path>
+            <path d="M 456,64 L 456,272" fill="none" stroke="black"></path>
+            <path d="M 488,32 L 488,64" fill="none" stroke="black"></path>
+            <path d="M 8,32 L 80,32" fill="none" stroke="black"></path>
+            <path d="M 216,32 L 288,32" fill="none" stroke="black"></path>
+            <path d="M 416,32 L 488,32" fill="none" stroke="black"></path>
+            <path d="M 8,64 L 80,64" fill="none" stroke="black"></path>
+            <path d="M 216,64 L 288,64" fill="none" stroke="black"></path>
+            <path d="M 416,64 L 488,64" fill="none" stroke="black"></path>
+            <path d="M 40,96 L 64,96" fill="none" stroke="black"></path>
+            <path d="M 224,96 L 240,96" fill="none" stroke="black"></path>
+            <path d="M 248,112 L 272,112" fill="none" stroke="black"></path>
+            <path d="M 432,112 L 448,112" fill="none" stroke="black"></path>
+            <path d="M 256,128 L 288,128" fill="none" stroke="black"></path>
+            <path d="M 416,128 L 456,128" fill="none" stroke="black"></path>
+            <path d="M 248,144 L 272,144" fill="none" stroke="black"></path>
+            <path d="M 256,176 L 272,176" fill="none" stroke="black"></path>
+            <path d="M 48,192 L 80,192" fill="none" stroke="black"></path>
+            <path d="M 208,192 L 248,192" fill="none" stroke="black"></path>
+            <path d="M 40,208 L 64,208" fill="none" stroke="black"></path>
+            <path d="M 456,224 L 480,224" fill="none" stroke="black"></path>
+            <path d="M 48,240 L 64,240" fill="none" stroke="black"></path>
+            <path d="M 464,256 L 480,256" fill="none" stroke="black"></path>
+            <path d="M 272,144 C 280.83064,144 288,151.16936 288,160" fill="none" stroke="black"></path>
+            <path d="M 272,176 C 280.83064,176 288,168.83064 288,160" fill="none" stroke="black"></path>
+            <path d="M 64,208 C 72.83064,208 80,215.16936 80,224" fill="none" stroke="black"></path>
+            <path d="M 480,224 C 488.83064,224 496,231.16936 496,240" fill="none" stroke="black"></path>
+            <path d="M 64,240 C 72.83064,240 80,232.83064 80,224" fill="none" stroke="black"></path>
+            <path d="M 480,256 C 488.83064,256 496,248.83064 496,240" fill="none" stroke="black"></path>
+            <polygon class="arrowhead" points="472,256 460,250.4 460,261.6" fill="black" transform="rotate(180,464,256)"></polygon>
+            <polygon class="arrowhead" points="456,112 444,106.4 444,117.6" fill="black" transform="rotate(0,448,112)"></polygon>
+            <polygon class="arrowhead" points="264,176 252,170.4 252,181.6" fill="black" transform="rotate(180,256,176)"></polygon>
+            <polygon class="arrowhead" points="264,128 252,122.4 252,133.6" fill="black" transform="rotate(180,256,128)"></polygon>
+            <polygon class="arrowhead" points="248,96 236,90.4 236,101.6" fill="black" transform="rotate(0,240,96)"></polygon>
+            <polygon class="arrowhead" points="56,240 44,234.4 44,245.6" fill="black" transform="rotate(180,48,240)"></polygon>
+            <polygon class="arrowhead" points="56,192 44,186.4 44,197.6" fill="black" transform="rotate(180,48,192)"></polygon>
+            <g class="text">
+              <text x="44" y="52">Client</text>
+              <text x="252" y="52">Mirror</text>
+              <text x="452" y="52">Origin</text>
+              <text x="88" y="100">GET</text>
+              <text x="120" y="100">Key</text>
+              <text x="176" y="100">Directory</text>
+              <text x="296" y="116">GET</text>
+              <text x="328" y="116">Key</text>
+              <text x="384" y="116">Directory</text>
+              <text x="312" y="132">Key</text>
+              <text x="368" y="132">Directory</text>
+              <text x="320" y="164">cache</text>
+              <text x="104" y="196">Key</text>
+              <text x="160" y="196">Directory</text>
+              <text x="112" y="228">cache</text>
+              <text x="532" y="244">rotate</text>
+            </g>
+          </svg><a href="#section-5-3.1" class="pilcrow">¶</a>
+</div>
+</div>
+<div id="key-id">
+<section id="section-5.1">
+        <h3 id="name-key-id">
+<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-key-id" class="section-name selfRef">Key ID</a>
+        </h3>
+<p id="section-5.1-1">Each key in the directory <span class="bcp14">MUST</span> be associated with a unique Key ID.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.1-2">Key ID is derived from key material that can be shared publicly.
+Protocol implementers <span class="bcp14">SHOULD</span> provide the following blob of data.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
+<div class="lang-tls sourcecode" id="section-5.1-3">
+<pre>
+struct {
+  opaque ProtocolBlob&lt;V&gt;;
+} PublicKeyMaterial;
+</pre><a href="#section-5.1-3" class="pilcrow">¶</a>
+</div>
+<p id="section-5.1-4">PublicKeyMaterial can be composed of both cryptographic material and metadata.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
+<p id="section-5.1-5">Key ID is defined has follow<a href="#section-5.1-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.1-6">
+<pre>
+key_id = encode(H(PublicKeyMaterial))
+</pre><a href="#section-5.1-6" class="pilcrow">¶</a>
+</div>
+<p id="section-5.1-7">where<a href="#section-5.1-7" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.1-8.1">
+            <p id="section-5.1-8.1.1"><code>PublicKeyMaterial</code> is a length-prefix-encoded blob of data<a href="#section-5.1-8.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.1-8.2">
+            <p id="section-5.1-8.2.1"><code>H</code> is a hash function<a href="#section-5.1-8.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.1-8.3">
+            <p id="section-5.1-8.3.1"><code>encode</code> is some encoding function<a href="#section-5.1-8.3.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-5.1-9">The Truncated Key ID is derived from the Key ID and uniquely identifies a Key
+within a Key Directory. For example, Privacy Pass uses the last byte of the the
+Key ID in network byte order. Other protocols use other schemes.<a href="#section-5.1-9" class="pilcrow">¶</a></p>
+<p id="section-5.1-10">Open question about H:
+* Should the draft provide specific H
+* Should the draft define an IANA registry and require protocols to register
+  their H<a href="#section-5.1-10" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="key-selection">
+<section id="section-5.2">
+        <h3 id="name-key-selection">
+<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-key-selection" class="section-name selfRef">Key Selection</a>
+        </h3>
+<p id="section-5.2-1">The following is a deterministic algorithm for determining which Key a client
+should use to fulfill their cryptographic needs. By using a deterministic
+algorithm, Origins can more easily predict the effects of a Key rotation and
+implement grace periods, soak times, etc., without modifications to a Key
+Directory’s protocol.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.2-2">Key Selection Algorithm:
+1. Remove keys which cannot satisfy a request. E.g., their not-after fields are
+   in the past, their not-before fields are in the future, or they don’t have
+   the necessary cryptographic properties, etc.
+2. If a not-before field exists, sort the remaining keys by their not-before
+   field in descending order.
+3. Use the first key of the key directory, as it appears in the Key Directory
+   format.<a href="#section-5.2-2" class="pilcrow">¶</a></p>
+<p id="section-5.2-3">Clients <span class="bcp14">SHOULD</span> implement the Key Selection Algorithm. Origins <span class="bcp14">SHOULD</span> present
+the newest Keys first.<a href="#section-5.2-3" class="pilcrow">¶</a></p>
+<p id="section-5.2-4">For protocols which define a not-before field, the above algorithm minimizes the
+chance that the used key has not expired between reading the directory and
+performing the protocol.<a href="#section-5.2-4" class="pilcrow">¶</a></p>
+<p id="section-5.2-5">For protocols without a not-before field, using the first key allows Key
+Directories to order their keys in a way where the newest is always first, and
+the soon-to-be-removed key is last. This minimizes the chance of a client using
+an expired key.<a href="#section-5.2-5" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="rotation-kid-cache-others">
+<section id="section-5.3">
+        <h3 id="name-rotation-kid-cache-others">
+<a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-rotation-kid-cache-others" class="section-name selfRef">Rotation (kid, cache, others)</a>
+        </h3>
+<div id="algorithm">
+<section id="section-5.3.1">
+          <h4 id="name-algorithm">
+<a href="#section-5.3.1" class="section-number selfRef">5.3.1. </a><a href="#name-algorithm" class="section-name selfRef">Algorithm</a>
+          </h4>
+<p id="section-5.3.1-1">We approach a public key generation by the function <code>Generate(params, RAND) -&gt; (publickey, privatekey, metadata)</code><a href="#section-5.3.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.3.1-2">At any point in time, all keys in the directory <span class="bcp14">MUST</span> have a unique truncated key id.
+When adding a key in the directory, that key <span class="bcp14">MUST</span> have a unique truncated key id.<a href="#section-5.3.1-2" class="pilcrow">¶</a></p>
+<p id="section-5.3.1-3">Generation looks as follows<a href="#section-5.3.1-3" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.3.1-4">
+<pre>
+do
+  (publickey, privatekey, metadata) &lt;- Generate(params, RAND)
+  public_key_material = (publickey | metadata)
+  key_id &lt;- H(public_key_material)
+while (key_id is not unique)
+</pre><a href="#section-5.3.1-4" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="scheduled-server-client-behaviour">
+<section id="section-5.3.2">
+          <h4 id="name-scheduled-server-client-beh">
+<a href="#section-5.3.2" class="section-number selfRef">5.3.2. </a><a href="#name-scheduled-server-client-beh" class="section-name selfRef">Scheduled (server, client behaviour)</a>
+          </h4>
+<p id="section-5.3.2-1">Two options:<a href="#section-5.3.2-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.3.2-2.1">
+              <p id="section-5.3.2-2.1.1">passive = rely on cache header to set not-after on the client side. stop
+advertising the key at time t, and delete it at time t+maxage
+take intermediate into consideration<a href="#section-5.3.2-2.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-5.3.2-2.2">
+              <p id="section-5.3.2-2.2.1">active = keep serving the key but add not-after before expiration. It should
+be NOW()+maxage<a href="#section-5.3.2-2.2.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+<p id="section-5.3.2-3">In both case, the protocol <span class="bcp14">MUST</span> define an error to signal a key which is not
+supported. It is <span class="bcp14">RECOMMENDED</span> to use truncated token ID as a short identifier.<a href="#section-5.3.2-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="immediate-server-client-behaviour">
+<section id="section-5.3.3">
+          <h4 id="name-immediate-server-client-beh">
+<a href="#section-5.3.3" class="section-number selfRef">5.3.3. </a><a href="#name-immediate-server-client-beh" class="section-name selfRef">Immediate (server, client behaviour)</a>
+          </h4>
+<p id="section-5.3.3-1">There are moment where keys have to be rotated immediately. Existing keys may
+have to be invalidated and/or new keys be provisioned. Immediate key rotation
+may happen in the event of a key compromise, loss, or other imperious reason.<a href="#section-5.3.3-1" class="pilcrow">¶</a></p>
+<p id="section-5.3.3-2">Immediate key rotation will cause some client requests to the server to fail
+until the client and mirrors retrieve a new version of the directory. The key
+directory endpoint is going to be placed under a higher load.<a href="#section-5.3.3-2" class="pilcrow">¶</a></p>
+<p id="section-5.3.3-3">Client requests are expected to fail.<a href="#section-5.3.3-3" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-5.3.3-4">
+<li id="section-5.3.3-4.1">
+              <p id="section-5.3.3-4.1.1">You <span class="bcp14">MAY</span> introduce a random backoff to spread the load of key distribution over
+time. See #TODO link to caching section<a href="#section-5.3.3-4.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-5.3.3-4.2">
+              <p id="section-5.3.3-4.2.1">Clients on a scheduled rotation <span class="bcp14">MAY</span> be configured to distrust rotation outside
+a fixed schedule. Protocols <span class="bcp14">SHOULD</span> define such policies.<a href="#section-5.3.3-4.2.1" class="pilcrow">¶</a></p>
+</li>
+          </ol>
+</section>
+</div>
+</section>
+</div>
+<div id="cache-behaviour">
+<section id="section-5.4">
+        <h3 id="name-cache-behaviour">
+<a href="#section-5.4" class="section-number selfRef">5.4. </a><a href="#name-cache-behaviour" class="section-name selfRef">Cache behaviour</a>
+        </h3>
+<p id="section-5.4-1">Caching the Key Directory lowers latency and reduces resource usage on the
+Mirror and the Origin. An optimal caching strategy should minimize resource
+usage for both the Client and Origin while preventing the client from using an
+invalid key.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
+<p id="section-5.4-2">These two requirements, minimizing resource usage and never using an invalid
+key, are at odds with each other. In the event of an unplanned key rotation, a
+client might use an invalid key. However, if a client fetched the keys for every
+request, it would waste time and network resources.<a href="#section-5.4-2" class="pilcrow">¶</a></p>
+<div id="not-before-fields">
+<section id="section-5.4.1">
+          <h4 id="name-not-before-fields">
+<a href="#section-5.4.1" class="section-number selfRef">5.4.1. </a><a href="#name-not-before-fields" class="section-name selfRef">not-before fields</a>
+          </h4>
+<p id="section-5.4.1-1">Origins <span class="bcp14">SHOULD</span>, when possible in the Key Directory format, add a not-before
+field or equivalent to each Key in the Directory. The not-before field allows
+the directory to signal to a client when a Key is safe to use and reduces the
+chance a client uses an expired key. When the unit of time used for the
+not-before field is ambiguous, it <span class="bcp14">MUST</span> be a Unix epoch timestamp in seconds.<a href="#section-5.4.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="cache-directives">
+<section id="section-5.4.2">
+          <h4 id="name-cache-directives">
+<a href="#section-5.4.2" class="section-number selfRef">5.4.2. </a><a href="#name-cache-directives" class="section-name selfRef">cache directives</a>
+          </h4>
+<p id="section-5.4.2-1">Origins <span class="bcp14">SHOULD</span> respond with cache directives<span>[<a href="#HTTP-CACHE" class="cite xref">HTTP-CACHE</a>]</span> which
+control when the Key Directory should be refreshed. Origins <span class="bcp14">SHOULD</span> provide a
+<code>Cache-Control: max-age</code> header, or <code>Expires</code> header which is slightly less than
+the grace period given for a key about to rotate. Clients <span class="bcp14">SHOULD</span> respect the
+<code>max-age</code> cache directive and <span class="bcp14">MAY</span> respect other directives. If an Origin
+provides a <code>max-age</code> header AND a Mirror is used, the Origin <span class="bcp14">MUST</span> provide a
+<code>s-maxage</code> header that is equivalent to <code>max-age</code>.<a href="#section-5.4.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.4.2-2">To prevent Clients refreshing their Key Directories at the same time
+(synchronization), Mirrors <span class="bcp14">MAY</span> provide to its clients a <code>max-age</code> cache directive
+with duration in the range <code>[0, Origin s-maxage]</code>.<a href="#section-5.4.2-2" class="pilcrow">¶</a></p>
+<p id="section-5.4.2-3">Mirrors <span class="bcp14">MUST</span> respect all provided cache directives. Mirrors <span class="bcp14">SHOULD</span> issue a
+<code>max-age</code> value which matches the remaining time to live (TTL) value of the key
+directory in the Mirror’s local cache.<a href="#section-5.4.2-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="client-cache-refresh">
+<section id="section-5.4.3">
+          <h4 id="name-client-cache-refresh">
+<a href="#section-5.4.3" class="section-number selfRef">5.4.3. </a><a href="#name-client-cache-refresh" class="section-name selfRef">Client cache refresh</a>
+          </h4>
+<p id="section-5.4.3-1">The primary method a Client <span class="bcp14">SHOULD</span> use to determine when it refreshes its view
+of the Key Directory is through the delta seconds described in the <code>max-age</code>
+cache directive. The higher the delta, the less frequent a Client will update
+its cache. The lower the delta, the quicker clients will respond to unplanned
+key rotations.<a href="#section-5.4.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="well-known-url">
+<section id="section-5.5">
+        <h3 id="name-well-known-url">
+<a href="#section-5.5" class="section-number selfRef">5.5. </a><a href="#name-well-known-url" class="section-name selfRef">Well known URL</a>
+        </h3>
+<p id="section-5.5-1">It is <span class="bcp14">RECOMMENDED</span> protocol register a <span>[<a href="#WELL-KNOWN" class="cite xref">WELL-KNOWN</a>]</span>URL and associated
+content-type.<a href="#section-5.5-1" class="pilcrow">¶</a></p>
+<p id="section-5.5-2">A key directory server <span class="bcp14">MUST</span> support both GET and HEAD request on that endpoint.<a href="#section-5.5-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.5-3">
+<pre>
+GET /.well-known/&lt;your-protocol&gt;
+
+HTTP/1.1 200 OK
+Cache-Control: max-age=300
+Content-Type: &lt;your-protocol&gt;
+</pre><a href="#section-5.5-3" class="pilcrow">¶</a>
+</div>
+<p id="section-5.5-4">HEAD requests can be used by clients to cheaply determine if the directory has
+changed.<a href="#section-5.5-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="future-considerations">
+<section id="section-5.6">
+        <h3 id="name-future-considerations">
+<a href="#section-5.6" class="section-number selfRef">5.6. </a><a href="#name-future-considerations" class="section-name selfRef">Future considerations</a>
+        </h3>
+<p id="section-5.6-1">These considerations should be addressed in future drafts.<a href="#section-5.6-1" class="pilcrow">¶</a></p>
+<div id="consistency">
+<section id="section-5.6.1">
+          <h4 id="name-consistency">
+<a href="#section-5.6.1" class="section-number selfRef">5.6.1. </a><a href="#name-consistency" class="section-name selfRef">Consistency</a>
+          </h4>
+<p id="section-5.6.1-1">Consistency allows client to prevent themselves from split view attack. A
+proposal that has been made for Privacy Pass is to use multiple mirrors
+<span>[<a href="#CONSISTENCY" class="cite xref">CONSISTENCY</a>]</span>. With a
+sufficiently high quorum, clients get more confident that they are not singled
+out.
+It presents scalability issues as you need multiple mirrors, and have one more
+requests from client per mirror in the quorum.<a href="#section-5.6.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="key-transparency">
+<section id="section-5.6.2">
+          <h4 id="name-key-transparency">
+<a href="#section-5.6.2" class="section-number selfRef">5.6.2. </a><a href="#name-key-transparency" class="section-name selfRef">Key Transparency</a>
+          </h4>
+<p id="section-5.6.2-1">Key Directory over HTTP should integrate with transparency, once the protocol has
+been defined in <span>[<a href="#KEYTRANS" class="cite xref">KEYTRANS</a>]</span>.
+There are specific consideration as to what goes in the log: the full
+directory, keys individually, privacy considerations.<a href="#section-5.6.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="deployment-considerations">
+<section id="section-6">
+      <h2 id="name-deployment-considerations">
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-deployment-considerations" class="section-name selfRef">Deployment Considerations</a>
+      </h2>
+<p id="section-6-1">Rotation schedule: fast?
+Proxy improves client experience and shields key directory server<a href="#section-6-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="privacy-considerations">
+<section id="section-7">
+      <h2 id="name-privacy-considerations">
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-privacy-considerations" class="section-name selfRef">Privacy Considerations</a>
+      </h2>
+<p id="section-7-1">TODO Privacy<a href="#section-7-1" class="pilcrow">¶</a></p>
+<p id="section-7-2">Clients fetching keys mean they reveal their IP, time, and other informations.
+When the key directory is for an external service, Clients <span class="bcp14">SHOULD</span> consider
+proxying their traffic through a mirror server. Mirrors <span class="bcp14">SHOULD NOT</span> collide with
+the key server.<a href="#section-7-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="security-considerations">
+<section id="section-8">
+      <h2 id="name-security-considerations">
+<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
+      </h2>
+<p id="section-8-1">TODO Security<a href="#section-8-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="iana-considerations">
+<section id="section-9">
+      <h2 id="name-iana-considerations">
+<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
+      </h2>
+<p id="section-9-1">This document has no IANA actions.<a href="#section-9-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="sec-combined-references">
+<section id="section-10">
+      <h2 id="name-references">
+<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-references" class="section-name selfRef">References</a>
+      </h2>
+<div id="sec-normative-references">
+<section id="section-10.1">
+        <h3 id="name-normative-references">
+<a href="#section-10.1" class="section-number selfRef">10.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+        </h3>
+<dl class="references">
+<dt id="CONSISTENCY">[CONSISTENCY]</dt>
+        <dd>
+<span class="refAuthor">Beurdouche, B.</span>, <span class="refAuthor">Finkel, M.</span>, <span class="refAuthor">Valdez, S.</span>, <span class="refAuthor">Wood, C. A.</span>, and <span class="refAuthor">T. Pauly</span>, <span class="refTitle">"Checking Resource Consistency with HTTP Mirrors"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-privacypass-consistency-mirror-00</span>, <time datetime="2024-01-30" class="refDate">30 January 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-privacypass-consistency-mirror-00">https://datatracker.ietf.org/doc/html/draft-ietf-privacypass-consistency-mirror-00</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="HTTP-CACHE">[HTTP-CACHE]</dt>
+        <dd>
+<span class="refAuthor">Fielding, R., Ed.</span>, <span class="refAuthor">Nottingham, M., Ed.</span>, and <span class="refAuthor">J. Reschke, Ed.</span>, <span class="refTitle">"HTTP Caching"</span>, <span class="seriesInfo">STD 98</span>, <span class="seriesInfo">RFC 9111</span>, <span class="seriesInfo">DOI 10.17487/RFC9111</span>, <time datetime="2022-06" class="refDate">June 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9111">https://www.rfc-editor.org/rfc/rfc9111</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="KEYTRANS">[KEYTRANS]</dt>
+        <dd>
+<span class="refAuthor">McMillion, B.</span> and <span class="refAuthor">F. Linker</span>, <span class="refTitle">"Key Transparency Protocol"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-keytrans-protocol-00</span>, <time datetime="2024-12-10" class="refDate">10 December 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-keytrans-protocol-00">https://datatracker.ietf.org/doc/html/draft-ietf-keytrans-protocol-00</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC2119">[RFC2119]</dt>
+        <dd>
+<span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8174">[RFC8174]</dt>
+        <dd>
+<span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8446">[RFC8446]</dt>
+        <dd>
+<span class="refAuthor">Rescorla, E.</span>, <span class="refTitle">"The Transport Layer Security (TLS) Protocol Version 1.3"</span>, <span class="seriesInfo">RFC 8446</span>, <span class="seriesInfo">DOI 10.17487/RFC8446</span>, <time datetime="2018-08" class="refDate">August 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8446">https://www.rfc-editor.org/rfc/rfc8446</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="WELL-KNOWN">[WELL-KNOWN]</dt>
+      <dd>
+<span class="refAuthor">Nottingham, M.</span>, <span class="refTitle">"Well-Known Uniform Resource Identifiers (URIs)"</span>, <span class="seriesInfo">RFC 8615</span>, <span class="seriesInfo">DOI 10.17487/RFC8615</span>, <time datetime="2019-05" class="refDate">May 2019</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8615">https://www.rfc-editor.org/rfc/rfc8615</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+</div>
+<div id="sec-informative-references">
+<section id="section-10.2">
+        <h3 id="name-informative-references">
+<a href="#section-10.2" class="section-number selfRef">10.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+        </h3>
+<dl class="references">
+<dt id="RFC9000">[RFC9000]</dt>
+      <dd>
+<span class="refAuthor">Iyengar, J., Ed.</span> and <span class="refAuthor">M. Thomson, Ed.</span>, <span class="refTitle">"QUIC: A UDP-Based Multiplexed and Secure Transport"</span>, <span class="seriesInfo">RFC 9000</span>, <span class="seriesInfo">DOI 10.17487/RFC9000</span>, <time datetime="2021-05" class="refDate">May 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9000">https://www.rfc-editor.org/rfc/rfc9000</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+</div>
+</section>
+</div>
+<div id="test-vectors">
+<section id="appendix-A">
+      <h2 id="name-test-vectors">
+<a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-test-vectors" class="section-name selfRef">Test vectors</a>
+      </h2>
+<p id="appendix-A-1">List how to test cache
+List how to test rotation<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="use-cases">
+<section id="appendix-B">
+      <h2 id="name-use-cases">
+<a href="#appendix-B" class="section-number selfRef">Appendix B. </a><a href="#name-use-cases" class="section-name selfRef">Use cases</a>
+      </h2>
+<p id="appendix-B-1">See existing key directory on https://key-directory-over-http.research.cloudflare.com/<a href="#appendix-B-1" class="pilcrow">¶</a></p>
+<div id="dap">
+<section id="appendix-B.1">
+        <h3 id="name-dap">
+<a href="#appendix-B.1" class="section-number selfRef">B.1. </a><a href="#name-dap" class="section-name selfRef">DAP</a>
+        </h3>
+<p id="appendix-B.1-1">HpkeConfigList [1]<a href="#appendix-B.1-1" class="pilcrow">¶</a></p>
+<div class="lang-tls sourcecode" id="appendix-B.1-2">
+<pre>
+HpkeConfig HpkeConfigList&lt;0..2^16-1&gt;;
+
+struct {
+  HpkeConfigId id;
+  HpkeKemId kem_id;
+  HpkeKdfId kdf_id;
+  HpkeAeadId aead_id;
+  HpkePublicKey public_key;
+} HpkeConfig;
+
+opaque HpkePublicKey&lt;0..2^16-1&gt;;
+uint16 HpkeAeadId; /* Defined in [HPKE] */
+uint16 HpkeKemId;  /* Defined in [HPKE] */
+uint16 HpkeKdfId;  /* Defined in [HPKE] */
+</pre><a href="#appendix-B.1-2" class="pilcrow">¶</a>
+</div>
+<p id="appendix-B.1-3">Partially informed comments:<a href="#appendix-B.1-3" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-B.1-4.1">
+            <p id="appendix-B.1-4.1.1">HpkeConfigId could be removed<a href="#appendix-B.1-4.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-B.1-4.2">
+            <p id="appendix-B.1-4.2.1">Need not-before to handle early capture<a href="#appendix-B.1-4.2.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="appendix-B.1-5">[1] https://datatracker.ietf.org/doc/html/draft-ietf-ppm-dap-13#section-4.5.1<a href="#appendix-B.1-5" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="ohttp">
+<section id="appendix-B.2">
+        <h3 id="name-ohttp">
+<a href="#appendix-B.2" class="section-number selfRef">B.2. </a><a href="#name-ohttp" class="section-name selfRef">OHTTP</a>
+        </h3>
+<p id="appendix-B.2-1">Key Configutation [1]<a href="#appendix-B.2-1" class="pilcrow">¶</a></p>
+<div class="lang-tls sourcecode" id="appendix-B.2-2">
+<pre>
+HPKE Symmetric Algorithms {
+  HPKE KDF ID (16),
+  HPKE AEAD ID (16),
+}
+
+Key Config {
+  Key Identifier (8),
+  HPKE KEM ID (16),
+  HPKE Public Key (Npk * 8),
+  HPKE Symmetric Algorithms Length (16) = 4..65532,
+  HPKE Symmetric Algorithms (32) ...,
+}
+</pre><a href="#appendix-B.2-2" class="pilcrow">¶</a>
+</div>
+<p id="appendix-B.2-3">Partially informed comments:<a href="#appendix-B.2-3" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-B.2-4.1">
+            <p id="appendix-B.2-4.1.1">Key Identifier could be removed/be deterministic<a href="#appendix-B.2-4.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-B.2-4.2">
+            <p id="appendix-B.2-4.2.1">No mention of not-before<a href="#appendix-B.2-4.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-B.2-4.3">
+            <p id="appendix-B.2-4.3.1">No mention of HTTP Caching for rotation<a href="#appendix-B.2-4.3.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="appendix-B.2-5">[1] https://www.ietf.org/rfc/rfc9458.html#name-key-configuration<a href="#appendix-B.2-5" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="privacy-pass">
+<section id="appendix-B.3">
+        <h3 id="name-privacy-pass">
+<a href="#appendix-B.3" class="section-number selfRef">B.3. </a><a href="#name-privacy-pass" class="section-name selfRef">Privacy Pass</a>
+        </h3>
+<p id="appendix-B.3-1">Issuer directory [1]<a href="#appendix-B.3-1" class="pilcrow">¶</a></p>
+<div class="lang-tls sourcecode" id="appendix-B.3-2">
+<pre>
+ {
+    "issuer-request-uri": "https://issuer.example.net/request",
+    "token-keys": [
+      {
+        "token-type": 2,
+        "token-key": "MI...AB",
+        "not-before": 1686913811,
+      },
+      {
+        "token-type": 2,
+        "token-key": "MI...AQ",
+      }
+    ]
+ }
+</pre><a href="#appendix-B.3-2" class="pilcrow">¶</a>
+</div>
+<p id="appendix-B.3-3">Partially informed comments:
+* Not as flexible as HPKE
+* Has some protocol metadata (token-type, issuer-request-uri, rate-limit)<a href="#appendix-B.3-3" class="pilcrow">¶</a></p>
+<p id="appendix-B.3-4">[1] https://www.rfc-editor.org/rfc/rfc9578#name-configuration<a href="#appendix-B.3-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="masque-relay">
+<section id="appendix-B.4">
+        <h3 id="name-masque-relay">
+<a href="#appendix-B.4" class="section-number selfRef">B.4. </a><a href="#name-masque-relay" class="section-name selfRef">Masque relay</a>
+        </h3>
+<p id="appendix-B.4-1">..<a href="#appendix-B.4-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="acknowledgments">
+<section id="appendix-C">
+      <h2 id="name-acknowledgments">
+<a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
+      </h2>
+<p id="appendix-C-1">TODO acknowledge.<a href="#appendix-C-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="authors-addresses">
+<section id="appendix-D">
+      <h2 id="name-authors-addresses">
+<a href="#name-authors-addresses" class="section-name selfRef">Authors' Addresses</a>
+      </h2>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Fisher Darling</span></div>
+<div dir="auto" class="left"><span class="org">Cloudflare Inc.</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:fisher@darling.dev" class="email">fisher@darling.dev</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Thibault Meunier</span></div>
+<div dir="auto" class="left"><span class="org">Cloudflare Inc.</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:ot-ietf@thibault.uk" class="email">ot-ietf@thibault.uk</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Simon Newton</span></div>
+<div dir="auto" class="left"><span class="org">Cloudflare Inc.</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:rfc@simonnewton.com" class="email">rfc@simonnewton.com</a>
+</div>
+</address>
+</section>
+</div>
+<script>const toc = document.getElementById("toc");
+toc.querySelector("h2").addEventListener("click", e => {
+  toc.classList.toggle("active");
+});
+toc.querySelector("nav").addEventListener("click", e => {
+  toc.classList.remove("active");
+});
+</script>
+</body>
+</html>
