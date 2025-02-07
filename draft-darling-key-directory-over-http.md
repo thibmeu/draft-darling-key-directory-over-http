@@ -192,6 +192,7 @@ within a Key Directory. For example, Privacy Pass uses the last byte of the the
 Key ID in network byte order. Other protocols use other schemes.
 
 Open question about H:
+
 * Should the draft provide specific H
 * Should the draft define an IANA registry and require protocols to register
   their H
@@ -205,6 +206,7 @@ implement grace periods, soak times, etc., without modifications to a Key
 Directory’s protocol.
 
 Key Selection Algorithm:
+
 1. Remove keys which cannot satisfy a request. E.g., their not-after fields are
    in the past, their not-before fields are in the future, or they don’t have
    the necessary cryptographic properties, etc.
