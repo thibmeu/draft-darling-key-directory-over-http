@@ -1058,7 +1058,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Darling, et al.</td>
-<td class="center">Expires 10 August 2025</td>
+<td class="center">Expires 11 August 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1071,12 +1071,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-darling-key-directory-over-http-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-02-06" class="published">6 February 2025</time>
+<time datetime="2025-02-07" class="published">7 February 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-08-10">10 August 2025</time></dd>
+<dd class="expires"><time datetime="2025-08-11">11 August 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1137,7 +1137,7 @@ URL.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 10 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 11 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1187,10 +1187,10 @@ URL.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
             <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-architecture" class="internal xref">Architecture</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
-                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-cache-behaviour" class="internal xref">Cache behaviour</a></p>
+                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-key-id" class="internal xref">Key ID</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
-                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-key-id" class="internal xref">Key ID</a></p>
+                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-key-selection" class="internal xref">Key Selection</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3">
                 <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="auto internal xref">5.3</a>.  <a href="#name-rotation-kid-cache-others" class="internal xref">Rotation (kid, cache, others)</a></p>
@@ -1207,16 +1207,30 @@ URL.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
                 </ul>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.4">
-                <p id="section-toc.1-1.5.2.4.1"><a href="#section-5.4" class="auto internal xref">5.4</a>.  <a href="#name-well-known-url" class="internal xref">Well known URL</a></p>
+                <p id="section-toc.1-1.5.2.4.1"><a href="#section-5.4" class="auto internal xref">5.4</a>.  <a href="#name-cache-behaviour" class="internal xref">Cache behaviour</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.4.2.1">
+                    <p id="section-toc.1-1.5.2.4.2.1.1"><a href="#section-5.4.1" class="auto internal xref">5.4.1</a>.  <a href="#name-not-before-fields" class="internal xref">not-before fields</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.4.2.2">
+                    <p id="section-toc.1-1.5.2.4.2.2.1"><a href="#section-5.4.2" class="auto internal xref">5.4.2</a>.  <a href="#name-cache-directives" class="internal xref">cache directives</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.4.2.3">
+                    <p id="section-toc.1-1.5.2.4.2.3.1"><a href="#section-5.4.3" class="auto internal xref">5.4.3</a>.  <a href="#name-client-cache-refresh" class="internal xref">Client cache refresh</a></p>
+</li>
+                </ul>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.5">
-                <p id="section-toc.1-1.5.2.5.1"><a href="#section-5.5" class="auto internal xref">5.5</a>.  <a href="#name-future-considerations" class="internal xref">Future considerations</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.5.2.1">
-                    <p id="section-toc.1-1.5.2.5.2.1.1"><a href="#section-5.5.1" class="auto internal xref">5.5.1</a>.  <a href="#name-consistency" class="internal xref">Consistency</a></p>
+                <p id="section-toc.1-1.5.2.5.1"><a href="#section-5.5" class="auto internal xref">5.5</a>.  <a href="#name-well-known-url" class="internal xref">Well known URL</a></p>
 </li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.5.2.2">
-                    <p id="section-toc.1-1.5.2.5.2.2.1"><a href="#section-5.5.2" class="auto internal xref">5.5.2</a>.  <a href="#name-key-transparency" class="internal xref">Key Transparency</a></p>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.6">
+                <p id="section-toc.1-1.5.2.6.1"><a href="#section-5.6" class="auto internal xref">5.6</a>.  <a href="#name-future-considerations" class="internal xref">Future considerations</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.6.2.1">
+                    <p id="section-toc.1-1.5.2.6.2.1.1"><a href="#section-5.6.1" class="auto internal xref">5.6.1</a>.  <a href="#name-consistency" class="internal xref">Consistency</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.6.2.2">
+                    <p id="section-toc.1-1.5.2.6.2.2.1"><a href="#section-5.6.2" class="auto internal xref">5.6.2</a>.  <a href="#name-key-transparency" class="internal xref">Key Transparency</a></p>
 </li>
                 </ul>
 </li>
@@ -1465,59 +1479,76 @@ new, its cache is expired, or the server refuses requests with the current key s
           </svg><a href="#section-5-3.1" class="pilcrow">¶</a>
 </div>
 </div>
-<div id="cache-behaviour">
-<section id="section-5.1">
-        <h3 id="name-cache-behaviour">
-<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-cache-behaviour" class="section-name selfRef">Cache behaviour</a>
-        </h3>
-<p id="section-5.1-1">Cache control, intermediaries<a href="#section-5.1-1" class="pilcrow">¶</a></p>
-<p id="section-5.1-2">Client should use cache directive per key, so that if a key becomes invalid,
-they use the next one in their cache.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
-<p id="section-5.1-3">TODO: write about key preference, based on not-before, not-after, or order in
-the directory.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
-</section>
-</div>
 <div id="key-id">
-<section id="section-5.2">
+<section id="section-5.1">
         <h3 id="name-key-id">
-<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-key-id" class="section-name selfRef">Key ID</a>
+<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-key-id" class="section-name selfRef">Key ID</a>
         </h3>
-<p id="section-5.2-1">Each key in the directory <span class="bcp14">MUST</span> be associated with a unique Key ID.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
-<p id="section-5.2-2">Key ID is derived from key material that can be shared publicly.
-Protocol implementers <span class="bcp14">SHOULD</span> provide the following blob of data.<a href="#section-5.2-2" class="pilcrow">¶</a></p>
-<div class="lang-tls sourcecode" id="section-5.2-3">
+<p id="section-5.1-1">Each key in the directory <span class="bcp14">MUST</span> be associated with a unique Key ID.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.1-2">Key ID is derived from key material that can be shared publicly.
+Protocol implementers <span class="bcp14">SHOULD</span> provide the following blob of data.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
+<div class="lang-tls sourcecode" id="section-5.1-3">
 <pre>
 struct {
   opaque ProtocolBlob&lt;V&gt;;
 } PublicKeyMaterial;
-</pre><a href="#section-5.2-3" class="pilcrow">¶</a>
+</pre><a href="#section-5.1-3" class="pilcrow">¶</a>
 </div>
-<p id="section-5.2-4">PublicKeyMaterial can be composed of both cryptographic material and metadata.<a href="#section-5.2-4" class="pilcrow">¶</a></p>
-<p id="section-5.2-5">Key ID is defined has follow<a href="#section-5.2-5" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.2-6">
+<p id="section-5.1-4">PublicKeyMaterial can be composed of both cryptographic material and metadata.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
+<p id="section-5.1-5">Key ID is defined has follow<a href="#section-5.1-5" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.1-6">
 <pre>
 key_id = encode(H(PublicKeyMaterial))
-</pre><a href="#section-5.2-6" class="pilcrow">¶</a>
+</pre><a href="#section-5.1-6" class="pilcrow">¶</a>
 </div>
-<p id="section-5.2-7">where<a href="#section-5.2-7" class="pilcrow">¶</a></p>
+<p id="section-5.1-7">where<a href="#section-5.1-7" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.2-8.1">
-            <p id="section-5.2-8.1.1"><code>PublicKeyMaterial</code> is a length-prefix-encoded blob of data<a href="#section-5.2-8.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-5.1-8.1">
+            <p id="section-5.1-8.1.1"><code>PublicKeyMaterial</code> is a length-prefix-encoded blob of data<a href="#section-5.1-8.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.2-8.2">
-            <p id="section-5.2-8.2.1"><code>H</code> is a hash function<a href="#section-5.2-8.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-5.1-8.2">
+            <p id="section-5.1-8.2.1"><code>H</code> is a hash function<a href="#section-5.1-8.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.2-8.3">
-            <p id="section-5.2-8.3.1"><code>encode</code> is some encoding function<a href="#section-5.2-8.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-5.1-8.3">
+            <p id="section-5.1-8.3.1"><code>encode</code> is some encoding function<a href="#section-5.1-8.3.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-5.2-9">The Truncated Key ID is derived from the Key ID and uniquely identifies a Key
+<p id="section-5.1-9">The Truncated Key ID is derived from the Key ID and uniquely identifies a Key
 within a Key Directory. For example, Privacy Pass uses the last byte of the the
-Key ID in network byte order. Other protocols use other schemes.<a href="#section-5.2-9" class="pilcrow">¶</a></p>
-<p id="section-5.2-10">Open question about H:
+Key ID in network byte order. Other protocols use other schemes.<a href="#section-5.1-9" class="pilcrow">¶</a></p>
+<p id="section-5.1-10">Open question about H:
 * Should the draft provide specific H
 * Should the draft define an IANA registry and require protocols to register
-  their H<a href="#section-5.2-10" class="pilcrow">¶</a></p>
+  their H<a href="#section-5.1-10" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="key-selection">
+<section id="section-5.2">
+        <h3 id="name-key-selection">
+<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-key-selection" class="section-name selfRef">Key Selection</a>
+        </h3>
+<p id="section-5.2-1">The following is a deterministic algorithm for determining which Key a client
+should use to fulfill their cryptographic needs. By using a deterministic
+algorithm, Origins can more easily predict the effects of a Key rotation and
+implement grace periods, soak times, etc., without modifications to a Key
+Directory’s protocol.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.2-2">Key Selection Algorithm:
+1. Remove keys which cannot satisfy a request. E.g., their not-after fields are
+   in the past, their not-before fields are in the future, or they don’t have
+   the necessary cryptographic properties, etc.
+2. If a not-before field exists, sort the remaining keys by their not-before
+   field in descending order.
+3. Use the first key of the key directory, as it appears in the Key Directory
+   format.<a href="#section-5.2-2" class="pilcrow">¶</a></p>
+<p id="section-5.2-3">Clients <span class="bcp14">SHOULD</span> implement the Key Selection Algorithm. Origins <span class="bcp14">SHOULD</span> present
+the newest Keys first.<a href="#section-5.2-3" class="pilcrow">¶</a></p>
+<p id="section-5.2-4">For protocols which define a not-before field, the above algorithm minimizes the
+chance that the used key has not expired between reading the directory and
+performing the protocol.<a href="#section-5.2-4" class="pilcrow">¶</a></p>
+<p id="section-5.2-5">For protocols without a not-before field, using the first key allows Key
+Directories to order their keys in a way where the newest is always first, and
+the soon-to-be-removed key is last. This minimizes the chance of a client using
+an expired key.<a href="#section-5.2-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="rotation-kid-cache-others">
@@ -1575,8 +1606,8 @@ supported. It is <span class="bcp14">RECOMMENDED</span> to use truncated token I
 have to be invalidated and/or new keys be provisioned. Immediate key rotation
 may happen in the event of a key compromise, loss, or other imperious reason.<a href="#section-5.3.3-1" class="pilcrow">¶</a></p>
 <p id="section-5.3.3-2">Immediate key rotation will cause some client requests to the server to fail
-until the client retrieves a new version of the directory. The key directory
-endpoint is going to be placed under a higher load.<a href="#section-5.3.3-2" class="pilcrow">¶</a></p>
+until the client and mirrors retrieve a new version of the directory. The key
+directory endpoint is going to be placed under a higher load.<a href="#section-5.3.3-2" class="pilcrow">¶</a></p>
 <p id="section-5.3.3-3">Client requests are expected to fail.<a href="#section-5.3.3-3" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-5.3.3-4">
 <li id="section-5.3.3-4.1">
@@ -1592,56 +1623,115 @@ a fixed schedule. Protocols <span class="bcp14">SHOULD</span> define such polici
 </div>
 </section>
 </div>
-<div id="well-known-url">
+<div id="cache-behaviour">
 <section id="section-5.4">
-        <h3 id="name-well-known-url">
-<a href="#section-5.4" class="section-number selfRef">5.4. </a><a href="#name-well-known-url" class="section-name selfRef">Well known URL</a>
+        <h3 id="name-cache-behaviour">
+<a href="#section-5.4" class="section-number selfRef">5.4. </a><a href="#name-cache-behaviour" class="section-name selfRef">Cache behaviour</a>
         </h3>
-<p id="section-5.4-1">It is <span class="bcp14">RECOMMENDED</span> protocol register a <span>[<a href="#WELL-KNOWN" class="cite xref">WELL-KNOWN</a>]</span>URL and associated
-content-type.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
-<p id="section-5.4-2">A key directory server <span class="bcp14">MUST</span> support both GET and HEAD request on that endpoint.<a href="#section-5.4-2" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.4-3">
+<p id="section-5.4-1">Caching the Key Directory lowers latency and reduces resource usage on the
+Mirror and the Origin. An optimal caching strategy should minimize resource
+usage for both the Client and Origin while preventing the client from using an
+invalid key.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
+<p id="section-5.4-2">These two requirements, minimizing resource usage and never using an invalid
+key, are at odds with each other. In the event of an unplanned key rotation, a
+client might use an invalid key. However, if a client fetched the keys for every
+request, it would waste time and network resources.<a href="#section-5.4-2" class="pilcrow">¶</a></p>
+<div id="not-before-fields">
+<section id="section-5.4.1">
+          <h4 id="name-not-before-fields">
+<a href="#section-5.4.1" class="section-number selfRef">5.4.1. </a><a href="#name-not-before-fields" class="section-name selfRef">not-before fields</a>
+          </h4>
+<p id="section-5.4.1-1">Origins <span class="bcp14">SHOULD</span>, when possible in the Key Directory format, add a not-before
+field or equivalent to each Key in the Directory. The not-before field allows
+the directory to signal to a client when a Key is safe to use and reduces the
+chance a client uses an expired key. When the unit of time used for the
+not-before field is ambiguous, it <span class="bcp14">MUST</span> be a Unix epoch timestamp in seconds.<a href="#section-5.4.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="cache-directives">
+<section id="section-5.4.2">
+          <h4 id="name-cache-directives">
+<a href="#section-5.4.2" class="section-number selfRef">5.4.2. </a><a href="#name-cache-directives" class="section-name selfRef">cache directives</a>
+          </h4>
+<p id="section-5.4.2-1">Origins <span class="bcp14">SHOULD</span> respond with cache directives<span>[<a href="#HTTP-CACHE" class="cite xref">HTTP-CACHE</a>]</span> which
+control when the Key Directory should be refreshed. Origins <span class="bcp14">SHOULD</span> provide a
+<code>Cache-Control: max-age</code> header, or <code>Expires</code> header which is slightly less than
+the grace period given for a key about to rotate. Clients <span class="bcp14">SHOULD</span> respect the
+<code>max-age</code> cache directive and <span class="bcp14">MAY</span> respect other directives. If an Origin
+provides a <code>max-age</code> header AND a Mirror is used, the Origin <span class="bcp14">MUST</span> provide a
+<code>s-maxage</code> header that is equivalent to <code>max-age</code>.<a href="#section-5.4.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.4.2-2">To prevent Clients refreshing their Key Directories at the same time
+(synchronization), Mirrors <span class="bcp14">MAY</span> provide to its clients a <code>max-age</code> cache directive
+with duration in the range <code>[0, Origin s-maxage]</code>.<a href="#section-5.4.2-2" class="pilcrow">¶</a></p>
+<p id="section-5.4.2-3">Mirrors <span class="bcp14">MUST</span> respect all provided cache directives. Mirrors <span class="bcp14">SHOULD</span> issue a
+<code>max-age</code> value which matches the remaining time to live (TTL) value of the key
+directory in the Mirror’s local cache.<a href="#section-5.4.2-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="client-cache-refresh">
+<section id="section-5.4.3">
+          <h4 id="name-client-cache-refresh">
+<a href="#section-5.4.3" class="section-number selfRef">5.4.3. </a><a href="#name-client-cache-refresh" class="section-name selfRef">Client cache refresh</a>
+          </h4>
+<p id="section-5.4.3-1">The primary method a Client <span class="bcp14">SHOULD</span> use to determine when it refreshes its view
+of the Key Directory is through the delta seconds described in the <code>max-age</code>
+cache directive. The higher the delta, the less frequent a Client will update
+its cache. The lower the delta, the quicker clients will respond to unplanned
+key rotations.<a href="#section-5.4.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="well-known-url">
+<section id="section-5.5">
+        <h3 id="name-well-known-url">
+<a href="#section-5.5" class="section-number selfRef">5.5. </a><a href="#name-well-known-url" class="section-name selfRef">Well known URL</a>
+        </h3>
+<p id="section-5.5-1">It is <span class="bcp14">RECOMMENDED</span> protocol register a <span>[<a href="#WELL-KNOWN" class="cite xref">WELL-KNOWN</a>]</span>URL and associated
+content-type.<a href="#section-5.5-1" class="pilcrow">¶</a></p>
+<p id="section-5.5-2">A key directory server <span class="bcp14">MUST</span> support both GET and HEAD request on that endpoint.<a href="#section-5.5-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.5-3">
 <pre>
 GET /.well-known/&lt;your-protocol&gt;
 
 HTTP/1.1 200 OK
 Cache-Control: max-age=300
 Content-Type: &lt;your-protocol&gt;
-</pre><a href="#section-5.4-3" class="pilcrow">¶</a>
+</pre><a href="#section-5.5-3" class="pilcrow">¶</a>
 </div>
-<p id="section-5.4-4">HEAD requests can be used by clients to cheaply determine if the directory has
-changed.<a href="#section-5.4-4" class="pilcrow">¶</a></p>
+<p id="section-5.5-4">HEAD requests can be used by clients to cheaply determine if the directory has
+changed.<a href="#section-5.5-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="future-considerations">
-<section id="section-5.5">
+<section id="section-5.6">
         <h3 id="name-future-considerations">
-<a href="#section-5.5" class="section-number selfRef">5.5. </a><a href="#name-future-considerations" class="section-name selfRef">Future considerations</a>
+<a href="#section-5.6" class="section-number selfRef">5.6. </a><a href="#name-future-considerations" class="section-name selfRef">Future considerations</a>
         </h3>
-<p id="section-5.5-1">These considerations should be addressed in future drafts.<a href="#section-5.5-1" class="pilcrow">¶</a></p>
+<p id="section-5.6-1">These considerations should be addressed in future drafts.<a href="#section-5.6-1" class="pilcrow">¶</a></p>
 <div id="consistency">
-<section id="section-5.5.1">
+<section id="section-5.6.1">
           <h4 id="name-consistency">
-<a href="#section-5.5.1" class="section-number selfRef">5.5.1. </a><a href="#name-consistency" class="section-name selfRef">Consistency</a>
+<a href="#section-5.6.1" class="section-number selfRef">5.6.1. </a><a href="#name-consistency" class="section-name selfRef">Consistency</a>
           </h4>
-<p id="section-5.5.1-1">Consistency allows client to prevent themselves from split view attack. A
+<p id="section-5.6.1-1">Consistency allows client to prevent themselves from split view attack. A
 proposal that has been made for Privacy Pass is to use multiple mirrors
 <span>[<a href="#CONSISTENCY" class="cite xref">CONSISTENCY</a>]</span>. With a
 sufficiently high quorum, clients get more confident that they are not singled
 out.
 It presents scalability issues as you need multiple mirrors, and have one more
-requests from client per mirror in the quorum.<a href="#section-5.5.1-1" class="pilcrow">¶</a></p>
+requests from client per mirror in the quorum.<a href="#section-5.6.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="key-transparency">
-<section id="section-5.5.2">
+<section id="section-5.6.2">
           <h4 id="name-key-transparency">
-<a href="#section-5.5.2" class="section-number selfRef">5.5.2. </a><a href="#name-key-transparency" class="section-name selfRef">Key Transparency</a>
+<a href="#section-5.6.2" class="section-number selfRef">5.6.2. </a><a href="#name-key-transparency" class="section-name selfRef">Key Transparency</a>
           </h4>
-<p id="section-5.5.2-1">Key Directory over HTTP should integrate with transparency, once the protocol has
+<p id="section-5.6.2-1">Key Directory over HTTP should integrate with transparency, once the protocol has
 been defined in <span>[<a href="#KEYTRANS" class="cite xref">KEYTRANS</a>]</span>.
 There are specific consideration as to what goes in the log: the full
-directory, keys individually, privacy considerations.<a href="#section-5.5.2-1" class="pilcrow">¶</a></p>
+directory, keys individually, privacy considerations.<a href="#section-5.6.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1699,6 +1789,10 @@ the key server.<a href="#section-7-2" class="pilcrow">¶</a></p>
 <dt id="CONSISTENCY">[CONSISTENCY]</dt>
         <dd>
 <span class="refAuthor">Beurdouche, B.</span>, <span class="refAuthor">Finkel, M.</span>, <span class="refAuthor">Valdez, S.</span>, <span class="refAuthor">Wood, C. A.</span>, and <span class="refAuthor">T. Pauly</span>, <span class="refTitle">"Checking Resource Consistency with HTTP Mirrors"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-privacypass-consistency-mirror-00</span>, <time datetime="2024-01-30" class="refDate">30 January 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-privacypass-consistency-mirror-00">https://datatracker.ietf.org/doc/html/draft-ietf-privacypass-consistency-mirror-00</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="HTTP-CACHE">[HTTP-CACHE]</dt>
+        <dd>
+<span class="refAuthor">Fielding, R., Ed.</span>, <span class="refAuthor">Nottingham, M., Ed.</span>, and <span class="refAuthor">J. Reschke, Ed.</span>, <span class="refTitle">"HTTP Caching"</span>, <span class="seriesInfo">STD 98</span>, <span class="seriesInfo">RFC 9111</span>, <span class="seriesInfo">DOI 10.17487/RFC9111</span>, <time datetime="2022-06" class="refDate">June 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9111">https://www.rfc-editor.org/rfc/rfc9111</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="KEYTRANS">[KEYTRANS]</dt>
         <dd>
