@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-06T00:58:02.860964+00:00",
+  "timestamp": "2025-02-09T01:01:12.423625+00:00",
   "repo": "thibmeu/draft-darling-key-directory-over-http",
   "labels": [
     {
@@ -50,5 +50,225 @@
     }
   ],
   "issues": [],
-  "pulls": []
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDONgO_Sc6KTNGC",
+      "title": "small edits and clarifications",
+      "url": "https://github.com/thibmeu/draft-darling-key-directory-over-http/pull/1",
+      "state": "MERGED",
+      "author": "fisherdarling",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "* small copy edits\r\n* clarified the truncated key id (likely need to link to the Privacy Pass draft here too)\r\n* discussed utility of HEAD requests",
+      "createdAt": "2025-02-06T16:03:04Z",
+      "updatedAt": "2025-02-07T13:18:32Z",
+      "baseRepository": "thibmeu/draft-darling-key-directory-over-http",
+      "baseRefName": "main",
+      "baseRefOid": "51f3ff73d1a3411ce81c3015a4d9e845d4552a5e",
+      "headRepository": "thibmeu/draft-darling-key-directory-over-http",
+      "headRefName": "fisher/review",
+      "headRefOid": "a34e6020b61fd0b5310fb93aa51209a126300a68",
+      "closedAt": "2025-02-06T17:16:59Z",
+      "mergedAt": "2025-02-06T17:16:59Z",
+      "mergedBy": "thibmeu",
+      "mergeCommit": {
+        "oid": "35abb6c491f8b8e4a2cff7bab327e050f6f059d7"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDONgO_Sc6a74oK",
+          "commit": {
+            "abbreviatedOid": "a34e602"
+          },
+          "author": "thibmeu",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-06T17:15:20Z",
+          "updatedAt": "2025-02-06T17:15:20Z",
+          "comments": [
+            {
+              "originalPosition": 49,
+              "body": "I like that",
+              "createdAt": "2025-02-06T17:15:20Z",
+              "updatedAt": "2025-02-06T17:15:20Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDONgO_Sc6a74so",
+          "commit": {
+            "abbreviatedOid": "a34e602"
+          },
+          "author": "thibmeu",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-02-06T17:15:28Z",
+          "updatedAt": "2025-02-06T17:15:28Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "id": "PR_kwDONgO_Sc6KTYb4",
+      "title": "add sections on key selections and cache behavior",
+      "url": "https://github.com/thibmeu/draft-darling-key-directory-over-http/pull/2",
+      "state": "MERGED",
+      "author": "fisherdarling",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "* add a WIP section on cache behavior\r\n* add section on key selection\r\n\r\nA key selection algorithm helps clients deterministically select a key and allows protocols\r\nwhich do not define a `not-before` and `not-after` a way of nudging clients towards the\r\nproper key.\r\n",
+      "createdAt": "2025-02-06T16:21:29Z",
+      "updatedAt": "2025-02-07T13:18:22Z",
+      "baseRepository": "thibmeu/draft-darling-key-directory-over-http",
+      "baseRefName": "main",
+      "baseRefOid": "35abb6c491f8b8e4a2cff7bab327e050f6f059d7",
+      "headRepository": "thibmeu/draft-darling-key-directory-over-http",
+      "headRefName": "fisher/cache-section",
+      "headRefOid": "9ee5b08e10d882f05de07799a8a17f307229337a",
+      "closedAt": "2025-02-07T13:18:18Z",
+      "mergedAt": "2025-02-07T13:18:18Z",
+      "mergedBy": "thibmeu",
+      "mergeCommit": {
+        "oid": "5eae9a0d297dd4c6c22f41fd6eb8b9e2358bd294"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDONgO_Sc6a76yp",
+          "commit": {
+            "abbreviatedOid": "18a10e1"
+          },
+          "author": "thibmeu",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-06T17:19:22Z",
+          "updatedAt": "2025-02-06T17:29:56Z",
+          "comments": [
+            {
+              "originalPosition": 16,
+              "body": "```suggestion\r\n2. If a not-before field exists, sort the remaining keys by their not-before\r\n```",
+              "createdAt": "2025-02-06T17:19:23Z",
+              "updatedAt": "2025-02-06T17:29:56Z"
+            },
+            {
+              "originalPosition": 18,
+              "body": "```suggestion\r\n3. Use the first key of the key directory, as it appears on the Key Directory format.\r\n```",
+              "createdAt": "2025-02-06T17:20:20Z",
+              "updatedAt": "2025-02-06T17:29:56Z"
+            },
+            {
+              "originalPosition": 21,
+              "body": "clients will know if a key has expired or not because there is either an explicit not-after/expire header, or there is max-age which replaces it with `not-after=time_of_retrieval+max_age`",
+              "createdAt": "2025-02-06T17:21:52Z",
+              "updatedAt": "2025-02-06T17:29:56Z"
+            },
+            {
+              "originalPosition": 44,
+              "body": "```suggestion\r\nusage for both the Client and Origin while preventing the client from using an invalid\r\n```",
+              "createdAt": "2025-02-06T17:24:59Z",
+              "updatedAt": "2025-02-06T17:29:56Z"
+            },
+            {
+              "originalPosition": 50,
+              "body": "while simple, I like that paragraph. it restates the goal",
+              "createdAt": "2025-02-06T17:25:56Z",
+              "updatedAt": "2025-02-06T17:29:56Z"
+            },
+            {
+              "originalPosition": 57,
+              "body": "do we want to impose constraints on that not-before,, such as it being a unix timestamp in seconds?\r\n",
+              "createdAt": "2025-02-06T17:27:08Z",
+              "updatedAt": "2025-02-06T17:29:56Z"
+            },
+            {
+              "originalPosition": 62,
+              "body": "```suggestion\r\nDirectory should be revalidated. Origins SHOULD provide a Cache-Control header, or Expires header which\r\n```",
+              "createdAt": "2025-02-06T17:27:58Z",
+              "updatedAt": "2025-02-06T17:29:56Z"
+            },
+            {
+              "originalPosition": 62,
+              "body": "i bet there is an rfc about it",
+              "createdAt": "2025-02-06T17:28:08Z",
+              "updatedAt": "2025-02-06T17:29:56Z"
+            },
+            {
+              "originalPosition": 70,
+              "body": "wouldn't this be covered by cache control `min-fresh` directive?",
+              "createdAt": "2025-02-06T17:29:52Z",
+              "updatedAt": "2025-02-06T17:29:56Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDONgO_Sc6a8S45",
+          "commit": {
+            "abbreviatedOid": "18a10e1"
+          },
+          "author": "fisherdarling",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-06T18:03:27Z",
+          "updatedAt": "2025-02-06T18:03:27Z",
+          "comments": [
+            {
+              "originalPosition": 57,
+              "body": "Yep, good point! Most expiration times are in seconds in any case. And providing ms precision for a resource fetched over a network isn't super useful.",
+              "createdAt": "2025-02-06T18:03:27Z",
+              "updatedAt": "2025-02-06T18:03:42Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDONgO_Sc6bDPua",
+          "commit": {
+            "abbreviatedOid": "18a10e1"
+          },
+          "author": "ThePlexus",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-07T10:04:56Z",
+          "updatedAt": "2025-02-07T10:04:57Z",
+          "comments": [
+            {
+              "originalPosition": 70,
+              "body": "That would be covered if we prescribe the client send min-fresh, for a single cache system. For CDNs (or mirrors of mirrors) that use multiple caching layers im not sure this is covered. ",
+              "createdAt": "2025-02-07T10:04:56Z",
+              "updatedAt": "2025-02-07T10:04:57Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDONgO_Sc6bDR64",
+          "commit": {
+            "abbreviatedOid": "18a10e1"
+          },
+          "author": "ThePlexus",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-02-07T10:08:45Z",
+          "updatedAt": "2025-02-07T10:08:46Z",
+          "comments": [
+            {
+              "originalPosition": 70,
+              "body": "as discussed, we should use s-maxage and have some verbiage ",
+              "createdAt": "2025-02-07T10:08:45Z",
+              "updatedAt": "2025-02-07T10:08:46Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
