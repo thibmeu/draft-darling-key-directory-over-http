@@ -281,6 +281,7 @@ Passive:
   advertising the key at time `t`, and delete it at time `t_expiry=t+maxage`.
   Origins MAY have to take intermediate mirrors into considerations, if they
   are aware these mirrors don't respect their cache headers.
+
 Active:
 : Origins keep serving the key and add a `not-after` field. This field MUST be
   at least `t+maxage`.
