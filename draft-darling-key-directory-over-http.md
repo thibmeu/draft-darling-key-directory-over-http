@@ -336,7 +336,7 @@ HEAD requests can be used by clients to cheaply determine if the directory has
 changed. It is RECOMMENDED the key directory server issue a Last-Modified header 
 with the date stamp when the key directory resource was last modified. If 
 issuing a Last-Modified header, the key directory server SHOULD support the 
-correct response to a 'If-Modified-Since' HTTP GET or HEAD request, retunring 
+correct response to a 'If-Modified-Since' HTTP GET or HEAD request, returning 
 the appropriate HTTP status codes {{!HTTP-CACHE=RFC9111}}
 
 ## Future considerations
