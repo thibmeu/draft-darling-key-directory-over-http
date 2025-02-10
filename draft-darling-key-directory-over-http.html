@@ -1674,11 +1674,8 @@ the grace period given for a key about to rotate. Clients <span class="bcp14">SH
 provides a <code>max-age</code> header AND a Mirror is used, the Origin <span class="bcp14">MUST</span> provide a
 <code>s-maxage</code> header that is equivalent to <code>max-age</code>.<a href="#section-5.4.2-1" class="pilcrow">¶</a></p>
 <p id="section-5.4.2-2">To prevent Clients refreshing their Key Directories at the same time
-(synchronization), Mirrors <span class="bcp14">MAY</span> provide to its clients a <code>max-age</code> cache directive
+(synchronization), Mirrors <span class="bcp14">SHOULD</span> provide to its clients a <code>max-age</code> cache directive
 with duration in the range <code>[0, Origin s-maxage]</code>.<a href="#section-5.4.2-2" class="pilcrow">¶</a></p>
-<p id="section-5.4.2-3">Mirrors <span class="bcp14">MUST</span> respect all provided cache directives. Mirrors <span class="bcp14">SHOULD</span> issue a
-<code>max-age</code> value which matches the remaining time to live (TTL) value of the key
-directory in the Mirror's local cache.<a href="#section-5.4.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="client-cache-refresh">
