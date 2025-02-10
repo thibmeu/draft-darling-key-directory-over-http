@@ -351,6 +351,8 @@ cache directive. The higher the delta, the less frequent a Client will update
 its cache. The lower the delta, the quicker clients will respond to unplanned
 key rotations.
 
+`min-fresh` MAY also be sent by Origins as defined in {{RFC9111}}.
+
 ## Well known URL
 
 It is RECOMMENDED protocol register a {{!WELL-KNOWN=RFC8615}}URL and associated
