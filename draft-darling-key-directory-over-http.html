@@ -1211,10 +1211,10 @@ HTTP.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
                 <p id="section-toc.1-1.5.2.4.1"><a href="#section-5.4" class="auto internal xref">5.4</a>.  <a href="#name-cache-behaviour" class="internal xref">Cache behaviour</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.4.2.1">
-                    <p id="section-toc.1-1.5.2.4.2.1.1"><a href="#section-5.4.1" class="auto internal xref">5.4.1</a>.  <a href="#name-not-before-fields" class="internal xref">not-before fields</a></p>
+                    <p id="section-toc.1-1.5.2.4.2.1.1"><a href="#section-5.4.1" class="auto internal xref">5.4.1</a>.  <a href="#name-not-before-fields" class="internal xref"><code>not-before</code> fields</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.4.2.2">
-                    <p id="section-toc.1-1.5.2.4.2.2.1"><a href="#section-5.4.2" class="auto internal xref">5.4.2</a>.  <a href="#name-cache-directives" class="internal xref">cache directives</a></p>
+                    <p id="section-toc.1-1.5.2.4.2.2.1"><a href="#section-5.4.2" class="auto internal xref">5.4.2</a>.  <a href="#name-cache-directives" class="internal xref">Cache directives</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.4.2.3">
                     <p id="section-toc.1-1.5.2.4.2.3.1"><a href="#section-5.4.3" class="auto internal xref">5.4.3</a>.  <a href="#name-client-cache-refresh" class="internal xref">Client cache refresh</a></p>
@@ -1553,7 +1553,7 @@ restrictions, or push these decision details to deployments.<a href="#section-5.
                   <p id="section-5.2.1-1.1.2.1.1">Have a <code>not-after</code> field in the past.<a href="#section-5.2.1-1.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
                 <li class="normal" id="section-5.2.1-1.1.2.2">
-                  <p id="section-5.2.1-1.1.2.2.1">Have a <code>not-before</code> field in the future.<a href="#section-5.2.1-1.1.2.2.1" class="pilcrow">¶</a></p>
+                  <p id="section-5.2.1-1.1.2.2.1">Have a <a href="#not-before" class="auto internal xref">Section 5.4.1</a> field in the future.<a href="#section-5.2.1-1.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
                 <li class="normal" id="section-5.2.1-1.1.2.3">
                   <p id="section-5.2.1-1.1.2.3.1">Do not meet required cryptographic properties.<a href="#section-5.2.1-1.1.2.3.1" class="pilcrow">¶</a></p>
@@ -1561,7 +1561,7 @@ restrictions, or push these decision details to deployments.<a href="#section-5.
               </ul>
 </li>
             <li id="section-5.2.1-1.2">
-              <p id="section-5.2.1-1.2.1"><strong>Set missing activation times</strong>: If a key does not have a <code>not-before</code> field, set it to either:<a href="#section-5.2.1-1.2.1" class="pilcrow">¶</a></p>
+              <p id="section-5.2.1-1.2.1"><strong>Set missing activation times</strong>: If a key does not have a <a href="#not-before" class="auto internal xref">Section 5.4.1</a> field, set it to either:<a href="#section-5.2.1-1.2.1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-5.2.1-1.2.2.1">
                   <p id="section-5.2.1-1.2.2.1.1">The <code>Last-Modified</code> header from the request as defined in <span><a href="https://rfc-editor.org/rfc/rfc9110#section-8.8.2" class="relref">Section 8.8.2</a> of [<a href="#HTTP" class="cite xref">HTTP</a>]</span>, if available.<a href="#section-5.2.1-1.2.2.1.1" class="pilcrow">¶</a></p>
@@ -1575,8 +1575,8 @@ restrictions, or push these decision details to deployments.<a href="#section-5.
               </ul>
 </li>
             <li id="section-5.2.1-1.3">
-              <p id="section-5.2.1-1.3.1"><strong>Sort by activation time</strong>: If a <code>not-before</code> field exists, sort the
-remaining keys in <strong>descending</strong> order based on <code>not-before</code>.<a href="#section-5.2.1-1.3.1" class="pilcrow">¶</a></p>
+              <p id="section-5.2.1-1.3.1"><strong>Sort by activation time</strong>: If a <a href="#not-before" class="auto internal xref">Section 5.4.1</a> field exists, sort the
+remaining keys in <strong>descending</strong> order based on <a href="#not-before" class="auto internal xref">Section 5.4.1</a>.<a href="#section-5.2.1-1.3.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-5.2.1-1.4">
               <p id="section-5.2.1-1.4.1"><strong>Select the first key</strong>: Choose the first key from the Key Directory, as
@@ -1585,10 +1585,10 @@ ordered in the Key Directory format.<a href="#section-5.2.1-1.4.1" class="pilcro
           </ol>
 <p id="section-5.2.1-2">Clients <span class="bcp14">SHOULD</span> implement the Key Selection Algorithm. Origins <span class="bcp14">SHOULD</span> present
 the newest Keys first.<a href="#section-5.2.1-2" class="pilcrow">¶</a></p>
-<p id="section-5.2.1-3">For protocols which define a <code>not-before</code> field, the above algorithm minimizes the
+<p id="section-5.2.1-3">For protocols which define a <a href="#not-before" class="auto internal xref">Section 5.4.1</a> field, the above algorithm minimizes the
 chance that the Client uses a key that has expired between fetching the directory
 from the origin and its usage as part of the protocol.<a href="#section-5.2.1-3" class="pilcrow">¶</a></p>
-<p id="section-5.2.1-4">For protocols without a <code>not-before</code> field, using the first key allows Origin
+<p id="section-5.2.1-4">For protocols without a <a href="#not-before" class="auto internal xref">Section 5.4.1</a> field, using the first key allows Origin
 to present their key directory so that the newest is always first, and
 the soon-to-be-removed key is last. This minimizes the chance of a client using
 an expired key.<a href="#section-5.2.1-4" class="pilcrow">¶</a></p>
@@ -1692,32 +1692,32 @@ a fixed window. Protocols <span class="bcp14">SHOULD</span> define such policies
         <h3 id="name-cache-behaviour">
 <a href="#section-5.4" class="section-number selfRef">5.4. </a><a href="#name-cache-behaviour" class="section-name selfRef">Cache behaviour</a>
         </h3>
-<p id="section-5.4-1">Caching the Key Directory lowers latency and reduces resource usage on the
-Mirror and the Origin. An optimal caching strategy should minimize resource
+<p id="section-5.4-1">Caching the Key Directory lowers latency and reduces resource usage on
+Mirrors and the Origin. An optimal caching strategy should minimize resource
 usage for both the Client and Origin while preventing the client from using an
 invalid key.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
 <p id="section-5.4-2">These two requirements, minimizing resource usage and never using an invalid
-key, are at odds with each other. In the event of an unplanned key rotation, a
-client might use an invalid key. However, if a client fetched the keys for every
-request, it would waste time and network resources.<a href="#section-5.4-2" class="pilcrow">¶</a></p>
-<div id="not-before-fields">
+key, are at odds with each other. In the event of an <a href="#immediate" class="auto internal xref">Section 5.3.3</a> key rotation, a
+Client might use an invalid key. However, if a Client fetches an Origin key
+directory for every request, it would waste time and network resources.<a href="#section-5.4-2" class="pilcrow">¶</a></p>
+<div id="not-before">
 <section id="section-5.4.1">
           <h4 id="name-not-before-fields">
-<a href="#section-5.4.1" class="section-number selfRef">5.4.1. </a><a href="#name-not-before-fields" class="section-name selfRef">not-before fields</a>
+<a href="#section-5.4.1" class="section-number selfRef">5.4.1. </a><a href="#name-not-before-fields" class="section-name selfRef"><code>not-before</code> fields</a>
           </h4>
-<p id="section-5.4.1-1">Origins <span class="bcp14">SHOULD</span>, when possible in the Key Directory format, add a not-before
+<p id="section-5.4.1-1">Protocol <span class="bcp14">SHOULD</span> define a <code>not-before</code> field. Origins <span class="bcp14">SHOULD</span> add a <code>not-before</code>
 field or equivalent to each Key in the Directory. The not-before field allows
-the directory to signal to a client when a Key is safe to use and reduces the
-chance a client uses an expired key. When the unit of time used for the
-not-before field is ambiguous, it <span class="bcp14">MUST</span> be a Unix epoch timestamp in seconds.<a href="#section-5.4.1-1" class="pilcrow">¶</a></p>
+Origins to signal to Clients when a Key is ready to use and reduces the
+chance a Client uses a key which is not yet available. not-before fields <span class="bcp14">SHOULD</span>
+be a Unix epoch timestamp in seconds.<a href="#section-5.4.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="cache-directives">
 <section id="section-5.4.2">
           <h4 id="name-cache-directives">
-<a href="#section-5.4.2" class="section-number selfRef">5.4.2. </a><a href="#name-cache-directives" class="section-name selfRef">cache directives</a>
+<a href="#section-5.4.2" class="section-number selfRef">5.4.2. </a><a href="#name-cache-directives" class="section-name selfRef">Cache directives</a>
           </h4>
-<p id="section-5.4.2-1">Origins <span class="bcp14">SHOULD</span> respond with cache directives<span>[<a href="#HTTP-CACHE" class="cite xref">HTTP-CACHE</a>]</span> which
+<p id="section-5.4.2-1">Origins <span class="bcp14">SHOULD</span> respond with cache directives <span>[<a href="#HTTP-CACHE" class="cite xref">HTTP-CACHE</a>]</span> which
 control when the Key Directory should be refreshed. Origins <span class="bcp14">SHOULD</span> provide a
 <code>Cache-Control: max-age</code> header, or <code>Expires</code> header which is slightly less than
 the grace period given for a key about to rotate. Clients <span class="bcp14">SHOULD</span> respect the
@@ -1870,6 +1870,10 @@ the key server.<a href="#section-7-2" class="pilcrow">¶</a></p>
 <span class="refAuthor">Fielding, R., Ed.</span>, <span class="refAuthor">Nottingham, M., Ed.</span>, and <span class="refAuthor">J. Reschke, Ed.</span>, <span class="refTitle">"HTTP Semantics"</span>, <span class="seriesInfo">STD 97</span>, <span class="seriesInfo">RFC 9110</span>, <span class="seriesInfo">DOI 10.17487/RFC9110</span>, <time datetime="2022-06" class="refDate">June 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9110">https://www.rfc-editor.org/rfc/rfc9110</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="HTTP-CACHE">[HTTP-CACHE]</dt>
+        <dd>
+<span class="refAuthor">Fielding, R., Ed.</span>, <span class="refAuthor">Nottingham, M., Ed.</span>, and <span class="refAuthor">J. Reschke, Ed.</span>, <span class="refTitle">"HTTP Caching"</span>, <span class="seriesInfo">STD 98</span>, <span class="seriesInfo">RFC 9111</span>, <span class="seriesInfo">DOI 10.17487/RFC9111</span>, <time datetime="2022-06" class="refDate">June 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9111">https://www.rfc-editor.org/rfc/rfc9111</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="HTTP-CACHING">[HTTP-CACHING]</dt>
         <dd>
 <span class="refAuthor">Fielding, R., Ed.</span>, <span class="refAuthor">Nottingham, M., Ed.</span>, and <span class="refAuthor">J. Reschke, Ed.</span>, <span class="refTitle">"HTTP Caching"</span>, <span class="seriesInfo">STD 98</span>, <span class="seriesInfo">RFC 9111</span>, <span class="seriesInfo">DOI 10.17487/RFC9111</span>, <time datetime="2022-06" class="refDate">June 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9111">https://www.rfc-editor.org/rfc/rfc9111</a>&gt;</span>. </dd>
 <dd class="break"></dd>

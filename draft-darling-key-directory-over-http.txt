@@ -83,7 +83,7 @@ Table of Contents
        5.3.3.  Immediate
      5.4.  Cache behaviour
        5.4.1.  not-before fields
-       5.4.2.  cache directives
+       5.4.2.  Cache directives
        5.4.3.  Client cache refresh
      5.5.  Well known URL
      5.6.  Future considerations
@@ -264,12 +264,12 @@ Table of Contents
 
        *  Have a not-after field in the past.
 
-       *  Have a not-before field in the future.
+       *  Have a Section 5.4.1 field in the future.
 
        *  Do not meet required cryptographic properties.
 
-   2.  *Set missing activation times*: If a key does not have a not-
-       before field, set it to either:
+   2.  *Set missing activation times*: If a key does not have a
+       Section 5.4.1 field, set it to either:
 
        *  The Last-Modified header from the request as defined in
           Section 8.8.2 of [HTTP], if available.
@@ -279,8 +279,8 @@ Table of Contents
 
        *  The client’s local time.
 
-   3.  *Sort by activation time*: If a not-before field exists, sort the
-       remaining keys in *descending* order based on not-before.
+   3.  *Sort by activation time*: If a Section 5.4.1 field exists, sort
+       the remaining keys in *descending* order based on Section 5.4.1.
 
    4.  *Select the first key*: Choose the first key from the Key
        Directory, as ordered in the Key Directory format.
@@ -288,15 +288,15 @@ Table of Contents
    Clients SHOULD implement the Key Selection Algorithm.  Origins SHOULD
    present the newest Keys first.
 
-   For protocols which define a not-before field, the above algorithm
+   For protocols which define a Section 5.4.1 field, the above algorithm
    minimizes the chance that the Client uses a key that has expired
    between fetching the directory from the origin and its usage as part
    of the protocol.
 
-   For protocols without a not-before field, using the first key allows
-   Origin to present their key directory so that the newest is always
-   first, and the soon-to-be-removed key is last.  This minimizes the
-   chance of a client using an expired key.
+   For protocols without a Section 5.4.1 field, using the first key
+   allows Origin to present their key directory so that the newest is
+   always first, and the soon-to-be-removed key is last.  This minimizes
+   the chance of a client using an expired key.
 
    Expired key MAY be presented for completion, only if the protocol
    defines a not-after field.
@@ -370,28 +370,28 @@ Table of Contents
 5.4.  Cache behaviour
 
    Caching the Key Directory lowers latency and reduces resource usage
-   on the Mirror and the Origin.  An optimal caching strategy should
+   on Mirrors and the Origin.  An optimal caching strategy should
    minimize resource usage for both the Client and Origin while
    preventing the client from using an invalid key.
 
    These two requirements, minimizing resource usage and never using an
    invalid key, are at odds with each other.  In the event of an
-   unplanned key rotation, a client might use an invalid key.  However,
-   if a client fetched the keys for every request, it would waste time
-   and network resources.
+   Section 5.3.3 key rotation, a Client might use an invalid key.
+   However, if a Client fetches an Origin key directory for every
+   request, it would waste time and network resources.
 
 5.4.1.  not-before fields
 
-   Origins SHOULD, when possible in the Key Directory format, add a not-
+   Protocol SHOULD define a not-before field.  Origins SHOULD add a not-
    before field or equivalent to each Key in the Directory.  The not-
-   before field allows the directory to signal to a client when a Key is
-   safe to use and reduces the chance a client uses an expired key.
-   When the unit of time used for the not-before field is ambiguous, it
-   MUST be a Unix epoch timestamp in seconds.
+   before field allows Origins to signal to Clients when a Key is ready
+   to use and reduces the chance a Client uses a key which is not yet
+   available. not-before fields SHOULD be a Unix epoch timestamp in
+   seconds.
 
-5.4.2.  cache directives
+5.4.2.  Cache directives
 
-   Origins SHOULD respond with cache directives[HTTP-CACHE] which
+   Origins SHOULD respond with cache directives [HTTP-CACHE] which
    control when the Key Directory should be refreshed.  Origins SHOULD
    provide a Cache-Control: max-age header, or Expires header which is
    slightly less than the grace period given for a key about to rotate.
@@ -505,6 +505,12 @@ Table of Contents
               <https://www.rfc-editor.org/rfc/rfc9110>.
 
    [HTTP-CACHE]
+              Fielding, R., Ed., Nottingham, M., Ed., and J. Reschke,
+              Ed., "HTTP Caching", STD 98, RFC 9111,
+              DOI 10.17487/RFC9111, June 2022,
+              <https://www.rfc-editor.org/rfc/rfc9111>.
+
+   [HTTP-CACHING]
               Fielding, R., Ed., Nottingham, M., Ed., and J. Reschke,
               Ed., "HTTP Caching", STD 98, RFC 9111,
               DOI 10.17487/RFC9111, June 2022,
