@@ -42,6 +42,7 @@ normative:
   COSE: RFC8152
   DAP: I-D.draft-ietf-ppm-dap-14
   HTTP: RFC9110
+  HTTP-CACHING: RFC9111
   JOSE: RFC7517
   OHTTP: RFC9458
   PRIVACYPASS: RFC9578
@@ -214,25 +215,25 @@ restrictions, or push these decision details to deployments.
 
 1. **Filter invalid keys**: Exclude keys that:
    * Have a `not-after` field in the past.
-   * Have a `not-before` field in the future.
+   * Have a {{not-before}} field in the future.
    * Do not meet required cryptographic properties.
-2. **Set missing activation times**: If a key does not have a `not-before` field, set it to either:
+2. **Set missing activation times**: If a key does not have a {{not-before}} field, set it to either:
    * The `Last-Modified` header from the request as defined in {{Section 8.8.2 of HTTP}}, if available.
    * The Date header from the request as defined in {{Section 6.6.1 of HTTP}}, if available.
    * The client’s local time.
-3. **Sort by activation time**: If a `not-before` field exists, sort the
-   remaining keys in **descending** order based on `not-before`.
+3. **Sort by activation time**: If a {{not-before}} field exists, sort the
+   remaining keys in **descending** order based on {{not-before}}.
 4. **Select the first key**: Choose the first key from the Key Directory, as
    ordered in the Key Directory format.
 
 Clients SHOULD implement the Key Selection Algorithm. Origins SHOULD present
 the newest Keys first.
 
-For protocols which define a `not-before` field, the above algorithm minimizes the
+For protocols which define a {{not-before}} field, the above algorithm minimizes the
 chance that the Client uses a key that has expired between fetching the directory
 from the origin and its usage as part of the protocol.
 
-For protocols without a `not-before` field, using the first key allows Origin
+For protocols without a {{not-before}} field, using the first key allows Origin
 to present their key directory so that the newest is always first, and
 the soon-to-be-removed key is last. This minimizes the chance of a client using
 an expired key.
@@ -290,7 +291,7 @@ With both modes, an Origin SHOULD signal a key is not supported by sending a
 response with status code 400.
 It is RECOMMENDED to use key ID as defined in {{key-id}}.
 
-### Immediate
+### Immediate {#immediate}
 
 Origins MIGHT have to rotate keys immediately. Existing keys MAY
 have to be invalidated and/or new keys be provisioned. Immediate key rotation
@@ -307,27 +308,27 @@ directory endpoint is going to be placed under a higher load.
 
 ## Cache behaviour {#cache-behaviour}
 
-Caching the Key Directory lowers latency and reduces resource usage on the
-Mirror and the Origin. An optimal caching strategy should minimize resource
+Caching the Key Directory lowers latency and reduces resource usage on
+Mirrors and the Origin. An optimal caching strategy should minimize resource
 usage for both the Client and Origin while preventing the client from using an
 invalid key.
 
 These two requirements, minimizing resource usage and never using an invalid
-key, are at odds with each other. In the event of an unplanned key rotation, a
-client might use an invalid key. However, if a client fetched the keys for every
-request, it would waste time and network resources.
+key, are at odds with each other. In the event of an {{immediate}} key rotation, a
+Client might use an invalid key. However, if a Client fetches an Origin key
+directory for every request, it would waste time and network resources.
 
-### not-before fields
+### `not-before` fields {#not-before}
 
-Origins SHOULD, when possible in the Key Directory format, add a not-before
+Protocol SHOULD define a `not-before` field. Origins SHOULD add a `not-before`
 field or equivalent to each Key in the Directory. The not-before field allows
-the directory to signal to a client when a Key is safe to use and reduces the
-chance a client uses an expired key. When the unit of time used for the
-not-before field is ambiguous, it MUST be a Unix epoch timestamp in seconds.
+Origins to signal to Clients when a Key is ready to use and reduces the
+chance a Client uses a key which is not yet available. not-before fields SHOULD
+be a Unix epoch timestamp in seconds.
 
-### cache directives
+### Cache directives
 
-Origins SHOULD respond with cache directives{{!HTTP-CACHE=RFC9111}} which
+Origins SHOULD respond with cache directives {{HTTP-CACHE}} which
 control when the Key Directory should be refreshed. Origins SHOULD provide a
 `Cache-Control: max-age` header, or `Expires` header which is slightly less than
 the grace period given for a key about to rotate. Clients SHOULD respect the
