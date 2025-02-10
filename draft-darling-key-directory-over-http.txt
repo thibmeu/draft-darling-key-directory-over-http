@@ -76,6 +76,7 @@ Table of Contents
    5.  Architecture
      5.1.  Key ID
      5.2.  Key Selection
+       5.2.1.  Key Selection Algorithm
      5.3.  Rotation (kid, cache, others)
        5.3.1.  Algorithm
        5.3.2.  Scheduled (server, client behaviour)
@@ -122,16 +123,16 @@ Table of Contents
 
 2.  Motivation
 
-   [JOSE], Section 5 and [COSE], Section 7 both define ways to structure
-   key sets, but no way to serve them.  This creates issues when serving
-   these keys over HTTP because caching is not taken into account, and
-   there is no standard way to derive an ID from a key.  [PRIVACYPASS],
-   Section 4, [OHTTP], Section 3, and [DAP], Section 4.7.1 are also
-   defining their own public key directory, and are faced with similar
-   issues.  While Privacy Pass seems to have been the most thorough,
-   even considering [CONSISTENCY] for instance, these seem to be
-   duplicated efforts that would benefit from being consolidated into
-   one specification.
+   Section 5 of [JOSE] and Section 7 of [COSE] both define ways to
+   structure key sets, but no way to serve them.  This creates issues
+   when serving these keys over HTTP because caching is not taken into
+   account, and there is no standard way to derive an ID from a key.
+   Section 4 of [PRIVACYPASS], Section 3 of [OHTTP], and Section 4.7.1
+   of [DAP] are also defining their own public key directory, and are
+   faced with similar issues.  While Privacy Pass seems to have been the
+   most thorough, even considering [CONSISTENCY] for instance, these
+   seem to be duplicated efforts that would benefit from being
+   consolidated into one specification.
 
 3.  Presentation Language
 
@@ -241,45 +242,59 @@ Table of Contents
 
    *  encode is some encoding function
 
-      TODO Open questions about H:
+   *TODO Open questions about H*
 
-      -  Should the draft provide specific H
+   *  Should the draft provide specific H?
 
-      -  Should the draft define an IANA registry and require protocols
-         to register their H
+   *  Should the draft define an IANA registry and require protocols to
+      register their H?
 
 5.2.  Key Selection
 
    The following is a deterministic algorithm for determining which Key
-   a client should use to fulfill their cryptographic needs.  By using a
+   a Client SHOULD use to fulfill their cryptographic needs.  By using a
    deterministic algorithm, Origins can more easily predict the effects
-   of a Key rotation and implement grace periods, soak times, etc.,
-   without modifications to a Key Directory's protocol.
+   of a Key rotation and implement grace periods, soak times, etc.
+   Protocols MAY place additional restrictions, or push these decision
+   details to deployments.
 
-   Key Selection Algorithm:
+5.2.1.  Key Selection Algorithm
 
-   1.  Remove keys which cannot satisfy a request.  E.g., their not-
-       after fields are in the past, their not-before fields are in the
-       future, or they don't have the necessary cryptographic
-       properties, etc.
+   1.  *Filter invalid keys*: Exclude keys that:
 
-   2.  If a not-before field exists, sort the remaining keys by their
-       not-before field in descending order.
+       *  Have a not-after field in the past.
 
-   3.  Use the first key of the key directory, as it appears in the Key
-       Directory format.
+       *  Have a not-before field in the future.
+
+       *  Do not meet required cryptographic properties.
+
+   2.  Set missing activation times: If a key does not have a not-before
+       field, set it to either: * The Last-Modified header from the
+       request as defined in Section 8.8.2 of [HTTP], if available.  *
+       The Date header from the request as defined in Section 6.6.1 of
+       [HTTP], if available.  * The client’s local time.
+
+   3.  *Sort by activation time*: If a not-before field exists, sort the
+       remaining keys in *descending* order based on not-before.
+
+   4.  *Select the first key*: Choose the first key from the Key
+       Directory, as ordered in the Key Directory format.
 
    Clients SHOULD implement the Key Selection Algorithm.  Origins SHOULD
    present the newest Keys first.
 
    For protocols which define a not-before field, the above algorithm
-   minimizes the chance that the used key has not expired between
-   reading the directory and performing the protocol.
+   minimizes the chance that the Client uses a key that has expired
+   between fetching the directory from the origin and its usage as part
+   of the protocol.
 
    For protocols without a not-before field, using the first key allows
-   Key Directories to order their keys in a way where the newest is
-   always first, and the soon-to-be-removed key is last.  This minimizes
-   the chance of a client using an expired key.
+   Origin to present their key directory so that the newest is always
+   first, and the soon-to-be-removed key is last.  This minimizes the
+   chance of a client using an expired key.
+
+   Expired key MAY be presented for completion, only if the protocol
+   defines a not-after field.
 
 5.3.  Rotation (kid, cache, others)
 
@@ -467,6 +482,11 @@ Table of Contents
               draft-ietf-ppm-dap-14, 3 February 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-ppm-dap-
               14>.
+
+   [HTTP]     Fielding, R., Ed., Nottingham, M., Ed., and J. Reschke,
+              Ed., "HTTP Semantics", STD 97, RFC 9110,
+              DOI 10.17487/RFC9110, June 2022,
+              <https://www.rfc-editor.org/rfc/rfc9110>.
 
    [HTTP-CACHE]
               Fielding, R., Ed., Nottingham, M., Ed., and J. Reschke,
