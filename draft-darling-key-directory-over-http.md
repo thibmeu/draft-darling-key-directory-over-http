@@ -169,7 +169,7 @@ new, its cache is expired, or the Origin refuses requests with the current key s
     |                         |                         |
 ~~~
 
-## Key ID
+## Key ID {#key-id}
 
 Each key in the directory MUST be associated with a unique Key ID.
 
@@ -244,18 +244,22 @@ Expired key MAY be presented for completion, only if the protocol defines a
 
 ### Algorithm
 
-We approach a public key generation by the function `Generate(params, RAND) -> (publickey, privatekey, metadata)`
+We approach a public key generation by the following function
 
-At any point in time, all keys in the directory MUST have a unique truncated key id.
-When adding a key in the directory, that key MUST have a unique truncated key id.
+~~~
+Generate(params, RAND) -> (publickey, privatekey, metadata)
+~~~
+
+At any point in time, all keys in the directory MUST have a unique key id as defined in {{key-id}}.
+When adding a key in the directory, that key MUST have a unique key id.
 
 Generation looks as follows
 
 ~~~
 do
   (publickey, privatekey, metadata) <- Generate(params, RAND)
-  public_key_material = (publickey | metadata)
-  key_id <- H(public_key_material)
+  public_key_material <- (publickey | metadata)
+  key_id <- encode(H(public_key_material))
 while (key_id is not unique)
 ~~~
 
