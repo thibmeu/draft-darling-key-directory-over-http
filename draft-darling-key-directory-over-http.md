@@ -308,12 +308,8 @@ provides a `max-age` header AND a Mirror is used, the Origin MUST provide a
 `s-maxage` header that is equivalent to `max-age`.
 
 To prevent Clients refreshing their Key Directories at the same time
-(synchronization), Mirrors MAY provide to its clients a `max-age` cache directive
+(synchronization), Mirrors SHOULD provide to its clients a `max-age` cache directive
 with duration in the range `[0, Origin s-maxage]`.
-
-Mirrors MUST respect all provided cache directives. Mirrors SHOULD issue a
-`max-age` value which matches the remaining time to live (TTL) value of the key
-directory in the Mirror's local cache.
 
 ### Client cache refresh
 
