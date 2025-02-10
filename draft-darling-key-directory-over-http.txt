@@ -335,13 +335,13 @@ Table of Contents
 
    Scheduled rotations MUST be communicated in one of the two mode below
 
-   Passive:  Origins rely on cache headers to inform Clients about key
+   *Passive:*  Origins rely on cache headers to inform Clients about key
       expiry.  They stop advertising the key at time t, and delete it at
       time t_expiry=t+maxage.  Origins MAY have to take intermediate
       mirrors into considerations, if they are aware these mirrors don't
       respect their cache headers.
 
-   Active:  Origins keep serving the key and add a not-after field.
+   *Active:*  Origins keep serving the key and add a not-after field.
       This field MUST be at least t+maxage.
 
    With both modes, an Origin SHOULD signal a key is not supported by

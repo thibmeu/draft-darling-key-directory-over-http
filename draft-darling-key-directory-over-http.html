@@ -1642,7 +1642,7 @@ This <span class="bcp14">MAY</span> be a regular interval (monthly, weekly, dail
 agreed between all parties.<a href="#section-5.3.2-1" class="pilcrow">¶</a></p>
 <p id="section-5.3.2-2">Scheduled rotations <span class="bcp14">MUST</span> be communicated in one of the two mode below<a href="#section-5.3.2-2" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-5.3.2-3">
-            <dt id="section-5.3.2-3.1">Passive:</dt>
+            <dt id="section-5.3.2-3.1"><strong>Passive:</strong></dt>
             <dd style="margin-left: 1.5em" id="section-5.3.2-3.2">
               <p id="section-5.3.2-3.2.1">Origins rely on cache headers to inform Clients about key expiry. They stop
 advertising the key at time <code>t</code>, and delete it at time <code>t_expiry=t+maxage</code>.
@@ -1650,7 +1650,7 @@ Origins <span class="bcp14">MAY</span> have to take intermediate mirrors into co
 are aware these mirrors don't respect their cache headers.<a href="#section-5.3.2-3.2.1" class="pilcrow">¶</a></p>
 </dd>
             <dd class="break"></dd>
-<dt id="section-5.3.2-3.3">Active:</dt>
+<dt id="section-5.3.2-3.3"><strong>Active:</strong></dt>
             <dd style="margin-left: 1.5em" id="section-5.3.2-3.4">
               <p id="section-5.3.2-3.4.1">Origins keep serving the key and add a <code>not-after</code> field. This field <span class="bcp14">MUST</span> be
 at least <code>t+maxage</code>.<a href="#section-5.3.2-3.4.1" class="pilcrow">¶</a></p>
