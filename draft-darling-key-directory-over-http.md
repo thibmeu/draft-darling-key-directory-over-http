@@ -189,11 +189,11 @@ where
 * `H` is a hash function
 * `encode` is some encoding function
 
-==TODO Open questions about H:==
-
-* ==Should the draft provide specific H==
-* ==Should the draft define an IANA registry and require protocols to register
-  their H==
+> TODO Open questions about H:
+>
+> * Should the draft provide specific H
+> * Should the draft define an IANA registry and require protocols to register
+>   their H
 
 ## Key Selection
 
