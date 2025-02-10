@@ -240,7 +240,12 @@ an expired key.
 Expired key MAY be presented for completion, only if the protocol defines a
 `not-after` field.
 
-## Rotation (kid, cache, others)
+## Rotation
+
+Clients and Origins SHOULD NOT assume a key directory is fixed. Origins SHOULD
+rotate keys on a schedule. Clients SHOULD fetch keys upon an immediate rotation
+for security reasons. This section goes over how Origins SHOULD rotate their
+keys, and how that interacts with scheduled and immediate rotations.
 
 ### Algorithm
 
@@ -263,37 +268,43 @@ do
 while (key_id is not unique)
 ~~~
 
-### Scheduled (server, client behaviour)
+### Scheduled rotation
 
-Two options:
+Scheduled rotation happens at a time known to Origins, Clients, and Mirrors.
+This MAY be a regular interval (monthly, weekly, daily), or an ad-hoc schedule
+agreed between all parties.
 
-* passive = rely on cache header to set not-after on the client side. stop
-  advertising the key at time t, and delete it at time t+maxage
-  take intermediate into consideration
-* active = keep serving the key but add not-after before expiration. It should
-  be NOW()+maxage
+Scheduled rotations MUST be communicated in one of the two mode below
 
-In both case, the protocol MUST define an error to signal a key which is not
-supported. It is RECOMMENDED to use truncated token ID as a short identifier.
+Passive:
+: Origins rely on cache headers to inform Clients about key expiry. They stop
+  advertising the key at time `t`, and delete it at time `t_expiry=t+maxage`.
+  Origins MAY have to take intermediate mirrors into considerations, if they
+  are aware these mirrors don't respect their cache headers.
+Active:
+: Origins keep serving the key and add a `not-after` field. This field MUST be
+  at least `t+maxage`.
 
-### Immediate (server, client behaviour)
+With both modes, an Origin SHOULD signal a key is not supported by sending a
+response with status code 400.
+It is RECOMMENDED to use key ID as defined in {{key-id}}.
 
-There are moment where keys have to be rotated immediately. Existing keys may
+### Immediate
+
+Origins MIGHT have to rotate keys immediately. Existing keys MAY
 have to be invalidated and/or new keys be provisioned. Immediate key rotation
-may happen in the event of a key compromise, loss, or other imperious reason.
+can happen in the event of a key compromise, loss, or other imperious reason.
 
 Immediate key rotation will cause some client requests to the server to fail
 until the client and mirrors retrieve a new version of the directory. The key
 directory endpoint is going to be placed under a higher load.
 
-Client requests are expected to fail.
-
-1. You MAY introduce a random backoff to spread the load of key distribution over
-time. See #TODO link to caching section
+1. Origins MAY introduce a random backoff to spread the load of key distribution
+   over time. See {{cache-behaviour}}
 2. Clients on a scheduled rotation MAY be configured to distrust rotation outside
-a fixed schedule. Protocols SHOULD define such policies.
+   a fixed window. Protocols SHOULD define such policies.
 
-## Cache behaviour
+## Cache behaviour {#cache-behaviour}
 
 Caching the Key Directory lowers latency and reduces resource usage on the
 Mirror and the Origin. An optimal caching strategy should minimize resource
