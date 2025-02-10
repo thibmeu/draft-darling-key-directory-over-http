@@ -1722,11 +1722,13 @@ control when the Key Directory should be refreshed. Origins <span class="bcp14">
 <code>Cache-Control: max-age</code> header, or <code>Expires</code> header which is slightly less than
 the grace period given for a key about to rotate. Clients <span class="bcp14">SHOULD</span> respect the
 <code>max-age</code> cache directive and <span class="bcp14">MAY</span> respect other directives. If an Origin
-provides a <code>max-age</code> header AND a Mirror is used, the Origin <span class="bcp14">MUST</span> provide a
+provides a <code>max-age</code> header AND a Mirror is used, the Origin <span class="bcp14">SHOULD</span> provide a
 <code>s-maxage</code> header that is equivalent to <code>max-age</code>.<a href="#section-5.4.2-1" class="pilcrow">¶</a></p>
 <p id="section-5.4.2-2">To prevent Clients refreshing their Key Directories at the same time
-(synchronization), Mirrors <span class="bcp14">SHOULD</span> provide to its clients a <code>max-age</code> cache directive
-with duration in the range <code>[0, Origin s-maxage]</code>.<a href="#section-5.4.2-2" class="pilcrow">¶</a></p>
+(synchronization), Mirrors <span class="bcp14">SHOULD</span> provide to its clients a <code>max-age</code> cache
+directive with duration in the range <code>[0, Origin s-maxage]</code>.<a href="#section-5.4.2-2" class="pilcrow">¶</a></p>
+<p id="section-5.4.2-3">Origins <span class="bcp14">SHOULD</span> consider using <code>Date</code> (<span><a href="https://rfc-editor.org/rfc/rfc9110#section-6.6.1" class="relref">Section 6.6.1</a> of [<a href="#HTTP" class="cite xref">HTTP</a>]</span>) and
+<code>Last-modified</code> (<span><a href="https://rfc-editor.org/rfc/rfc9110#section-8.8.2" class="relref">Section 8.8.2</a> of [<a href="#HTTP" class="cite xref">HTTP</a>]</span>) headers to ease <a href="#rotation" class="auto internal xref">Section 5.3</a>.<a href="#section-5.4.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="client-cache-refresh">
@@ -1739,6 +1741,7 @@ of the Key Directory is through the delta seconds described in the <code>max-age
 cache directive. The higher the delta, the less frequent a Client will update
 its cache. The lower the delta, the quicker clients will respond to unplanned
 key rotations.<a href="#section-5.4.3-1" class="pilcrow">¶</a></p>
+<p id="section-5.4.3-2"><code>min-fresh</code> <span class="bcp14">MAY</span> also be sent by Origins as defined in <span>[<a href="#HTTP-CACHE" class="cite xref">HTTP-CACHE</a>]</span>.<a href="#section-5.4.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1870,10 +1873,6 @@ the key server.<a href="#section-7-2" class="pilcrow">¶</a></p>
 <span class="refAuthor">Fielding, R., Ed.</span>, <span class="refAuthor">Nottingham, M., Ed.</span>, and <span class="refAuthor">J. Reschke, Ed.</span>, <span class="refTitle">"HTTP Semantics"</span>, <span class="seriesInfo">STD 97</span>, <span class="seriesInfo">RFC 9110</span>, <span class="seriesInfo">DOI 10.17487/RFC9110</span>, <time datetime="2022-06" class="refDate">June 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9110">https://www.rfc-editor.org/rfc/rfc9110</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="HTTP-CACHE">[HTTP-CACHE]</dt>
-        <dd>
-<span class="refAuthor">Fielding, R., Ed.</span>, <span class="refAuthor">Nottingham, M., Ed.</span>, and <span class="refAuthor">J. Reschke, Ed.</span>, <span class="refTitle">"HTTP Caching"</span>, <span class="seriesInfo">STD 98</span>, <span class="seriesInfo">RFC 9111</span>, <span class="seriesInfo">DOI 10.17487/RFC9111</span>, <time datetime="2022-06" class="refDate">June 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9111">https://www.rfc-editor.org/rfc/rfc9111</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="HTTP-CACHING">[HTTP-CACHING]</dt>
         <dd>
 <span class="refAuthor">Fielding, R., Ed.</span>, <span class="refAuthor">Nottingham, M., Ed.</span>, and <span class="refAuthor">J. Reschke, Ed.</span>, <span class="refTitle">"HTTP Caching"</span>, <span class="seriesInfo">STD 98</span>, <span class="seriesInfo">RFC 9111</span>, <span class="seriesInfo">DOI 10.17487/RFC9111</span>, <time datetime="2022-06" class="refDate">June 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9111">https://www.rfc-editor.org/rfc/rfc9111</a>&gt;</span>. </dd>
 <dd class="break"></dd>

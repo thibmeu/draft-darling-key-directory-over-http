@@ -397,12 +397,15 @@ Table of Contents
    slightly less than the grace period given for a key about to rotate.
    Clients SHOULD respect the max-age cache directive and MAY respect
    other directives.  If an Origin provides a max-age header AND a
-   Mirror is used, the Origin MUST provide a s-maxage header that is
+   Mirror is used, the Origin SHOULD provide a s-maxage header that is
    equivalent to max-age.
 
    To prevent Clients refreshing their Key Directories at the same time
    (synchronization), Mirrors SHOULD provide to its clients a max-age
    cache directive with duration in the range [0, Origin s-maxage].
+
+   Origins SHOULD consider using Date (Section 6.6.1 of [HTTP]) and
+   Last-modified (Section 8.8.2 of [HTTP]) headers to ease Section 5.3.
 
 5.4.3.  Client cache refresh
 
@@ -411,6 +414,8 @@ Table of Contents
    in the max-age cache directive.  The higher the delta, the less
    frequent a Client will update its cache.  The lower the delta, the
    quicker clients will respond to unplanned key rotations.
+
+   min-fresh MAY also be sent by Origins as defined in [HTTP-CACHE].
 
 5.5.  Well known URL
 
@@ -505,12 +510,6 @@ Table of Contents
               <https://www.rfc-editor.org/rfc/rfc9110>.
 
    [HTTP-CACHE]
-              Fielding, R., Ed., Nottingham, M., Ed., and J. Reschke,
-              Ed., "HTTP Caching", STD 98, RFC 9111,
-              DOI 10.17487/RFC9111, June 2022,
-              <https://www.rfc-editor.org/rfc/rfc9111>.
-
-   [HTTP-CACHING]
               Fielding, R., Ed., Nottingham, M., Ed., and J. Reschke,
               Ed., "HTTP Caching", STD 98, RFC 9111,
               DOI 10.17487/RFC9111, June 2022,
