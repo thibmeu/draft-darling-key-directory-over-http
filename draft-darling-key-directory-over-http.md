@@ -112,23 +112,23 @@ struct {
 
 The following terms are used throughout this document:
 
-Client:
+**Client:**
 : An entity using public key material.
 
-Origin:
+**Origin:**
 : An entity exposing public key material via HTTP.
 
-Mirror:
+**Mirror:**
 : An intermediary entity between client and server. May cache data, and act as a
   privacy proxy.
 
-Key metadata:
+**Key metadata:**
 : Public data associated to a public key.
 
-Key Directory:
+**Key Directory:**
 : Set of public keys.
 
-Directory Metadata:
+**Directory Metadata:**
 : Public data associated to a key directory. This is protocol specific.
 
 
