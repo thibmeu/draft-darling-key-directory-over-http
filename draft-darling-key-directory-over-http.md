@@ -44,10 +44,8 @@ informative:
 
 --- abstract
 
-This document defines recommendations for protocol implementers that wish to
-expose public keys over HTTP. This allows new protocols to share public keys
-via HTTP with considerations for caching, rotation, or providing a well-known
-URL.
+This document defines recommendations for protocols that expose public keys over
+HTTP.
 
 
 --- middle
@@ -57,24 +55,27 @@ URL.
 Multiple Internet protocols rely on public key cryptography. They require keys
 to be distributed by origins to clients. This can be done via certificates,
 software releases, or HTTP. This document focuses on this last mechanism. It
-aims to set recommendations on how to design a key directory that should be
-served over HTTP.
+aims to set recommendations on how to design a key directory that is served
+over HTTP.
 
-Distribution via HTTP allows for a more dynamic use of public keys, for rotation,
-or caching on intermediate servers or clients.
-This document specifies how clients and mirrors should consume cache directive
-set by origins, how origins should expose their key directory, and rotate them.
+Distribution via HTTP allows for a more dynamic use of public keys, for
+rotation, or caching on intermediate mirrors or clients.
+This document specifies which cache directives origin should set, how clients
+and mirrors should consume cache directive set by origins, how origins should
+expose their key directory, and rotate them.
 The document does not cover a specific directory format, as these needs might
 vary from one protocol to the next.
 
 # Motivation
 
-JOSE and COSE both define ways to structure key sets, but no way to serve them.
+{{!JOSE=RFC7517, Section 5}} and
+{{!COSE=RFC8152, Section 7}} both define ways to structure key sets, but no way to serve them.
 This creates issues when serving these keys over HTTP because caching is not
 taken into account, and there is no standard way to derive an ID from a key.
-Privacy Pass, OHTTP, and DAP also went down the road of defining their own
-directory, and were faced with similar issues. While Privacy Pass seems to have
-been the most thorough, even started considering consistency, these all seem to
+{{!PRIVACYPASS=RFC9578, Section 4}}, {{!OHTTP=RFC9458, Section 3}}, and
+{{!DAP=I-D.draft-ietf-ppm-dap-14, Section 4.7.1}} are also defining their own public key
+directory, and are faced with similar issues. While Privacy Pass seems to have
+been the most thorough, even considering {{!CONSISTENCY=I-D.ietf-privacypass-consistency-mirror-01}} for instance, these seem to
 be duplicated efforts that would benefit from being consolidated into one
 specification.
 
@@ -298,7 +299,7 @@ not-before field is ambiguous, it MUST be a Unix epoch timestamp in seconds.
 
 ### cache directives
 
-Origins SHOULD respond with cache directives{{!HTTP-CACHE=rfc9111}} which
+Origins SHOULD respond with cache directives{{!HTTP-CACHE=RFC9111}} which
 control when the Key Directory should be refreshed. Origins SHOULD provide a
 `Cache-Control: max-age` header, or `Expires` header which is slightly less than
 the grace period given for a key about to rotate. Clients SHOULD respect the
@@ -324,7 +325,7 @@ key rotations.
 
 ## Well known URL
 
-It is RECOMMENDED protocol register a {{!WELL-KNOWN=rfc8615}}URL and associated
+It is RECOMMENDED protocol register a {{!WELL-KNOWN=RFC8615}}URL and associated
 content-type.
 
 A key directory server MUST support both GET and HEAD request on that endpoint.
@@ -348,9 +349,8 @@ These considerations should be addressed in future drafts.
 
 Consistency allows client to prevent themselves from split view attack. A
 proposal that has been made for Privacy Pass is to use multiple mirrors
-{{!CONSISTENCY=I-D.ietf-privacypass-consistency-mirror}}. With a
-sufficiently high quorum, clients get more confident that they are not singled
-out.
+{{!CONSISTENCY}}. With a sufficiently high quorum, clients get more confident
+that they are not singled out.
 It presents scalability issues as you need multiple mirrors, and have one more
 requests from client per mirror in the quorum.
 
