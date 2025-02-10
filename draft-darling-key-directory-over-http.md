@@ -210,7 +210,7 @@ algorithm, Origins can more easily predict the effects of a Key rotation and
 implement grace periods, soak times, etc. Protocols MAY place additional
 restrictions, or push these decision details to deployments.
 
-### Key Selection Algorithm
+### Algorithm
 
 1. **Filter invalid keys**: Exclude keys that:
    * Have a `not-after` field in the past.
