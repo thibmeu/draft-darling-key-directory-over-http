@@ -329,10 +329,15 @@ GET /.well-known/<your-protocol>
 HTTP/1.1 200 OK
 Cache-Control: max-age=<Client Cache TTL>, s-maxage=<Shared Cache TTL>
 Content-Type: <your-protocol>
+Last-Modified: <datestamp>
 ~~~
 
 HEAD requests can be used by clients to cheaply determine if the directory has
-changed.
+changed. It is RECOMMENDED the key directory server issue a Last-Modified header 
+with the date stamp when the key directory resource was last modified. If issuing 
+a Date header, the key directory server SHOULD support the correct response to 
+'If-Modified-Since' HTTP GET or HEAD requests using HTTP 200 or 304 status 
+codes {{!HTTP-CACHE=RFC9111}}
 
 ## Future considerations
 
