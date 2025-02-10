@@ -76,7 +76,7 @@ Table of Contents
    5.  Architecture
      5.1.  Key ID
      5.2.  Key Selection
-       5.2.1.  Key Selection Algorithm
+       5.2.1.  Algorithm
      5.3.  Rotation (kid, cache, others)
        5.3.1.  Algorithm
        5.3.2.  Scheduled (server, client behaviour)
@@ -258,7 +258,7 @@ Table of Contents
    Protocols MAY place additional restrictions, or push these decision
    details to deployments.
 
-5.2.1.  Key Selection Algorithm
+5.2.1.  Algorithm
 
    1.  *Filter invalid keys*: Exclude keys that:
 
@@ -305,19 +305,20 @@ Table of Contents
 
 5.3.1.  Algorithm
 
-   We approach a public key generation by the function Generate(params,
-   RAND) -> (publickey, privatekey, metadata)
+   We approach a public key generation by the following function
+
+   Generate(params, RAND) -> (publickey, privatekey, metadata)
 
    At any point in time, all keys in the directory MUST have a unique
-   truncated key id.  When adding a key in the directory, that key MUST
-   have a unique truncated key id.
+   key id as defined in Section 5.1.  When adding a key in the
+   directory, that key MUST have a unique key id.
 
    Generation looks as follows
 
    do
      (publickey, privatekey, metadata) <- Generate(params, RAND)
-     public_key_material = (publickey | metadata)
-     key_id <- H(public_key_material)
+     public_key_material <- (publickey | metadata)
+     key_id <- encode(H(public_key_material))
    while (key_id is not unique)
 
 5.3.2.  Scheduled (server, client behaviour)

@@ -1189,7 +1189,7 @@ HTTP.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
                 <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-key-selection" class="internal xref">Key Selection</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.1">
-                    <p id="section-toc.1-1.5.2.2.2.1.1"><a href="#section-5.2.1" class="auto internal xref">5.2.1</a>.  <a href="#name-key-selection-algorithm" class="internal xref">Key Selection Algorithm</a></p>
+                    <p id="section-toc.1-1.5.2.2.2.1.1"><a href="#section-5.2.1" class="auto internal xref">5.2.1</a>.  <a href="#name-algorithm" class="internal xref">Algorithm</a></p>
 </li>
                 </ul>
 </li>
@@ -1197,7 +1197,7 @@ HTTP.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
                 <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="auto internal xref">5.3</a>.  <a href="#name-rotation-kid-cache-others" class="internal xref">Rotation (kid, cache, others)</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3.2.1">
-                    <p id="section-toc.1-1.5.2.3.2.1.1"><a href="#section-5.3.1" class="auto internal xref">5.3.1</a>.  <a href="#name-algorithm" class="internal xref">Algorithm</a></p>
+                    <p id="section-toc.1-1.5.2.3.2.1.1"><a href="#section-5.3.1" class="auto internal xref">5.3.1</a>.  <a href="#name-algorithm-2" class="internal xref">Algorithm</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3.2.2">
                     <p id="section-toc.1-1.5.2.3.2.2.1"><a href="#section-5.3.2" class="auto internal xref">5.3.2</a>.  <a href="#name-scheduled-server-client-beh" class="internal xref">Scheduled (server, client behaviour)</a></p>
@@ -1540,10 +1540,10 @@ their H?<a href="#section-5.1-10.2.1" class="pilcrow">¶</a></p>
 algorithm, Origins can more easily predict the effects of a Key rotation and
 implement grace periods, soak times, etc. Protocols <span class="bcp14">MAY</span> place additional
 restrictions, or push these decision details to deployments.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
-<div id="key-selection-algorithm">
+<div id="algorithm">
 <section id="section-5.2.1">
-          <h4 id="name-key-selection-algorithm">
-<a href="#section-5.2.1" class="section-number selfRef">5.2.1. </a><a href="#name-key-selection-algorithm" class="section-name selfRef">Key Selection Algorithm</a>
+          <h4 id="name-algorithm">
+<a href="#section-5.2.1" class="section-number selfRef">5.2.1. </a><a href="#name-algorithm" class="section-name selfRef">Algorithm</a>
           </h4>
 <ol start="1" type="1" class="normal type-1" id="section-5.2.1-1">
 <li id="section-5.2.1-1.1">
@@ -1603,23 +1603,28 @@ an expired key.<a href="#section-5.2.1-4" class="pilcrow">¶</a></p>
         <h3 id="name-rotation-kid-cache-others">
 <a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-rotation-kid-cache-others" class="section-name selfRef">Rotation (kid, cache, others)</a>
         </h3>
-<div id="algorithm">
+<div id="algorithm-1">
 <section id="section-5.3.1">
-          <h4 id="name-algorithm">
-<a href="#section-5.3.1" class="section-number selfRef">5.3.1. </a><a href="#name-algorithm" class="section-name selfRef">Algorithm</a>
+          <h4 id="name-algorithm-2">
+<a href="#section-5.3.1" class="section-number selfRef">5.3.1. </a><a href="#name-algorithm-2" class="section-name selfRef">Algorithm</a>
           </h4>
-<p id="section-5.3.1-1">We approach a public key generation by the function <code>Generate(params, RAND) -&gt; (publickey, privatekey, metadata)</code><a href="#section-5.3.1-1" class="pilcrow">¶</a></p>
-<p id="section-5.3.1-2">At any point in time, all keys in the directory <span class="bcp14">MUST</span> have a unique truncated key id.
-When adding a key in the directory, that key <span class="bcp14">MUST</span> have a unique truncated key id.<a href="#section-5.3.1-2" class="pilcrow">¶</a></p>
-<p id="section-5.3.1-3">Generation looks as follows<a href="#section-5.3.1-3" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.3.1-4">
+<p id="section-5.3.1-1">We approach a public key generation by the following function<a href="#section-5.3.1-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.3.1-2">
+<pre>
+Generate(params, RAND) -&gt; (publickey, privatekey, metadata)
+</pre><a href="#section-5.3.1-2" class="pilcrow">¶</a>
+</div>
+<p id="section-5.3.1-3">At any point in time, all keys in the directory <span class="bcp14">MUST</span> have a unique key id as defined in <a href="#key-id" class="auto internal xref">Section 5.1</a>.
+When adding a key in the directory, that key <span class="bcp14">MUST</span> have a unique key id.<a href="#section-5.3.1-3" class="pilcrow">¶</a></p>
+<p id="section-5.3.1-4">Generation looks as follows<a href="#section-5.3.1-4" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-5.3.1-5">
 <pre>
 do
   (publickey, privatekey, metadata) &lt;- Generate(params, RAND)
-  public_key_material = (publickey | metadata)
-  key_id &lt;- H(public_key_material)
+  public_key_material &lt;- (publickey | metadata)
+  key_id &lt;- encode(H(public_key_material))
 while (key_id is not unique)
-</pre><a href="#section-5.3.1-4" class="pilcrow">¶</a>
+</pre><a href="#section-5.3.1-5" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
