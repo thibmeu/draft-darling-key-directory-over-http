@@ -320,7 +320,7 @@ directory for every request, it would waste time and network resources.
 
 ### `not-before` fields {#not-before}
 
-Protocol SHOULD define a `not-before` field. Origins SHOULD add a `not-before`
+Protocols SHOULD define a `not-before` field. Origins SHOULD add a `not-before`
 field or equivalent to each Key in the Directory. The not-before field allows
 Origins to signal to Clients when a Key is ready to use and reduces the
 chance a Client uses a key which is not yet available. not-before fields SHOULD
@@ -355,7 +355,7 @@ key rotations.
 
 ## Well known URL
 
-It is RECOMMENDED protocol register a {{!WELL-KNOWN=RFC8615}}URL and associated
+It is RECOMMENDED protocol register a {{!WELL-KNOWN=RFC8615}} URL and associated
 content-type.
 
 A key directory server MUST support both GET and HEAD request on that endpoint.
@@ -375,10 +375,10 @@ stamp of when the key directory resource was last modified.
 
 If issuing a Last-Modified header, the Origin server SHOULD support the correct
 response to a 'If-Modified-Since' HTTP GET or HEAD request, returning the
-appropriate HTTP status codes {{HTTP-CACHE}}
+appropriate HTTP status codes {{HTTP-CACHE}}.
 
 It is RECOMMENDED that Mirrors support Last-Modified and 'If-Modified-Since'
-{{HTTP-CACHE}}
+{{HTTP-CACHE}}.
 
 ## Future considerations
 
