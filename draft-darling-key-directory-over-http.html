@@ -1194,16 +1194,16 @@ HTTP.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
                 </ul>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3">
-                <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="auto internal xref">5.3</a>.  <a href="#name-rotation-kid-cache-others" class="internal xref">Rotation (kid, cache, others)</a></p>
+                <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="auto internal xref">5.3</a>.  <a href="#name-rotation" class="internal xref">Rotation</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3.2.1">
                     <p id="section-toc.1-1.5.2.3.2.1.1"><a href="#section-5.3.1" class="auto internal xref">5.3.1</a>.  <a href="#name-algorithm-2" class="internal xref">Algorithm</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3.2.2">
-                    <p id="section-toc.1-1.5.2.3.2.2.1"><a href="#section-5.3.2" class="auto internal xref">5.3.2</a>.  <a href="#name-scheduled-server-client-beh" class="internal xref">Scheduled (server, client behaviour)</a></p>
+                    <p id="section-toc.1-1.5.2.3.2.2.1"><a href="#section-5.3.2" class="auto internal xref">5.3.2</a>.  <a href="#name-scheduled-rotation" class="internal xref">Scheduled rotation</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3.2.3">
-                    <p id="section-toc.1-1.5.2.3.2.3.1"><a href="#section-5.3.3" class="auto internal xref">5.3.3</a>.  <a href="#name-immediate-server-client-beh" class="internal xref">Immediate (server, client behaviour)</a></p>
+                    <p id="section-toc.1-1.5.2.3.2.3.1"><a href="#section-5.3.3" class="auto internal xref">5.3.3</a>.  <a href="#name-immediate" class="internal xref">Immediate</a></p>
 </li>
                 </ul>
 </li>
@@ -1598,11 +1598,15 @@ an expired key.<a href="#section-5.2.1-4" class="pilcrow">¶</a></p>
 </div>
 </section>
 </div>
-<div id="rotation-kid-cache-others">
+<div id="rotation">
 <section id="section-5.3">
-        <h3 id="name-rotation-kid-cache-others">
-<a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-rotation-kid-cache-others" class="section-name selfRef">Rotation (kid, cache, others)</a>
+        <h3 id="name-rotation">
+<a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-rotation" class="section-name selfRef">Rotation</a>
         </h3>
+<p id="section-5.3-1">Clients and Origins <span class="bcp14">SHOULD NOT</span> assume a key directory is fixed. Origins <span class="bcp14">SHOULD</span>
+rotate keys on a schedule. Clients <span class="bcp14">SHOULD</span> fetch keys upon an immediate rotation
+for security reasons. This section goes over how Origins <span class="bcp14">SHOULD</span> rotate their
+keys, and how that interacts with scheduled and immediate rotations.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
 <div id="algorithm-1">
 <section id="section-5.3.1">
           <h4 id="name-algorithm-2">
@@ -1628,47 +1632,56 @@ while (key_id is not unique)
 </div>
 </section>
 </div>
-<div id="scheduled-server-client-behaviour">
+<div id="scheduled-rotation">
 <section id="section-5.3.2">
-          <h4 id="name-scheduled-server-client-beh">
-<a href="#section-5.3.2" class="section-number selfRef">5.3.2. </a><a href="#name-scheduled-server-client-beh" class="section-name selfRef">Scheduled (server, client behaviour)</a>
+          <h4 id="name-scheduled-rotation">
+<a href="#section-5.3.2" class="section-number selfRef">5.3.2. </a><a href="#name-scheduled-rotation" class="section-name selfRef">Scheduled rotation</a>
           </h4>
-<p id="section-5.3.2-1">Two options:<a href="#section-5.3.2-1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-5.3.2-2.1">
-              <p id="section-5.3.2-2.1.1">passive = rely on cache header to set not-after on the client side. stop
-advertising the key at time t, and delete it at time t+maxage
-take intermediate into consideration<a href="#section-5.3.2-2.1.1" class="pilcrow">¶</a></p>
-</li>
-            <li class="normal" id="section-5.3.2-2.2">
-              <p id="section-5.3.2-2.2.1">active = keep serving the key but add not-after before expiration. It should
-be NOW()+maxage<a href="#section-5.3.2-2.2.1" class="pilcrow">¶</a></p>
-</li>
-          </ul>
-<p id="section-5.3.2-3">In both case, the protocol <span class="bcp14">MUST</span> define an error to signal a key which is not
-supported. It is <span class="bcp14">RECOMMENDED</span> to use truncated token ID as a short identifier.<a href="#section-5.3.2-3" class="pilcrow">¶</a></p>
+<p id="section-5.3.2-1">Scheduled rotation happens at a time known to Origins, Clients, and Mirrors.
+This <span class="bcp14">MAY</span> be a regular interval (monthly, weekly, daily), or an ad-hoc schedule
+agreed between all parties.<a href="#section-5.3.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.3.2-2">Scheduled rotations <span class="bcp14">MUST</span> be communicated in one of the two mode below<a href="#section-5.3.2-2" class="pilcrow">¶</a></p>
+<span class="break"></span><dl class="dlParallel" id="section-5.3.2-3">
+            <dt id="section-5.3.2-3.1">Passive:</dt>
+            <dd style="margin-left: 1.5em" id="section-5.3.2-3.2">
+              <p id="section-5.3.2-3.2.1">Origins rely on cache headers to inform Clients about key expiry. They stop
+advertising the key at time <code>t</code>, and delete it at time <code>t_expiry=t+maxage</code>.
+Origins <span class="bcp14">MAY</span> have to take intermediate mirrors into considerations, if they
+are aware these mirrors don't respect their cache headers.
+Active:<a href="#section-5.3.2-3.2.1" class="pilcrow">¶</a></p>
+</dd>
+            <dd class="break"></dd>
+<dt id="section-5.3.2-3.3"></dt>
+            <dd style="margin-left: 1.5em" id="section-5.3.2-3.4">
+              <p id="section-5.3.2-3.4.1">Origins keep serving the key and add a <code>not-after</code> field. This field <span class="bcp14">MUST</span> be
+at least <code>t+maxage</code>.<a href="#section-5.3.2-3.4.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+</dl>
+<p id="section-5.3.2-4">With both modes, an Origin <span class="bcp14">SHOULD</span> signal a key is not supported by sending a
+response with status code 400.
+It is <span class="bcp14">RECOMMENDED</span> to use key ID as defined in <a href="#key-id" class="auto internal xref">Section 5.1</a>.<a href="#section-5.3.2-4" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="immediate-server-client-behaviour">
+<div id="immediate">
 <section id="section-5.3.3">
-          <h4 id="name-immediate-server-client-beh">
-<a href="#section-5.3.3" class="section-number selfRef">5.3.3. </a><a href="#name-immediate-server-client-beh" class="section-name selfRef">Immediate (server, client behaviour)</a>
+          <h4 id="name-immediate">
+<a href="#section-5.3.3" class="section-number selfRef">5.3.3. </a><a href="#name-immediate" class="section-name selfRef">Immediate</a>
           </h4>
-<p id="section-5.3.3-1">There are moment where keys have to be rotated immediately. Existing keys may
+<p id="section-5.3.3-1">Origins MIGHT have to rotate keys immediately. Existing keys <span class="bcp14">MAY</span>
 have to be invalidated and/or new keys be provisioned. Immediate key rotation
-may happen in the event of a key compromise, loss, or other imperious reason.<a href="#section-5.3.3-1" class="pilcrow">¶</a></p>
+can happen in the event of a key compromise, loss, or other imperious reason.<a href="#section-5.3.3-1" class="pilcrow">¶</a></p>
 <p id="section-5.3.3-2">Immediate key rotation will cause some client requests to the server to fail
 until the client and mirrors retrieve a new version of the directory. The key
 directory endpoint is going to be placed under a higher load.<a href="#section-5.3.3-2" class="pilcrow">¶</a></p>
-<p id="section-5.3.3-3">Client requests are expected to fail.<a href="#section-5.3.3-3" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-5.3.3-4">
-<li id="section-5.3.3-4.1">
-              <p id="section-5.3.3-4.1.1">You <span class="bcp14">MAY</span> introduce a random backoff to spread the load of key distribution over
-time. See #TODO link to caching section<a href="#section-5.3.3-4.1.1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-5.3.3-3">
+<li id="section-5.3.3-3.1">
+              <p id="section-5.3.3-3.1.1">Origins <span class="bcp14">MAY</span> introduce a random backoff to spread the load of key distribution
+over time. See <a href="#cache-behaviour" class="auto internal xref">Section 5.4</a><a href="#section-5.3.3-3.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li id="section-5.3.3-4.2">
-              <p id="section-5.3.3-4.2.1">Clients on a scheduled rotation <span class="bcp14">MAY</span> be configured to distrust rotation outside
-a fixed schedule. Protocols <span class="bcp14">SHOULD</span> define such policies.<a href="#section-5.3.3-4.2.1" class="pilcrow">¶</a></p>
+            <li id="section-5.3.3-3.2">
+              <p id="section-5.3.3-3.2.1">Clients on a scheduled rotation <span class="bcp14">MAY</span> be configured to distrust rotation outside
+a fixed window. Protocols <span class="bcp14">SHOULD</span> define such policies.<a href="#section-5.3.3-3.2.1" class="pilcrow">¶</a></p>
 </li>
           </ol>
 </section>
