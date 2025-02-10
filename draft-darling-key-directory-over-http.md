@@ -38,6 +38,13 @@ author:
     email: rfc@simonnewton.com
 
 normative:
+  CONSISTENCY: I-D.ietf-privacypass-consistency-mirror-01
+  COSE: RFC8152
+  DAP: I-D.draft-ietf-ppm-dap-14
+  HTTP: RFC9110
+  JOSE: RFC7517
+  OHTTP: RFC9458
+  PRIVACYPASS: RFC9578
 
 informative:
 
@@ -68,14 +75,14 @@ vary from one protocol to the next.
 
 # Motivation
 
-{{!JOSE=RFC7517, Section 5}} and
-{{!COSE=RFC8152, Section 7}} both define ways to structure key sets, but no way to serve them.
+{{Section 5 of JOSE}} and
+{{Section 7 of COSE}} both define ways to structure key sets, but no way to serve them.
 This creates issues when serving these keys over HTTP because caching is not
 taken into account, and there is no standard way to derive an ID from a key.
-{{!PRIVACYPASS=RFC9578, Section 4}}, {{!OHTTP=RFC9458, Section 3}}, and
-{{!DAP=I-D.draft-ietf-ppm-dap-14, Section 4.7.1}} are also defining their own public key
+{{Section 4 of PRIVACYPASS}}, {{Section 3 of OHTTP}}, and
+{{Section 4.7.1 of DAP}} are also defining their own public key
 directory, and are faced with similar issues. While Privacy Pass seems to have
-been the most thorough, even considering {{!CONSISTENCY=I-D.ietf-privacypass-consistency-mirror-01}} for instance, these seem to
+been the most thorough, even considering {{CONSISTENCY}} for instance, these seem to
 be duplicated efforts that would benefit from being consolidated into one
 specification.
 
@@ -189,41 +196,50 @@ where
 * `H` is a hash function
 * `encode` is some encoding function
 
-> TODO Open questions about H:
->
-> * Should the draft provide specific H
-> * Should the draft define an IANA registry and require protocols to register
->   their H
+**TODO Open questions about H**
+
+* Should the draft provide specific H?
+* Should the draft define an IANA registry and require protocols to register
+  their H?
 
 ## Key Selection
 
-The following is a deterministic algorithm for determining which Key a client
-should use to fulfill their cryptographic needs. By using a deterministic
+The following is a deterministic algorithm for determining which Key a Client
+SHOULD use to fulfill their cryptographic needs. By using a deterministic
 algorithm, Origins can more easily predict the effects of a Key rotation and
-implement grace periods, soak times, etc., without modifications to a Key
-Directory's protocol.
+implement grace periods, soak times, etc. Protocols MAY place additional
+restrictions, or push these decision details to deployments.
 
-Key Selection Algorithm:
+### Key Selection Algorithm
 
-1. Remove keys which cannot satisfy a request. E.g., their not-after fields are
-   in the past, their not-before fields are in the future, or they don't have
-   the necessary cryptographic properties, etc.
-2. If a not-before field exists, sort the remaining keys by their not-before
-   field in descending order.
-3. Use the first key of the key directory, as it appears in the Key Directory
-   format.
+1. **Filter invalid keys**: Exclude keys that:
+   * Have a `not-after` field in the past.
+   * Have a `not-before` field in the future.
+   * Do not meet required cryptographic properties.
+2. Set missing activation times: If a key does not have a `not-before` field,
+   set it to either:
+  * The `Last-Modified` header from the request as defined in {{Section 8.8.2 of RFC9110}}, if available.
+  * The Date header from the request as defined in {{Section 6.6.1 of RFC9110}}, if available.
+  * The client’s local time.
+3. **Sort by activation time**: If a `not-before` field exists, sort the
+   remaining keys in **descending** order based on `not-before`.
+4. **Select the first key**: Choose the first key from the Key Directory, as
+   ordered in the Key Directory format.
 
 Clients SHOULD implement the Key Selection Algorithm. Origins SHOULD present
 the newest Keys first.
 
-For protocols which define a not-before field, the above algorithm minimizes the
-chance that the used key has not expired between reading the directory and
-performing the protocol.
+For protocols which define a `not-before` field, the above algorithm minimizes the
+chance that the Client uses a key that has expired between fetching the directory
+from the origin and its usage as part of the protocol.
 
-For protocols without a not-before field, using the first key allows Key
-Directories to order their keys in a way where the newest is always first, and
+For protocols without a `not-before` field, using the first key allows Origin
+to present their key directory so that the newest is always first, and
 the soon-to-be-removed key is last. This minimizes the chance of a client using
 an expired key.
+
+Expired key MAY be presented for completion, only if the protocol defines a
+`not-after` field.
 
 ## Rotation (kid, cache, others)
 
