@@ -1709,10 +1709,17 @@ GET /.well-known/&lt;your-protocol&gt;
 HTTP/1.1 200 OK
 Cache-Control: max-age=&lt;Client Cache TTL&gt;, s-maxage=&lt;Shared Cache TTL&gt;
 Content-Type: &lt;your-protocol&gt;
+Last-Modified: &lt;datestamp&gt;
 </pre><a href="#section-5.5-3" class="pilcrow">¶</a>
 </div>
 <p id="section-5.5-4">HEAD requests can be used by clients to cheaply determine if the directory has
-changed.<a href="#section-5.5-4" class="pilcrow">¶</a></p>
+changed. The Origin server <span class="bcp14">SHOULD</span> issue a Last-Modified header with the date
+stamp of when the key directory resource was last modified.<a href="#section-5.5-4" class="pilcrow">¶</a></p>
+<p id="section-5.5-5">If issuing a Last-Modified header, the Origin server <span class="bcp14">SHOULD</span> support the correct
+response to a 'If-Modified-Since' HTTP GET or HEAD request, returning the
+appropriate HTTP status codes <span>[<a href="#HTTP-CACHE" class="cite xref">HTTP-CACHE</a>]</span><a href="#section-5.5-5" class="pilcrow">¶</a></p>
+<p id="section-5.5-6">It is <span class="bcp14">RECOMMENDED</span> that Mirrors support Last-Modified and 'If-Modified-Since'
+<span>[<a href="#HTTP-CACHE" class="cite xref">HTTP-CACHE</a>]</span><a href="#section-5.5-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="future-considerations">

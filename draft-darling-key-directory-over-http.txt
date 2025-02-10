@@ -394,9 +394,19 @@ Table of Contents
   HTTP/1.1 200 OK
   Cache-Control: max-age=<Client Cache TTL>, s-maxage=<Shared Cache TTL>
   Content-Type: <your-protocol>
+  Last-Modified: <datestamp>
 
    HEAD requests can be used by clients to cheaply determine if the
-   directory has changed.
+   directory has changed.  The Origin server SHOULD issue a Last-
+   Modified header with the date stamp of when the key directory
+   resource was last modified.
+
+   If issuing a Last-Modified header, the Origin server SHOULD support
+   the correct response to a 'If-Modified-Since' HTTP GET or HEAD
+   request, returning the appropriate HTTP status codes [HTTP-CACHE]
+
+   It is RECOMMENDED that Mirrors support Last-Modified and 'If-
+   Modified-Since' [HTTP-CACHE]
 
 5.6.  Future considerations
 
