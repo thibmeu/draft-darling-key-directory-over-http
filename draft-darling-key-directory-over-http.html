@@ -1536,12 +1536,12 @@ their H<a href="#section-5.1-11.2.1" class="pilcrow">¶</a></p>
 should use to fulfill their cryptographic needs. By using a deterministic
 algorithm, Origins can more easily predict the effects of a Key rotation and
 implement grace periods, soak times, etc., without modifications to a Key
-Directory’s protocol.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+Directory's protocol.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
 <p id="section-5.2-2">Key Selection Algorithm:<a href="#section-5.2-2" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-5.2-3">
 <li id="section-5.2-3.1">
             <p id="section-5.2-3.1.1">Remove keys which cannot satisfy a request. E.g., their not-after fields are
-in the past, their not-before fields are in the future, or they don’t have
+in the past, their not-before fields are in the future, or they don't have
 the necessary cryptographic properties, etc.<a href="#section-5.2-3.1.1" class="pilcrow">¶</a></p>
 </li>
           <li id="section-5.2-3.2">
@@ -1678,7 +1678,7 @@ provides a <code>max-age</code> header AND a Mirror is used, the Origin <span cl
 with duration in the range <code>[0, Origin s-maxage]</code>.<a href="#section-5.4.2-2" class="pilcrow">¶</a></p>
 <p id="section-5.4.2-3">Mirrors <span class="bcp14">MUST</span> respect all provided cache directives. Mirrors <span class="bcp14">SHOULD</span> issue a
 <code>max-age</code> value which matches the remaining time to live (TTL) value of the key
-directory in the Mirror’s local cache.<a href="#section-5.4.2-3" class="pilcrow">¶</a></p>
+directory in the Mirror's local cache.<a href="#section-5.4.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="client-cache-refresh">
