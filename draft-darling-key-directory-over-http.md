@@ -327,7 +327,7 @@ A key directory server MUST support both GET and HEAD request on that endpoint.
 GET /.well-known/<your-protocol>
 
 HTTP/1.1 200 OK
-Cache-Control: max-age=300
+Cache-Control: max-age=<Client Cache TTL>, s-maxage=<Shared Cache TTL>
 Content-Type: <your-protocol>
 ~~~
 
