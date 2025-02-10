@@ -119,7 +119,7 @@ The following terms are used throughout this document:
 : An entity exposing public key material via HTTP.
 
 **Mirror:**
-: An intermediary entity between client and server. May cache data, and act as a
+: An intermediary entity between client and origin. May cache data, and act as a
   privacy proxy.
 
 **Key metadata:**
@@ -135,12 +135,13 @@ The following terms are used throughout this document:
 # Architecture
 
 An Origin is exposing a key directory for Clients to fetch. Clients MAY fetch the
-directory from a Mirror, either to protect its privacy, or because the Server
-wants to leverage a content delivery network.
+directory from a Mirror, either to protect its privacy, or because the Origin
+wants to leverage a content delivery network. The endpoint and request pattern
+MUST be the same as if the fetch was to an Origin.
 
 This document focuses on the below interaction, which is triggered when the
-Client does not have valid key for the server. This can be because the Client is
-new, its cache is expired, or the server refuses requests with the current key set.
+Client does not have valid key for the Origin. This can be because the Client is
+new, its cache is expired, or the Origin refuses requests with the current key set.
 
 ~~~aasvg
 +--------+                +--------+               +--------+
@@ -165,8 +166,8 @@ new, its cache is expired, or the server refuses requests with the current key s
 
 Each key in the directory MUST be associated with a unique Key ID.
 
-Key ID is derived from key material that can be shared publicly.
-Protocol implementers SHOULD provide the following blob of data.
+Key ID MUST be derived from key material that is shared publicly.
+Protocols SHOULD provide the following blob of data:
 
 ~~~tls
 struct {
@@ -174,9 +175,9 @@ struct {
 } PublicKeyMaterial;
 ~~~
 
-PublicKeyMaterial can be composed of both cryptographic material and metadata.
+PublicKeyMaterial MAY be composed of both cryptographic material and metadata.
 
-Key ID is defined has follow
+Key ID is defined has follow:
 
 ~~~
 key_id = encode(H(PublicKeyMaterial))
@@ -188,15 +189,11 @@ where
 * `H` is a hash function
 * `encode` is some encoding function
 
-The Truncated Key ID is derived from the Key ID and uniquely identifies a Key
-within a Key Directory. For example, Privacy Pass uses the last byte of the the
-Key ID in network byte order. Other protocols use other schemes.
+==TODO Open questions about H:==
 
-Open question about H:
-
-* Should the draft provide specific H
-* Should the draft define an IANA registry and require protocols to register
-  their H
+* ==Should the draft provide specific H==
+* ==Should the draft define an IANA registry and require protocols to register
+  their H==
 
 ## Key Selection
 
