@@ -216,11 +216,10 @@ restrictions, or push these decision details to deployments.
    * Have a `not-after` field in the past.
    * Have a `not-before` field in the future.
    * Do not meet required cryptographic properties.
-2. Set missing activation times: If a key does not have a `not-before` field,
-   set it to either:
-  * The `Last-Modified` header from the request as defined in {{Section 8.8.2 of HTTP}}, if available.
-  * The Date header from the request as defined in {{Section 6.6.1 of HTTP}}, if available.
-  * The client’s local time.
+2. **Set missing activation times**: If a key does not have a `not-before` field, set it to either:
+   * The `Last-Modified` header from the request as defined in {{Section 8.8.2 of HTTP}}, if available.
+   * The Date header from the request as defined in {{Section 6.6.1 of HTTP}}, if available.
+   * The client’s local time.
 3. **Sort by activation time**: If a `not-before` field exists, sort the
    remaining keys in **descending** order based on `not-before`.
 4. **Select the first key**: Choose the first key from the Key Directory, as
