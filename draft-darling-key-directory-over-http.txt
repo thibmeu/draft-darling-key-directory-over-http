@@ -241,12 +241,12 @@ Table of Contents
 
    *  encode is some encoding function
 
-   ==TODO Open questions about H:==
+      TODO Open questions about H:
 
-   *  ==Should the draft provide specific H==
+      -  Should the draft provide specific H
 
-   *  ==Should the draft define an IANA registry and require protocols
-      to register their H==
+      -  Should the draft define an IANA registry and require protocols
+         to register their H
 
 5.2.  Key Selection
 
