@@ -241,7 +241,7 @@ an expired key.
 Expired key MAY be presented for completion, only if the protocol defines a
 `not-after` field.
 
-## Rotation
+## Rotation {#rotation}
 
 Clients and Origins SHOULD NOT assume a key directory is fixed. Origins SHOULD
 rotate keys on a schedule. Clients SHOULD fetch keys upon an immediate rotation
@@ -333,12 +333,15 @@ control when the Key Directory should be refreshed. Origins SHOULD provide a
 `Cache-Control: max-age` header, or `Expires` header which is slightly less than
 the grace period given for a key about to rotate. Clients SHOULD respect the
 `max-age` cache directive and MAY respect other directives. If an Origin
-provides a `max-age` header AND a Mirror is used, the Origin MUST provide a
+provides a `max-age` header AND a Mirror is used, the Origin SHOULD provide a
 `s-maxage` header that is equivalent to `max-age`.
 
 To prevent Clients refreshing their Key Directories at the same time
-(synchronization), Mirrors SHOULD provide to its clients a `max-age` cache directive
-with duration in the range `[0, Origin s-maxage]`.
+(synchronization), Mirrors SHOULD provide to its clients a `max-age` cache
+directive with duration in the range `[0, Origin s-maxage]`.
+
+Origins SHOULD consider using `Date` ({{Section 6.6.1 of HTTP}}) and
+`Last-modified` ({{Section 8.8.2 of HTTP}}) headers to ease {{rotation}}.
 
 ### Client cache refresh
 
@@ -370,10 +373,10 @@ stamp of when the key directory resource was last modified.
 
 If issuing a Last-Modified header, the Origin server SHOULD support the correct
 response to a 'If-Modified-Since' HTTP GET or HEAD request, returning the
-appropriate HTTP status codes {{!HTTP-CACHE=RFC9111}}
+appropriate HTTP status codes {{RFC9111}}
 
 It is RECOMMENDED that Mirrors support Last-Modified and 'If-Modified-Since'
-{{!HTTP-CACHE=RFC9111}}
+{{HTTP-CACHE}}
 
 ## Future considerations
 
