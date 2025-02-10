@@ -5,8 +5,8 @@
 ???                                                           F. Darling
 Internet-Draft                                                T. Meunier
 Intended status: Informational                                 S. Newton
-Expires: 11 August 2025                                  Cloudflare Inc.
-                                                         7 February 2025
+Expires: 14 August 2025                                  Cloudflare Inc.
+                                                        10 February 2025
 
 
                         Key Directory over HTTP
@@ -14,10 +14,8 @@ Expires: 11 August 2025                                  Cloudflare Inc.
 
 Abstract
 
-   This document defines recommendations for protocol implementers that
-   wish to expose public keys over HTTP.  This allows new protocols to
-   share public keys via HTTP with considerations for caching, rotation,
-   or providing a well-known URL.
+   This document defines recommendations for protocols that expose
+   public keys over HTTP.
 
 About This Document
 
@@ -52,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 11 August 2025.
+   This Internet-Draft will expire on 14 August 2025.
 
 Copyright Notice
 
@@ -112,25 +110,26 @@ Table of Contents
    require keys to be distributed by origins to clients.  This can be
    done via certificates, software releases, or HTTP.  This document
    focuses on this last mechanism.  It aims to set recommendations on
-   how to design a key directory that should be served over HTTP.
+   how to design a key directory that is served over HTTP.
 
    Distribution via HTTP allows for a more dynamic use of public keys,
-   for rotation, or caching on intermediate servers or clients.  This
-   document specifies how clients and mirrors should consume cache
-   directive set by origins, how origins should expose their key
-   directory, and rotate them.  The document does not cover a specific
-   directory format, as these needs might vary from one protocol to the
-   next.
+   for rotation, or caching on intermediate mirrors or clients.  This
+   document specifies which cache directives origin should set, how
+   clients and mirrors should consume cache directive set by origins,
+   how origins should expose their key directory, and rotate them.  The
+   document does not cover a specific directory format, as these needs
+   might vary from one protocol to the next.
 
 2.  Motivation
 
-   JOSE and COSE both define ways to structure key sets, but no way to
-   serve them.  This creates issues when serving these keys over HTTP
-   because caching is not taken into account, and there is no standard
-   way to derive an ID from a key.  Privacy Pass, OHTTP, and DAP also
-   went down the road of defining their own directory, and were faced
-   with similar issues.  While Privacy Pass seems to have been the most
-   thorough, even started considering consistency, these all seem to be
+   [JOSE], Section 5 and [COSE], Section 7 both define ways to structure
+   key sets, but no way to serve them.  This creates issues when serving
+   these keys over HTTP because caching is not taken into account, and
+   there is no standard way to derive an ID from a key.  [PRIVACYPASS],
+   Section 4, [OHTTP], Section 3, and [DAP], Section 4.7.1 are also
+   defining their own public key directory, and are faced with similar
+   issues.  While Privacy Pass seems to have been the most thorough,
+   even considering [CONSISTENCY] for instance, these seem to be
    duplicated efforts that would benefit from being consolidated into
    one specification.
 
@@ -453,12 +452,18 @@ Table of Contents
 10.1.  Normative References
 
    [CONSISTENCY]
-              Beurdouche, B., Finkel, M., Valdez, S., Wood, C. A., and
-              T. Pauly, "Checking Resource Consistency with HTTP
-              Mirrors", Work in Progress, Internet-Draft, draft-ietf-
-              privacypass-consistency-mirror-00, 30 January 2024,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-
-              privacypass-consistency-mirror-00>.
+              "*** BROKEN REFERENCE ***".
+
+   [COSE]     Schaad, J., "CBOR Object Signing and Encryption (COSE)",
+              RFC 8152, DOI 10.17487/RFC8152, July 2017,
+              <https://www.rfc-editor.org/rfc/rfc8152>.
+
+   [DAP]      Geoghegan, T., Patton, C., Pitman, B., Rescorla, E., and
+              C. A. Wood, "Distributed Aggregation Protocol for Privacy
+              Preserving Measurement", Work in Progress, Internet-Draft,
+              draft-ietf-ppm-dap-14, 3 February 2025,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-ppm-dap-
+              14>.
 
    [HTTP-CACHE]
               Fielding, R., Ed., Nottingham, M., Ed., and J. Reschke,
@@ -466,11 +471,25 @@ Table of Contents
               DOI 10.17487/RFC9111, June 2022,
               <https://www.rfc-editor.org/rfc/rfc9111>.
 
+   [JOSE]     Jones, M., "JSON Web Key (JWK)", RFC 7517,
+              DOI 10.17487/RFC7517, May 2015,
+              <https://www.rfc-editor.org/rfc/rfc7517>.
+
    [KEYTRANS] McMillion, B. and F. Linker, "Key Transparency Protocol",
               Work in Progress, Internet-Draft, draft-ietf-keytrans-
               protocol-00, 10 December 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-
               keytrans-protocol-00>.
+
+   [OHTTP]    Thomson, M. and C. A. Wood, "Oblivious HTTP", RFC 9458,
+              DOI 10.17487/RFC9458, January 2024,
+              <https://www.rfc-editor.org/rfc/rfc9458>.
+
+   [PRIVACYPASS]
+              Celi, S., Davidson, A., Valdez, S., and C. A. Wood,
+              "Privacy Pass Issuance Protocols", RFC 9578,
+              DOI 10.17487/RFC9578, June 2024,
+              <https://www.rfc-editor.org/rfc/rfc9578>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
