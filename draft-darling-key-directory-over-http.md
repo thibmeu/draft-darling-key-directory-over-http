@@ -42,7 +42,7 @@ normative:
   COSE: RFC8152
   DAP: I-D.draft-ietf-ppm-dap-14
   HTTP: RFC9110
-  HTTP-CACHING: RFC9111
+  HTTP-CACHE: RFC9111
   JOSE: RFC7517
   OHTTP: RFC9458
   PRIVACYPASS: RFC9578
@@ -351,7 +351,7 @@ cache directive. The higher the delta, the less frequent a Client will update
 its cache. The lower the delta, the quicker clients will respond to unplanned
 key rotations.
 
-`min-fresh` MAY also be sent by Origins as defined in {{RFC9111}}.
+`min-fresh` MAY also be sent by Origins as defined in {{HTTP-CACHE}}.
 
 ## Well known URL
 
@@ -375,7 +375,7 @@ stamp of when the key directory resource was last modified.
 
 If issuing a Last-Modified header, the Origin server SHOULD support the correct
 response to a 'If-Modified-Since' HTTP GET or HEAD request, returning the
-appropriate HTTP status codes {{RFC9111}}
+appropriate HTTP status codes {{HTTP-CACHE}}
 
 It is RECOMMENDED that Mirrors support Last-Modified and 'If-Modified-Since'
 {{HTTP-CACHE}}
