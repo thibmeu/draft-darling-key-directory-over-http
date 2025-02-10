@@ -204,12 +204,12 @@ The following is a deterministic algorithm for determining which Key a client
 should use to fulfill their cryptographic needs. By using a deterministic
 algorithm, Origins can more easily predict the effects of a Key rotation and
 implement grace periods, soak times, etc., without modifications to a Key
-Directory’s protocol.
+Directory's protocol.
 
 Key Selection Algorithm:
 
 1. Remove keys which cannot satisfy a request. E.g., their not-after fields are
-   in the past, their not-before fields are in the future, or they don’t have
+   in the past, their not-before fields are in the future, or they don't have
    the necessary cryptographic properties, etc.
 2. If a not-before field exists, sort the remaining keys by their not-before
    field in descending order.
@@ -313,7 +313,7 @@ with duration in the range `[0, Origin s-maxage]`.
 
 Mirrors MUST respect all provided cache directives. Mirrors SHOULD issue a
 `max-age` value which matches the remaining time to live (TTL) value of the key
-directory in the Mirror’s local cache.
+directory in the Mirror's local cache.
 
 ### Client cache refresh
 
