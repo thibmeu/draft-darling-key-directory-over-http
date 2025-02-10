@@ -1705,7 +1705,7 @@ directory for every request, it would waste time and network resources.<a href="
           <h4 id="name-not-before-fields">
 <a href="#section-5.4.1" class="section-number selfRef">5.4.1. </a><a href="#name-not-before-fields" class="section-name selfRef"><code>not-before</code> fields</a>
           </h4>
-<p id="section-5.4.1-1">Protocol <span class="bcp14">SHOULD</span> define a <code>not-before</code> field. Origins <span class="bcp14">SHOULD</span> add a <code>not-before</code>
+<p id="section-5.4.1-1">Protocols <span class="bcp14">SHOULD</span> define a <code>not-before</code> field. Origins <span class="bcp14">SHOULD</span> add a <code>not-before</code>
 field or equivalent to each Key in the Directory. The not-before field allows
 Origins to signal to Clients when a Key is ready to use and reduces the
 chance a Client uses a key which is not yet available. not-before fields <span class="bcp14">SHOULD</span>
@@ -1751,7 +1751,7 @@ key rotations.<a href="#section-5.4.3-1" class="pilcrow">¶</a></p>
         <h3 id="name-well-known-url">
 <a href="#section-5.5" class="section-number selfRef">5.5. </a><a href="#name-well-known-url" class="section-name selfRef">Well known URL</a>
         </h3>
-<p id="section-5.5-1">It is <span class="bcp14">RECOMMENDED</span> protocol register a <span>[<a href="#WELL-KNOWN" class="cite xref">WELL-KNOWN</a>]</span>URL and associated
+<p id="section-5.5-1">It is <span class="bcp14">RECOMMENDED</span> protocol register a <span>[<a href="#WELL-KNOWN" class="cite xref">WELL-KNOWN</a>]</span> URL and associated
 content-type.<a href="#section-5.5-1" class="pilcrow">¶</a></p>
 <p id="section-5.5-2">A key directory server <span class="bcp14">MUST</span> support both GET and HEAD request on that endpoint.<a href="#section-5.5-2" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-5.5-3">
@@ -1769,9 +1769,9 @@ changed. The Origin server <span class="bcp14">SHOULD</span> issue a Last-Modifi
 stamp of when the key directory resource was last modified.<a href="#section-5.5-4" class="pilcrow">¶</a></p>
 <p id="section-5.5-5">If issuing a Last-Modified header, the Origin server <span class="bcp14">SHOULD</span> support the correct
 response to a 'If-Modified-Since' HTTP GET or HEAD request, returning the
-appropriate HTTP status codes <span>[<a href="#HTTP-CACHE" class="cite xref">HTTP-CACHE</a>]</span><a href="#section-5.5-5" class="pilcrow">¶</a></p>
+appropriate HTTP status codes <span>[<a href="#HTTP-CACHE" class="cite xref">HTTP-CACHE</a>]</span>.<a href="#section-5.5-5" class="pilcrow">¶</a></p>
 <p id="section-5.5-6">It is <span class="bcp14">RECOMMENDED</span> that Mirrors support Last-Modified and 'If-Modified-Since'
-<span>[<a href="#HTTP-CACHE" class="cite xref">HTTP-CACHE</a>]</span><a href="#section-5.5-6" class="pilcrow">¶</a></p>
+<span>[<a href="#HTTP-CACHE" class="cite xref">HTTP-CACHE</a>]</span>.<a href="#section-5.5-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="future-considerations">

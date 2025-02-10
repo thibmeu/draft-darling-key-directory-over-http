@@ -382,11 +382,11 @@ Table of Contents
 
 5.4.1.  not-before fields
 
-   Protocol SHOULD define a not-before field.  Origins SHOULD add a not-
-   before field or equivalent to each Key in the Directory.  The not-
-   before field allows Origins to signal to Clients when a Key is ready
-   to use and reduces the chance a Client uses a key which is not yet
-   available. not-before fields SHOULD be a Unix epoch timestamp in
+   Protocols SHOULD define a not-before field.  Origins SHOULD add a
+   not-before field or equivalent to each Key in the Directory.  The
+   not-before field allows Origins to signal to Clients when a Key is
+   ready to use and reduces the chance a Client uses a key which is not
+   yet available. not-before fields SHOULD be a Unix epoch timestamp in
    seconds.
 
 5.4.2.  Cache directives
@@ -419,7 +419,7 @@ Table of Contents
 
 5.5.  Well known URL
 
-   It is RECOMMENDED protocol register a [WELL-KNOWN]URL and associated
+   It is RECOMMENDED protocol register a [WELL-KNOWN] URL and associated
    content-type.
 
    A key directory server MUST support both GET and HEAD request on that
@@ -439,10 +439,10 @@ Table of Contents
 
    If issuing a Last-Modified header, the Origin server SHOULD support
    the correct response to a 'If-Modified-Since' HTTP GET or HEAD
-   request, returning the appropriate HTTP status codes [HTTP-CACHE]
+   request, returning the appropriate HTTP status codes [HTTP-CACHE].
 
    It is RECOMMENDED that Mirrors support Last-Modified and 'If-
-   Modified-Since' [HTTP-CACHE]
+   Modified-Since' [HTTP-CACHE].
 
 5.6.  Future considerations
 
