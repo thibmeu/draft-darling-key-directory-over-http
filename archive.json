@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-09T01:01:12.423625+00:00",
+  "timestamp": "2025-02-11T00:57:53.112520+00:00",
   "repo": "thibmeu/draft-darling-key-directory-over-http",
   "labels": [
     {
@@ -269,6 +269,118 @@
           ]
         }
       ]
+    },
+    {
+      "number": 3,
+      "id": "PR_kwDONgO_Sc6Kn16c",
+      "title": "Update draft-darling-key-directory-over-http.md",
+      "url": "https://github.com/thibmeu/draft-darling-key-directory-over-http/pull/3",
+      "state": "MERGED",
+      "author": "ThePlexus",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "update caching section to remove cache lifetime conflict",
+      "createdAt": "2025-02-10T10:41:43Z",
+      "updatedAt": "2025-02-10T10:43:26Z",
+      "baseRepository": "thibmeu/draft-darling-key-directory-over-http",
+      "baseRefName": "main",
+      "baseRefOid": "31b2208905a3b12d0d10b1b35518a1895796e7b2",
+      "headRepository": "ThePlexus/draft-darling-key-directory-over-http",
+      "headRefName": "cachefix",
+      "headRefOid": "9fca0b1b87727238509a4519e8cd111d19c6e9c3",
+      "closedAt": "2025-02-10T10:43:26Z",
+      "mergedAt": "2025-02-10T10:43:25Z",
+      "mergedBy": "thibmeu",
+      "mergeCommit": {
+        "oid": "770da2ef4b589d6523b4271b92651e3f9a743c1a"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDONgO_Sc6bSrWx",
+          "commit": {
+            "abbreviatedOid": "9fca0b1"
+          },
+          "author": "thibmeu",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-02-10T10:43:19Z",
+          "updatedAt": "2025-02-10T10:43:19Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "id": "PR_kwDONgO_Sc6Kn8Kl",
+      "title": "fix cache-control example ",
+      "url": "https://github.com/thibmeu/draft-darling-key-directory-over-http/pull/4",
+      "state": "MERGED",
+      "author": "ThePlexus",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "fix cache-control example ",
+      "createdAt": "2025-02-10T10:53:35Z",
+      "updatedAt": "2025-02-10T11:10:48Z",
+      "baseRepository": "thibmeu/draft-darling-key-directory-over-http",
+      "baseRefName": "main",
+      "baseRefOid": "110c1b6d959264593ddd6cca1ed3527ec26c9a50",
+      "headRepository": "ThePlexus/draft-darling-key-directory-over-http",
+      "headRefName": "fixes",
+      "headRefOid": "9d2ebf2b7887a91512b745aab88b2ef80d779c08",
+      "closedAt": "2025-02-10T10:54:26Z",
+      "mergedAt": "2025-02-10T10:54:26Z",
+      "mergedBy": "thibmeu",
+      "mergeCommit": {
+        "oid": "dc21cd7fb47d7e87c24c4ecef4ff0029dde9c93b"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDONgO_Sc6bSxqq",
+          "commit": {
+            "abbreviatedOid": "9d2ebf2"
+          },
+          "author": "thibmeu",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-02-10T10:54:19Z",
+          "updatedAt": "2025-02-10T10:54:19Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "id": "PR_kwDONgO_Sc6KoM9t",
+      "title": "Datestamp",
+      "url": "https://github.com/thibmeu/draft-darling-key-directory-over-http/pull/5",
+      "state": "MERGED",
+      "author": "ThePlexus",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-02-10T11:26:27Z",
+      "updatedAt": "2025-02-10T13:44:56Z",
+      "baseRepository": "thibmeu/draft-darling-key-directory-over-http",
+      "baseRefName": "main",
+      "baseRefOid": "643c084b7a890eeacd72edb4b89921a5a3cfd108",
+      "headRepository": "ThePlexus/draft-darling-key-directory-over-http",
+      "headRefName": "datestamp",
+      "headRefOid": "2f268460cc25b5cdb139b091702afd8a7720ed67",
+      "closedAt": "2025-02-10T13:44:56Z",
+      "mergedAt": "2025-02-10T13:44:56Z",
+      "mergedBy": "thibmeu",
+      "mergeCommit": {
+        "oid": "719cccb7c2d81eec382da0843f03cea108d29cf8"
+      },
+      "comments": [],
+      "reviews": []
     }
   ]
 }
