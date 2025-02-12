@@ -528,7 +528,12 @@ Table of Contents
 9.2.  Informative References
 
    [CONSISTENCY]
-              "*** BROKEN REFERENCE ***".
+              Beurdouche, B., Finkel, M., Valdez, S., Wood, C. A., and
+              T. Pauly, "Checking Resource Consistency with HTTP
+              Mirrors", Work in Progress, Internet-Draft, draft-ietf-
+              privacypass-consistency-mirror-00, 30 January 2024,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-
+              privacypass-consistency-mirror-00>.
 
    [COSE]     Schaad, J., "CBOR Object Signing and Encryption (COSE)",
               RFC 8152, DOI 10.17487/RFC8152, July 2017,
@@ -538,9 +543,9 @@ Table of Contents
               Tschofenig, H., Steele, O., Daisuke, A., and L. Lundblade,
               "Use of Hybrid Public-Key Encryption (HPKE) with CBOR
               Object Signing and Encryption (COSE)", Work in Progress,
-              Internet-Draft, draft-ietf-cose-hpke-07, 22 October 2023,
+              Internet-Draft, draft-ietf-cose-hpke-10, 18 January 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
-              hpke-07>.
+              hpke-10>.
 
    [DAP]      Geoghegan, T., Patton, C., Pitman, B., Rescorla, E., and
               C. A. Wood, "Distributed Aggregation Protocol for Privacy
