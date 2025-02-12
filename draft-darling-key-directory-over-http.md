@@ -43,9 +43,9 @@ normative:
   HTTP-CACHE: RFC9111
 
 informative:
-  CONSISTENCY: I-D.ietf-privacypass-consistency-mirror-01
+  CONSISTENCY: I-D.ietf-privacypass-consistency-mirror-00
   COSE: RFC8152
-  COSE-HPKE: I-D.draft-ietf-cose-hpke-07
+  COSE-HPKE: I-D.draft-ietf-cose-hpke-10
   DAP: I-D.draft-ietf-ppm-dap-14
   HTTP-BEST-PRACTICES: RFC9205
   JOSE: RFC7517
