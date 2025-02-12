@@ -2,16 +2,16 @@
 
 This is the working area for the individual Internet-Draft, "HPKE Key Directory over HTTP".
 
-* [Editor's Copy](https://thibmeu.github.io/draft-darling-ohai-hpke-key-directory-over-http/#go.draft-darling-ohai-hpke-key-directory-over-http.html)
-* [Datatracker Page](https://datatracker.ietf.org/doc/draft-darling-ohai-hpke-key-directory-over-http)
-* [Individual Draft](https://datatracker.ietf.org/doc/html/draft-darling-ohai-hpke-key-directory-over-http)
-* [Compare Editor's Copy to Individual Draft](https://thibmeu.github.io/draft-darling-ohai-hpke-key-directory-over-http/#go.draft-darling-ohai-hpke-key-directory-over-http.diff)
+* [Editor's Copy](https://thibmeu.github.io/draft-meunier-ohai-hpke-key-directory-over-http/#go.draft-meunier-ohai-hpke-key-directory-over-http.html)
+* [Datatracker Page](https://datatracker.ietf.org/doc/draft-meunier-ohai-hpke-key-directory-over-http)
+* [Individual Draft](https://datatracker.ietf.org/doc/html/draft-meunier-ohai-hpke-key-directory-over-http)
+* [Compare Editor's Copy to Individual Draft](https://thibmeu.github.io/draft-meunier-ohai-hpke-key-directory-over-http/#go.draft-meunier-ohai-hpke-key-directory-over-http.diff)
 
 
 ## Contributing
 
 See the
-[guidelines for contributions](https://github.com/thibmeu/draft-darling-ohai-hpke-key-directory-over-http/blob//CONTRIBUTING.md).
+[guidelines for contributions](https://github.com/thibmeu/draft-meunier-ohai-hpke-key-directory-over-http/blob//CONTRIBUTING.md).
 
 Contributions can be made by creating pull requests.
 The GitHub interface supports creating pull requests using the Edit (✏) button.
