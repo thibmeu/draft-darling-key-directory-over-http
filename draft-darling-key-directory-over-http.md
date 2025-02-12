@@ -388,7 +388,7 @@ If issuing a `Last-Modified` header, the Origin server SHOULD support the correc
 response to a `If-Modified-Since` HTTP GET or HEAD request, returning the
 appropriate HTTP status codes {{HTTP-CACHE}}.
 
-It is RECOMMENDED that Mirrors support Last-Modified and 'If-Modified-Since'
+It is RECOMMENDED that Mirrors support `Last-Modified` and `If-Modified-Since`
 {{HTTP-CACHE}}.
 
 ## Future considerations
