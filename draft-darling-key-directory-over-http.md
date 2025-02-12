@@ -1,5 +1,6 @@
 ---
-title: "Key Directory over HTTP"
+title: "Recommendations for Key Directories over HTTP"
+abbrev: Key Directory over HTTP
 category: info
 
 docname: draft-darling-key-directory-over-http-latest
@@ -38,16 +39,20 @@ author:
     email: rfc@simonnewton.com
 
 normative:
-  CONSISTENCY: I-D.ietf-privacypass-consistency-mirror-01
-  COSE: RFC8152
-  DAP: I-D.draft-ietf-ppm-dap-14
   HTTP: RFC9110
   HTTP-CACHE: RFC9111
-  JOSE: RFC7517
-  OHTTP: RFC9458
-  PRIVACYPASS: RFC9578
 
 informative:
+  CONSISTENCY: I-D.ietf-privacypass-consistency-mirror-01
+  COSE: RFC8152
+  COSE-HPKE: I-D.draft-ietf-cose-hpke-07
+  DAP: I-D.draft-ietf-ppm-dap-14
+  HTTP-BEST-PRACTICES: RFC9205
+  JOSE: RFC7517
+  JOSE-HPKE: I-D.draft-rha-jose-hpke-encrypt-10
+  KEYTRANS: I-D.ietf-keytrans-protocol-00
+  OHTTP: RFC9458
+  PRIVACYPASS: RFC9578
 
 
 --- abstract
@@ -61,7 +66,7 @@ HTTP.
 # Introduction
 
 Multiple Internet protocols rely on public key cryptography. They require keys
-to be distributed by origins to clients. This can be done via certificates,
+to be distributed by Origins to Clients. This can be done via certificates,
 software releases, or HTTP. This document focuses on this last mechanism. It
 aims to set recommendations on how to design a key directory that is served
 over HTTP.
@@ -70,9 +75,12 @@ Distribution via HTTP allows for a more dynamic use of public keys, for
 rotation, or caching on intermediate mirrors or clients.
 This document specifies which cache directives origin should set, how clients
 and mirrors should consume cache directive set by origins, how origins should
-expose their key directory, and rotate them.
-The document does not cover a specific directory format, as these needs might
-vary from one protocol to the next.
+expose their key directory, and rotate them. This complements reccomendations
+provided by {{HTTP-BEST-PRACTICES}}, narrowing them for key directories
+protocols.
+
+The document does not cover a specific directory format, as these needs vary
+from one protocol to the next.
 
 # Motivation
 
@@ -318,6 +326,9 @@ key, are at odds with each other. In the event of an {{immediate}} key rotation,
 Client might use an invalid key. However, if a Client fetches an Origin key
 directory for every request, it would waste time and network resources.
 
+This section provides interaction with some cache directive. Deployments SHOULD
+also consider the recommendations laid out in {{Section 4.9 of HTTP-BEST-PRACTICES}}.
+
 ### `not-before` fields {#not-before}
 
 Protocols SHOULD define a `not-before` field. Origins SHOULD add a `not-before`
@@ -369,12 +380,12 @@ Content-Type: <your-protocol>
 Last-Modified: <datestamp>
 ~~~
 
-HEAD requests can be used by clients to cheaply determine if the directory has
-changed. The Origin server SHOULD issue a Last-Modified header with the date
+HEAD requests can be used by Clients to cheaply determine if the directory has
+changed. The Origin server SHOULD issue a `Last-Modified` header with the date
 stamp of when the key directory resource was last modified.
 
-If issuing a Last-Modified header, the Origin server SHOULD support the correct
-response to a 'If-Modified-Since' HTTP GET or HEAD request, returning the
+If issuing a `Last-Modified` header, the Origin server SHOULD support the correct
+response to a `If-Modified-Since` HTTP GET or HEAD request, returning the
 appropriate HTTP status codes {{HTTP-CACHE}}.
 
 It is RECOMMENDED that Mirrors support Last-Modified and 'If-Modified-Since'
@@ -382,39 +393,36 @@ It is RECOMMENDED that Mirrors support Last-Modified and 'If-Modified-Since'
 
 ## Future considerations
 
-These considerations should be addressed in future drafts.
+These considerations should be addressed in future drafts. Defining them now
+appears to be premature as the core of the draft does not have consensus.
 
 ### Consistency
 
 Consistency allows client to prevent themselves from split view attack. A
 proposal that has been made for Privacy Pass is to use multiple mirrors
-{{!CONSISTENCY}}. With a sufficiently high quorum, clients get more confident
+{{CONSISTENCY}}. With a sufficiently high quorum, clients get more confident
 that they are not singled out.
 It presents scalability issues as you need multiple mirrors, and have one more
 requests from client per mirror in the quorum.
 
 ### Key Transparency
 
-Key Directory over HTTP should integrate with transparency, once the protocol has
-been defined in {{!KEYTRANS=I-D.ietf-keytrans-protocol}}.
+Key Directory over HTTP SHOULD integrate with transparency, once the protocol has
+been defined in {{KEYTRANS}}.
 There are specific consideration as to what goes in the log: the full
 directory, keys individually, privacy considerations.
 
 
-# Deployment Considerations
-
-Rotation schedule: fast?
-Proxy improves client experience and shields key directory server
-
 
 # Privacy Considerations
 
-TODO Privacy
-
 Clients fetching keys mean they reveal their IP, time, and other informations.
-When the key directory is for an external service, Clients SHOULD consider
-proxying their traffic through a mirror server. Mirrors SHOULD NOT collide with
-the key server.
+When the key directory is provided by an Origin distinct from the Origin
+providing service, Clients SHOULD consider proxying their traffic through a
+Mirror server provided by the service they use. This may happen if the Origin
+service delegates key management to a third party for instance.
+Mirrors SHOULD NOT collide with the key server in an attempt to break Client
+privacy.
 
 
 # Security Considerations
@@ -431,8 +439,35 @@ This document has no IANA actions.
 
 # Test vectors
 
-List how to test cache
-List how to test rotation
+Implementation may test the following scenarios
+1. One key is provided on a normal basis, the key rotates:
+  1. does the directory has two entries or one?
+  2. what are the cache headers?
+  3. what are the keys as seen by a client?
+  4. does the new key has a unique key id?
+
+2. Key has to be rotated immediately
+  1. How long does it take for client to notice
+  2. What is the backoff to avoid a thundering herd issue
+
+# Non normative proposals
+
+## For JOSE
+
+JOSE has a key directory in the form of JWK Set as defined in {{Section 5 of JOSE}}.
+However, it does not addhere to the best practices laid down here, despite being
+Web keys. This would be valuable as the group aims to integrates with all sort
+of cryptographic keys, as can be seen with the new HPKE proposal {{JOSE-HPKE}}.
+
+Following these recommendations, JOSE MAY define:
+
+* A well-known URI
+* A deterministic Key ID
+* Recommendations for caching and rotation, or leave it to implementations.
+
+## For COSE
+
+Same as the above, for COSE Key Set.
 
 # Use cases
 
@@ -440,7 +475,7 @@ See existing key directory on https://key-directory-over-http.research.cloudflar
 
 ## DAP
 
-HpkeConfigList [1]
+Defined in {{Section 4.5.1 of DAP}}.
 
 ~~~tls
 HpkeConfig HpkeConfigList<0..2^16-1>;
@@ -464,11 +499,9 @@ Partially informed comments:
 * HpkeConfigId could be removed
 * Need not-before to handle early capture
 
-[1] https://datatracker.ietf.org/doc/html/draft-ietf-ppm-dap-13#section-4.5.1
-
 ## OHTTP
 
-Key Configutation [1]
+Defined in {{Section 3 of OHTTP}}.
 
 ~~~tls
 HPKE Symmetric Algorithms {
@@ -491,11 +524,9 @@ Partially informed comments:
 * No mention of not-before
 * No mention of HTTP Caching for rotation
 
-[1] https://www.ietf.org/rfc/rfc9458.html#name-key-configuration
-
 ## Privacy Pass
 
-Issuer directory [1]
+Defined in {{Section 4 of PRIVACYPASS}}
 
 ~~~tls
  {
@@ -518,13 +549,10 @@ Partially informed comments:
 * Not as flexible as HPKE
 * Has some protocol metadata (token-type, issuer-request-uri, rate-limit)
 
-[1] https://www.rfc-editor.org/rfc/rfc9578#name-configuration
-
-## Masque relay
-
-..
 
 # Acknowledgments
 {:numbered="false"}
 
-TODO acknowledge.
+The authors would like to thank Ethan Heilman, Michael Rosenberg for their
+knowledge of existing practices on key directories, and Mark Nottingham for
+helpful discussion on HTTP best practices.
