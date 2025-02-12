@@ -553,6 +553,6 @@ Partially informed comments:
 # Acknowledgments
 {:numbered="false"}
 
-The authors would like to thank Ethan Heilman, Michael Rosenberg for their
-knowledge of existing practices on key directories, and Mark Nottingham for
-helpful discussion on HTTP best practices.
+The authors would like to thank Ethan Heilman, Michael Rosenberg, and Chris Wood
+for their knowledge of existing practices on key directories, and Mark
+Nottingham for helpful discussion on HTTP best practices.
