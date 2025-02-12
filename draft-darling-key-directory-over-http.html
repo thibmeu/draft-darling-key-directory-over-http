@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta content="Common,Latin" name="scripts">
 <meta content="initial-scale=1.0" name="viewport">
-<title>Key Directory over HTTP</title>
+<title>Recommendations for Key Directories over HTTP</title>
 <meta content="Fisher Darling" name="author">
 <meta content="Thibault Meunier" name="author">
 <meta content="Simon Newton" name="author">
@@ -1056,7 +1056,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Darling, et al.</td>
-<td class="center">Expires 14 August 2025</td>
+<td class="center">Expires 16 August 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1069,12 +1069,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-darling-key-directory-over-http-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-02-10" class="published">10 February 2025</time>
+<time datetime="2025-02-12" class="published">12 February 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-08-14">14 August 2025</time></dd>
+<dd class="expires"><time datetime="2025-08-16">16 August 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1092,7 +1092,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </dd>
 </dl>
 </div>
-<h1 id="title">Key Directory over HTTP</h1>
+<h1 id="title">Recommendations for Key Directories over HTTP</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">This document defines recommendations for protocols that expose public keys over
@@ -1133,7 +1133,7 @@ HTTP.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 14 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 16 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1238,53 +1238,58 @@ HTTP.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
-            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-deployment-considerations" class="internal xref">Deployment Considerations</a></p>
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-privacy-considerations" class="internal xref">Privacy Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
-            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-privacy-considerations" class="internal xref">Privacy Considerations</a></p>
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
-            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
+            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
-            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
-            <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-references" class="internal xref">References</a></p>
+            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-references" class="internal xref">References</a></p>
 <ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.1">
-                <p id="section-toc.1-1.10.2.1.1"><a href="#section-10.1" class="auto internal xref">10.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.1">
+                <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="auto internal xref">9.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
 </li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.2">
-                <p id="section-toc.1-1.10.2.2.1"><a href="#section-10.2" class="auto internal xref">10.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2">
+                <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="auto internal xref">9.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
 </li>
             </ul>
 </li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
+            <p id="section-toc.1-1.10.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-test-vectors" class="internal xref">Test vectors</a></p>
+</li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
-            <p id="section-toc.1-1.11.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-test-vectors" class="internal xref">Test vectors</a></p>
+            <p id="section-toc.1-1.11.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-non-normative-proposals" class="internal xref">Non normative proposals</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.1">
+                <p id="section-toc.1-1.11.2.1.1"><a href="#appendix-B.1" class="auto internal xref">B.1</a>.  <a href="#name-for-jose" class="internal xref">For JOSE</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.2">
+                <p id="section-toc.1-1.11.2.2.1"><a href="#appendix-B.2" class="auto internal xref">B.2</a>.  <a href="#name-for-cose" class="internal xref">For COSE</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
-            <p id="section-toc.1-1.12.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-use-cases" class="internal xref">Use cases</a></p>
+            <p id="section-toc.1-1.12.1"><a href="#appendix-C" class="auto internal xref">Appendix C</a>.  <a href="#name-use-cases" class="internal xref">Use cases</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.1">
-                <p id="section-toc.1-1.12.2.1.1"><a href="#appendix-B.1" class="auto internal xref">B.1</a>.  <a href="#name-dap" class="internal xref">DAP</a></p>
+                <p id="section-toc.1-1.12.2.1.1"><a href="#appendix-C.1" class="auto internal xref">C.1</a>.  <a href="#name-dap" class="internal xref">DAP</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.2">
-                <p id="section-toc.1-1.12.2.2.1"><a href="#appendix-B.2" class="auto internal xref">B.2</a>.  <a href="#name-ohttp" class="internal xref">OHTTP</a></p>
+                <p id="section-toc.1-1.12.2.2.1"><a href="#appendix-C.2" class="auto internal xref">C.2</a>.  <a href="#name-ohttp" class="internal xref">OHTTP</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.3">
-                <p id="section-toc.1-1.12.2.3.1"><a href="#appendix-B.3" class="auto internal xref">B.3</a>.  <a href="#name-privacy-pass" class="internal xref">Privacy Pass</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.4">
-                <p id="section-toc.1-1.12.2.4.1"><a href="#appendix-B.4" class="auto internal xref">B.4</a>.  <a href="#name-masque-relay" class="internal xref">Masque relay</a></p>
+                <p id="section-toc.1-1.12.2.3.1"><a href="#appendix-C.3" class="auto internal xref">C.3</a>.  <a href="#name-privacy-pass" class="internal xref">Privacy Pass</a></p>
 </li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13">
-            <p id="section-toc.1-1.13.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
+            <p id="section-toc.1-1.13.1"><a href="#appendix-D" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.14">
-            <p id="section-toc.1-1.14.1"><a href="#appendix-D" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
+            <p id="section-toc.1-1.14.1"><a href="#appendix-E" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1296,7 +1301,7 @@ HTTP.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
 <p id="section-1-1">Multiple Internet protocols rely on public key cryptography. They require keys
-to be distributed by origins to clients. This can be done via certificates,
+to be distributed by Origins to Clients. This can be done via certificates,
 software releases, or HTTP. This document focuses on this last mechanism. It
 aims to set recommendations on how to design a key directory that is served
 over HTTP.<a href="#section-1-1" class="pilcrow">¶</a></p>
@@ -1304,9 +1309,11 @@ over HTTP.<a href="#section-1-1" class="pilcrow">¶</a></p>
 rotation, or caching on intermediate mirrors or clients.
 This document specifies which cache directives origin should set, how clients
 and mirrors should consume cache directive set by origins, how origins should
-expose their key directory, and rotate them.
-The document does not cover a specific directory format, as these needs might
-vary from one protocol to the next.<a href="#section-1-2" class="pilcrow">¶</a></p>
+expose their key directory, and rotate them. This complements reccomendations
+provided by <span>[<a href="#HTTP-BEST-PRACTICES" class="cite xref">HTTP-BEST-PRACTICES</a>]</span>, narrowing them for key directories
+protocols.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-3">The document does not cover a specific directory format, as these needs vary
+from one protocol to the next.<a href="#section-1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="motivation">
@@ -1700,6 +1707,8 @@ invalid key.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
 key, are at odds with each other. In the event of an <a href="#immediate" class="auto internal xref">Section 5.3.3</a> key rotation, a
 Client might use an invalid key. However, if a Client fetches an Origin key
 directory for every request, it would waste time and network resources.<a href="#section-5.4-2" class="pilcrow">¶</a></p>
+<p id="section-5.4-3">This section provides interaction with some cache directive. Deployments <span class="bcp14">SHOULD</span>
+also consider the recommendations laid out in <span><a href="https://rfc-editor.org/rfc/rfc9205#section-4.9" class="relref">Section 4.9</a> of [<a href="#HTTP-BEST-PRACTICES" class="cite xref">HTTP-BEST-PRACTICES</a>]</span>.<a href="#section-5.4-3" class="pilcrow">¶</a></p>
 <div id="not-before">
 <section id="section-5.4.1">
           <h4 id="name-not-before-fields">
@@ -1764,11 +1773,11 @@ Content-Type: &lt;your-protocol&gt;
 Last-Modified: &lt;datestamp&gt;
 </pre><a href="#section-5.5-3" class="pilcrow">¶</a>
 </div>
-<p id="section-5.5-4">HEAD requests can be used by clients to cheaply determine if the directory has
-changed. The Origin server <span class="bcp14">SHOULD</span> issue a Last-Modified header with the date
+<p id="section-5.5-4">HEAD requests can be used by Clients to cheaply determine if the directory has
+changed. The Origin server <span class="bcp14">SHOULD</span> issue a <code>Last-Modified</code> header with the date
 stamp of when the key directory resource was last modified.<a href="#section-5.5-4" class="pilcrow">¶</a></p>
-<p id="section-5.5-5">If issuing a Last-Modified header, the Origin server <span class="bcp14">SHOULD</span> support the correct
-response to a 'If-Modified-Since' HTTP GET or HEAD request, returning the
+<p id="section-5.5-5">If issuing a <code>Last-Modified</code> header, the Origin server <span class="bcp14">SHOULD</span> support the correct
+response to a <code>If-Modified-Since</code> HTTP GET or HEAD request, returning the
 appropriate HTTP status codes <span>[<a href="#HTTP-CACHE" class="cite xref">HTTP-CACHE</a>]</span>.<a href="#section-5.5-5" class="pilcrow">¶</a></p>
 <p id="section-5.5-6">It is <span class="bcp14">RECOMMENDED</span> that Mirrors support Last-Modified and 'If-Modified-Since'
 <span>[<a href="#HTTP-CACHE" class="cite xref">HTTP-CACHE</a>]</span>.<a href="#section-5.5-6" class="pilcrow">¶</a></p>
@@ -1779,7 +1788,8 @@ appropriate HTTP status codes <span>[<a href="#HTTP-CACHE" class="cite xref">HTT
         <h3 id="name-future-considerations">
 <a href="#section-5.6" class="section-number selfRef">5.6. </a><a href="#name-future-considerations" class="section-name selfRef">Future considerations</a>
         </h3>
-<p id="section-5.6-1">These considerations should be addressed in future drafts.<a href="#section-5.6-1" class="pilcrow">¶</a></p>
+<p id="section-5.6-1">These considerations should be addressed in future drafts. Defining them now
+appears to be premature as the core of the draft does not have consensus.<a href="#section-5.6-1" class="pilcrow">¶</a></p>
 <div id="consistency">
 <section id="section-5.6.1">
           <h4 id="name-consistency">
@@ -1798,7 +1808,7 @@ requests from client per mirror in the quorum.<a href="#section-5.6.1-1" class="
           <h4 id="name-key-transparency">
 <a href="#section-5.6.2" class="section-number selfRef">5.6.2. </a><a href="#name-key-transparency" class="section-name selfRef">Key Transparency</a>
           </h4>
-<p id="section-5.6.2-1">Key Directory over HTTP should integrate with transparency, once the protocol has
+<p id="section-5.6.2-1">Key Directory over HTTP <span class="bcp14">SHOULD</span> integrate with transparency, once the protocol has
 been defined in <span>[<a href="#KEYTRANS" class="cite xref">KEYTRANS</a>]</span>.
 There are specific consideration as to what goes in the log: the full
 directory, keys individually, privacy considerations.<a href="#section-5.6.2-1" class="pilcrow">¶</a></p>
@@ -1808,66 +1818,47 @@ directory, keys individually, privacy considerations.<a href="#section-5.6.2-1" 
 </div>
 </section>
 </div>
-<div id="deployment-considerations">
-<section id="section-6">
-      <h2 id="name-deployment-considerations">
-<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-deployment-considerations" class="section-name selfRef">Deployment Considerations</a>
-      </h2>
-<p id="section-6-1">Rotation schedule: fast?
-Proxy improves client experience and shields key directory server<a href="#section-6-1" class="pilcrow">¶</a></p>
-</section>
-</div>
 <div id="privacy-considerations">
-<section id="section-7">
+<section id="section-6">
       <h2 id="name-privacy-considerations">
-<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-privacy-considerations" class="section-name selfRef">Privacy Considerations</a>
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-privacy-considerations" class="section-name selfRef">Privacy Considerations</a>
       </h2>
-<p id="section-7-1">TODO Privacy<a href="#section-7-1" class="pilcrow">¶</a></p>
-<p id="section-7-2">Clients fetching keys mean they reveal their IP, time, and other informations.
-When the key directory is for an external service, Clients <span class="bcp14">SHOULD</span> consider
-proxying their traffic through a mirror server. Mirrors <span class="bcp14">SHOULD NOT</span> collide with
-the key server.<a href="#section-7-2" class="pilcrow">¶</a></p>
+<p id="section-6-1">Clients fetching keys mean they reveal their IP, time, and other informations.
+When the key directory is provided by an Origin distinct from the Origin
+providing service, Clients <span class="bcp14">SHOULD</span> consider proxying their traffic through a
+Mirror server provided by the service they use. This may happen if the Origin
+service delegates key management to a third party for instance.
+Mirrors <span class="bcp14">SHOULD NOT</span> collide with the key server in an attempt to break Client
+privacy.<a href="#section-6-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="security-considerations">
-<section id="section-8">
+<section id="section-7">
       <h2 id="name-security-considerations">
-<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-8-1">TODO Security<a href="#section-8-1" class="pilcrow">¶</a></p>
+<p id="section-7-1">TODO Security<a href="#section-7-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
-<section id="section-9">
+<section id="section-8">
       <h2 id="name-iana-considerations">
-<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
+<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA Considerations</a>
       </h2>
-<p id="section-9-1">This document has no IANA actions.<a href="#section-9-1" class="pilcrow">¶</a></p>
+<p id="section-8-1">This document has no IANA actions.<a href="#section-8-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-combined-references">
-<section id="section-10">
+<section id="section-9">
       <h2 id="name-references">
-<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-references" class="section-name selfRef">References</a>
+<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-references" class="section-name selfRef">References</a>
       </h2>
 <div id="sec-normative-references">
-<section id="section-10.1">
+<section id="section-9.1">
         <h3 id="name-normative-references">
-<a href="#section-10.1" class="section-number selfRef">10.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+<a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
-<dt id="CONSISTENCY">[CONSISTENCY]</dt>
-        <dd>
-<span class="refTitle">"*** BROKEN REFERENCE ***"</span>. </dd>
-<dd class="break"></dd>
-<dt id="COSE">[COSE]</dt>
-        <dd>
-<span class="refAuthor">Schaad, J.</span>, <span class="refTitle">"CBOR Object Signing and Encryption (COSE)"</span>, <span class="seriesInfo">RFC 8152</span>, <span class="seriesInfo">DOI 10.17487/RFC8152</span>, <time datetime="2017-07" class="refDate">July 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8152">https://www.rfc-editor.org/rfc/rfc8152</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="DAP">[DAP]</dt>
-        <dd>
-<span class="refAuthor">Geoghegan, T.</span>, <span class="refAuthor">Patton, C.</span>, <span class="refAuthor">Pitman, B.</span>, <span class="refAuthor">Rescorla, E.</span>, and <span class="refAuthor">C. A. Wood</span>, <span class="refTitle">"Distributed Aggregation Protocol for Privacy Preserving Measurement"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-ppm-dap-14</span>, <time datetime="2025-02-03" class="refDate">3 February 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-ppm-dap-14">https://datatracker.ietf.org/doc/html/draft-ietf-ppm-dap-14</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="HTTP">[HTTP]</dt>
         <dd>
 <span class="refAuthor">Fielding, R., Ed.</span>, <span class="refAuthor">Nottingham, M., Ed.</span>, and <span class="refAuthor">J. Reschke, Ed.</span>, <span class="refTitle">"HTTP Semantics"</span>, <span class="seriesInfo">STD 97</span>, <span class="seriesInfo">RFC 9110</span>, <span class="seriesInfo">DOI 10.17487/RFC9110</span>, <time datetime="2022-06" class="refDate">June 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9110">https://www.rfc-editor.org/rfc/rfc9110</a>&gt;</span>. </dd>
@@ -1875,22 +1866,6 @@ the key server.<a href="#section-7-2" class="pilcrow">¶</a></p>
 <dt id="HTTP-CACHE">[HTTP-CACHE]</dt>
         <dd>
 <span class="refAuthor">Fielding, R., Ed.</span>, <span class="refAuthor">Nottingham, M., Ed.</span>, and <span class="refAuthor">J. Reschke, Ed.</span>, <span class="refTitle">"HTTP Caching"</span>, <span class="seriesInfo">STD 98</span>, <span class="seriesInfo">RFC 9111</span>, <span class="seriesInfo">DOI 10.17487/RFC9111</span>, <time datetime="2022-06" class="refDate">June 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9111">https://www.rfc-editor.org/rfc/rfc9111</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="JOSE">[JOSE]</dt>
-        <dd>
-<span class="refAuthor">Jones, M.</span>, <span class="refTitle">"JSON Web Key (JWK)"</span>, <span class="seriesInfo">RFC 7517</span>, <span class="seriesInfo">DOI 10.17487/RFC7517</span>, <time datetime="2015-05" class="refDate">May 2015</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7517">https://www.rfc-editor.org/rfc/rfc7517</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="KEYTRANS">[KEYTRANS]</dt>
-        <dd>
-<span class="refAuthor">McMillion, B.</span> and <span class="refAuthor">F. Linker</span>, <span class="refTitle">"Key Transparency Protocol"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-keytrans-protocol-00</span>, <time datetime="2024-12-10" class="refDate">10 December 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-keytrans-protocol-00">https://datatracker.ietf.org/doc/html/draft-ietf-keytrans-protocol-00</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="OHTTP">[OHTTP]</dt>
-        <dd>
-<span class="refAuthor">Thomson, M.</span> and <span class="refAuthor">C. A. Wood</span>, <span class="refTitle">"Oblivious HTTP"</span>, <span class="seriesInfo">RFC 9458</span>, <span class="seriesInfo">DOI 10.17487/RFC9458</span>, <time datetime="2024-01" class="refDate">January 2024</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9458">https://www.rfc-editor.org/rfc/rfc9458</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="PRIVACYPASS">[PRIVACYPASS]</dt>
-        <dd>
-<span class="refAuthor">Celi, S.</span>, <span class="refAuthor">Davidson, A.</span>, <span class="refAuthor">Valdez, S.</span>, and <span class="refAuthor">C. A. Wood</span>, <span class="refTitle">"Privacy Pass Issuance Protocols"</span>, <span class="seriesInfo">RFC 9578</span>, <span class="seriesInfo">DOI 10.17487/RFC9578</span>, <time datetime="2024-06" class="refDate">June 2024</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9578">https://www.rfc-editor.org/rfc/rfc9578</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
@@ -1912,11 +1887,51 @@ the key server.<a href="#section-7-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-informative-references">
-<section id="section-10.2">
+<section id="section-9.2">
         <h3 id="name-informative-references">
-<a href="#section-10.2" class="section-number selfRef">10.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+<a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
         </h3>
 <dl class="references">
+<dt id="CONSISTENCY">[CONSISTENCY]</dt>
+        <dd>
+<span class="refTitle">"*** BROKEN REFERENCE ***"</span>. </dd>
+<dd class="break"></dd>
+<dt id="COSE">[COSE]</dt>
+        <dd>
+<span class="refAuthor">Schaad, J.</span>, <span class="refTitle">"CBOR Object Signing and Encryption (COSE)"</span>, <span class="seriesInfo">RFC 8152</span>, <span class="seriesInfo">DOI 10.17487/RFC8152</span>, <time datetime="2017-07" class="refDate">July 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8152">https://www.rfc-editor.org/rfc/rfc8152</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="COSE-HPKE">[COSE-HPKE]</dt>
+        <dd>
+<span class="refAuthor">Tschofenig, H.</span>, <span class="refAuthor">Steele, O.</span>, <span class="refAuthor">Daisuke, A.</span>, and <span class="refAuthor">L. Lundblade</span>, <span class="refTitle">"Use of Hybrid Public-Key Encryption (HPKE) with CBOR Object Signing and Encryption (COSE)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-cose-hpke-07</span>, <time datetime="2023-10-22" class="refDate">22 October 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-cose-hpke-07">https://datatracker.ietf.org/doc/html/draft-ietf-cose-hpke-07</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="DAP">[DAP]</dt>
+        <dd>
+<span class="refAuthor">Geoghegan, T.</span>, <span class="refAuthor">Patton, C.</span>, <span class="refAuthor">Pitman, B.</span>, <span class="refAuthor">Rescorla, E.</span>, and <span class="refAuthor">C. A. Wood</span>, <span class="refTitle">"Distributed Aggregation Protocol for Privacy Preserving Measurement"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-ppm-dap-14</span>, <time datetime="2025-02-03" class="refDate">3 February 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-ppm-dap-14">https://datatracker.ietf.org/doc/html/draft-ietf-ppm-dap-14</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="HTTP-BEST-PRACTICES">[HTTP-BEST-PRACTICES]</dt>
+        <dd>
+<span class="refAuthor">Nottingham, M.</span>, <span class="refTitle">"Building Protocols with HTTP"</span>, <span class="seriesInfo">BCP 56</span>, <span class="seriesInfo">RFC 9205</span>, <span class="seriesInfo">DOI 10.17487/RFC9205</span>, <time datetime="2022-06" class="refDate">June 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9205">https://www.rfc-editor.org/rfc/rfc9205</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="JOSE">[JOSE]</dt>
+        <dd>
+<span class="refAuthor">Jones, M.</span>, <span class="refTitle">"JSON Web Key (JWK)"</span>, <span class="seriesInfo">RFC 7517</span>, <span class="seriesInfo">DOI 10.17487/RFC7517</span>, <time datetime="2015-05" class="refDate">May 2015</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc7517">https://www.rfc-editor.org/rfc/rfc7517</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="JOSE-HPKE">[JOSE-HPKE]</dt>
+        <dd>
+<span class="refTitle">"*** BROKEN REFERENCE ***"</span>. </dd>
+<dd class="break"></dd>
+<dt id="KEYTRANS">[KEYTRANS]</dt>
+        <dd>
+<span class="refAuthor">McMillion, B.</span> and <span class="refAuthor">F. Linker</span>, <span class="refTitle">"Key Transparency Protocol"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-keytrans-protocol-00</span>, <time datetime="2024-12-10" class="refDate">10 December 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-keytrans-protocol-00">https://datatracker.ietf.org/doc/html/draft-ietf-keytrans-protocol-00</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="OHTTP">[OHTTP]</dt>
+        <dd>
+<span class="refAuthor">Thomson, M.</span> and <span class="refAuthor">C. A. Wood</span>, <span class="refTitle">"Oblivious HTTP"</span>, <span class="seriesInfo">RFC 9458</span>, <span class="seriesInfo">DOI 10.17487/RFC9458</span>, <time datetime="2024-01" class="refDate">January 2024</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9458">https://www.rfc-editor.org/rfc/rfc9458</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="PRIVACYPASS">[PRIVACYPASS]</dt>
+        <dd>
+<span class="refAuthor">Celi, S.</span>, <span class="refAuthor">Davidson, A.</span>, <span class="refAuthor">Valdez, S.</span>, and <span class="refAuthor">C. A. Wood</span>, <span class="refTitle">"Privacy Pass Issuance Protocols"</span>, <span class="seriesInfo">RFC 9578</span>, <span class="seriesInfo">DOI 10.17487/RFC9578</span>, <time datetime="2024-06" class="refDate">June 2024</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9578">https://www.rfc-editor.org/rfc/rfc9578</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC9000">[RFC9000]</dt>
       <dd>
 <span class="refAuthor">Iyengar, J., Ed.</span> and <span class="refAuthor">M. Thomson, Ed.</span>, <span class="refTitle">"QUIC: A UDP-Based Multiplexed and Secure Transport"</span>, <span class="seriesInfo">RFC 9000</span>, <span class="seriesInfo">DOI 10.17487/RFC9000</span>, <time datetime="2021-05" class="refDate">May 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9000">https://www.rfc-editor.org/rfc/rfc9000</a>&gt;</span>. </dd>
@@ -1931,23 +1946,76 @@ the key server.<a href="#section-7-2" class="pilcrow">¶</a></p>
       <h2 id="name-test-vectors">
 <a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-test-vectors" class="section-name selfRef">Test vectors</a>
       </h2>
-<p id="appendix-A-1">List how to test cache
-List how to test rotation<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<p id="appendix-A-1">Implementation may test the following scenarios
+1. One key is provided on a normal basis, the key rotates:
+  1. does the directory has two entries or one?
+  2. what are the cache headers?
+  3. what are the keys as seen by a client?
+  4. does the new key has a unique key id?<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="appendix-A-2">
+<li id="appendix-A-2.1">
+          <p id="appendix-A-2.1.1">Key has to be rotated immediately<a href="#appendix-A-2.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li id="appendix-A-2.2">
+          <p id="appendix-A-2.2.1">How long does it take for client to notice<a href="#appendix-A-2.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li id="appendix-A-2.3">
+          <p id="appendix-A-2.3.1">What is the backoff to avoid a thundering herd issue<a href="#appendix-A-2.3.1" class="pilcrow">¶</a></p>
+</li>
+      </ol>
+</section>
+</div>
+<div id="non-normative-proposals">
+<section id="appendix-B">
+      <h2 id="name-non-normative-proposals">
+<a href="#appendix-B" class="section-number selfRef">Appendix B. </a><a href="#name-non-normative-proposals" class="section-name selfRef">Non normative proposals</a>
+      </h2>
+<div id="for-jose">
+<section id="appendix-B.1">
+        <h3 id="name-for-jose">
+<a href="#appendix-B.1" class="section-number selfRef">B.1. </a><a href="#name-for-jose" class="section-name selfRef">For JOSE</a>
+        </h3>
+<p id="appendix-B.1-1">JOSE has a key directory in the form of JWK Set as defined in <span><a href="https://rfc-editor.org/rfc/rfc7517#section-5" class="relref">Section 5</a> of [<a href="#JOSE" class="cite xref">JOSE</a>]</span>.
+However, it does not addhere to the best practices laid down here, despite being
+Web keys. This would be valuable as the group aims to integrates with all sort
+of cryptographic keys, as can be seen with the new HPKE proposal <span>[<a href="#JOSE-HPKE" class="cite xref">JOSE-HPKE</a>]</span>.<a href="#appendix-B.1-1" class="pilcrow">¶</a></p>
+<p id="appendix-B.1-2">Following these recommendations, JOSE <span class="bcp14">MAY</span> define:<a href="#appendix-B.1-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="appendix-B.1-3.1">
+            <p id="appendix-B.1-3.1.1">A well-known URI<a href="#appendix-B.1-3.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-B.1-3.2">
+            <p id="appendix-B.1-3.2.1">A deterministic Key ID<a href="#appendix-B.1-3.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="appendix-B.1-3.3">
+            <p id="appendix-B.1-3.3.1">Recommendations for caching and rotation, or leave it to implementations.<a href="#appendix-B.1-3.3.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+<div id="for-cose">
+<section id="appendix-B.2">
+        <h3 id="name-for-cose">
+<a href="#appendix-B.2" class="section-number selfRef">B.2. </a><a href="#name-for-cose" class="section-name selfRef">For COSE</a>
+        </h3>
+<p id="appendix-B.2-1">Same as the above, for COSE Key Set.<a href="#appendix-B.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
 </section>
 </div>
 <div id="use-cases">
-<section id="appendix-B">
+<section id="appendix-C">
       <h2 id="name-use-cases">
-<a href="#appendix-B" class="section-number selfRef">Appendix B. </a><a href="#name-use-cases" class="section-name selfRef">Use cases</a>
+<a href="#appendix-C" class="section-number selfRef">Appendix C. </a><a href="#name-use-cases" class="section-name selfRef">Use cases</a>
       </h2>
-<p id="appendix-B-1">See existing key directory on https://key-directory-over-http.research.cloudflare.com/<a href="#appendix-B-1" class="pilcrow">¶</a></p>
+<p id="appendix-C-1">See existing key directory on https://key-directory-over-http.research.cloudflare.com/<a href="#appendix-C-1" class="pilcrow">¶</a></p>
 <div id="dap">
-<section id="appendix-B.1">
+<section id="appendix-C.1">
         <h3 id="name-dap">
-<a href="#appendix-B.1" class="section-number selfRef">B.1. </a><a href="#name-dap" class="section-name selfRef">DAP</a>
+<a href="#appendix-C.1" class="section-number selfRef">C.1. </a><a href="#name-dap" class="section-name selfRef">DAP</a>
         </h3>
-<p id="appendix-B.1-1">HpkeConfigList [1]<a href="#appendix-B.1-1" class="pilcrow">¶</a></p>
-<div class="lang-tls sourcecode" id="appendix-B.1-2">
+<p id="appendix-C.1-1">Defined in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-ppm-dap-14#section-4.5.1" class="relref">Section 4.5.1</a> of [<a href="#DAP" class="cite xref">DAP</a>]</span>.<a href="#appendix-C.1-1" class="pilcrow">¶</a></p>
+<div class="lang-tls sourcecode" id="appendix-C.1-2">
 <pre>
 HpkeConfig HpkeConfigList&lt;0..2^16-1&gt;;
 
@@ -1963,27 +2031,26 @@ opaque HpkePublicKey&lt;0..2^16-1&gt;;
 uint16 HpkeAeadId; /* Defined in [HPKE] */
 uint16 HpkeKemId;  /* Defined in [HPKE] */
 uint16 HpkeKdfId;  /* Defined in [HPKE] */
-</pre><a href="#appendix-B.1-2" class="pilcrow">¶</a>
+</pre><a href="#appendix-C.1-2" class="pilcrow">¶</a>
 </div>
-<p id="appendix-B.1-3">Partially informed comments:<a href="#appendix-B.1-3" class="pilcrow">¶</a></p>
+<p id="appendix-C.1-3">Partially informed comments:<a href="#appendix-C.1-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="appendix-B.1-4.1">
-            <p id="appendix-B.1-4.1.1">HpkeConfigId could be removed<a href="#appendix-B.1-4.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-C.1-4.1">
+            <p id="appendix-C.1-4.1.1">HpkeConfigId could be removed<a href="#appendix-C.1-4.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-B.1-4.2">
-            <p id="appendix-B.1-4.2.1">Need not-before to handle early capture<a href="#appendix-B.1-4.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-C.1-4.2">
+            <p id="appendix-C.1-4.2.1">Need not-before to handle early capture<a href="#appendix-C.1-4.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="appendix-B.1-5">[1] https://datatracker.ietf.org/doc/html/draft-ietf-ppm-dap-13#section-4.5.1<a href="#appendix-B.1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="ohttp">
-<section id="appendix-B.2">
+<section id="appendix-C.2">
         <h3 id="name-ohttp">
-<a href="#appendix-B.2" class="section-number selfRef">B.2. </a><a href="#name-ohttp" class="section-name selfRef">OHTTP</a>
+<a href="#appendix-C.2" class="section-number selfRef">C.2. </a><a href="#name-ohttp" class="section-name selfRef">OHTTP</a>
         </h3>
-<p id="appendix-B.2-1">Key Configutation [1]<a href="#appendix-B.2-1" class="pilcrow">¶</a></p>
-<div class="lang-tls sourcecode" id="appendix-B.2-2">
+<p id="appendix-C.2-1">Defined in <span><a href="https://rfc-editor.org/rfc/rfc9458#section-3" class="relref">Section 3</a> of [<a href="#OHTTP" class="cite xref">OHTTP</a>]</span>.<a href="#appendix-C.2-1" class="pilcrow">¶</a></p>
+<div class="lang-tls sourcecode" id="appendix-C.2-2">
 <pre>
 HPKE Symmetric Algorithms {
   HPKE KDF ID (16),
@@ -1997,30 +2064,29 @@ Key Config {
   HPKE Symmetric Algorithms Length (16) = 4..65532,
   HPKE Symmetric Algorithms (32) ...,
 }
-</pre><a href="#appendix-B.2-2" class="pilcrow">¶</a>
+</pre><a href="#appendix-C.2-2" class="pilcrow">¶</a>
 </div>
-<p id="appendix-B.2-3">Partially informed comments:<a href="#appendix-B.2-3" class="pilcrow">¶</a></p>
+<p id="appendix-C.2-3">Partially informed comments:<a href="#appendix-C.2-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="appendix-B.2-4.1">
-            <p id="appendix-B.2-4.1.1">Key Identifier could be removed/be deterministic<a href="#appendix-B.2-4.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="appendix-C.2-4.1">
+            <p id="appendix-C.2-4.1.1">Key Identifier could be removed/be deterministic<a href="#appendix-C.2-4.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-B.2-4.2">
-            <p id="appendix-B.2-4.2.1">No mention of not-before<a href="#appendix-B.2-4.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-C.2-4.2">
+            <p id="appendix-C.2-4.2.1">No mention of not-before<a href="#appendix-C.2-4.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="appendix-B.2-4.3">
-            <p id="appendix-B.2-4.3.1">No mention of HTTP Caching for rotation<a href="#appendix-B.2-4.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="appendix-C.2-4.3">
+            <p id="appendix-C.2-4.3.1">No mention of HTTP Caching for rotation<a href="#appendix-C.2-4.3.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="appendix-B.2-5">[1] https://www.ietf.org/rfc/rfc9458.html#name-key-configuration<a href="#appendix-B.2-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="privacy-pass">
-<section id="appendix-B.3">
+<section id="appendix-C.3">
         <h3 id="name-privacy-pass">
-<a href="#appendix-B.3" class="section-number selfRef">B.3. </a><a href="#name-privacy-pass" class="section-name selfRef">Privacy Pass</a>
+<a href="#appendix-C.3" class="section-number selfRef">C.3. </a><a href="#name-privacy-pass" class="section-name selfRef">Privacy Pass</a>
         </h3>
-<p id="appendix-B.3-1">Issuer directory [1]<a href="#appendix-B.3-1" class="pilcrow">¶</a></p>
-<div class="lang-tls sourcecode" id="appendix-B.3-2">
+<p id="appendix-C.3-1">Defined in <span><a href="https://rfc-editor.org/rfc/rfc9578#section-4" class="relref">Section 4</a> of [<a href="#PRIVACYPASS" class="cite xref">PRIVACYPASS</a>]</span><a href="#appendix-C.3-1" class="pilcrow">¶</a></p>
+<div class="lang-tls sourcecode" id="appendix-C.3-2">
 <pre>
  {
     "issuer-request-uri": "https://issuer.example.net/request",
@@ -2036,34 +2102,27 @@ Key Config {
       }
     ]
  }
-</pre><a href="#appendix-B.3-2" class="pilcrow">¶</a>
+</pre><a href="#appendix-C.3-2" class="pilcrow">¶</a>
 </div>
-<p id="appendix-B.3-3">Partially informed comments:
+<p id="appendix-C.3-3">Partially informed comments:
 * Not as flexible as HPKE
-* Has some protocol metadata (token-type, issuer-request-uri, rate-limit)<a href="#appendix-B.3-3" class="pilcrow">¶</a></p>
-<p id="appendix-B.3-4">[1] https://www.rfc-editor.org/rfc/rfc9578#name-configuration<a href="#appendix-B.3-4" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="masque-relay">
-<section id="appendix-B.4">
-        <h3 id="name-masque-relay">
-<a href="#appendix-B.4" class="section-number selfRef">B.4. </a><a href="#name-masque-relay" class="section-name selfRef">Masque relay</a>
-        </h3>
-<p id="appendix-B.4-1">..<a href="#appendix-B.4-1" class="pilcrow">¶</a></p>
+* Has some protocol metadata (token-type, issuer-request-uri, rate-limit)<a href="#appendix-C.3-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
 </div>
 <div id="acknowledgments">
-<section id="appendix-C">
+<section id="appendix-D">
       <h2 id="name-acknowledgments">
 <a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
       </h2>
-<p id="appendix-C-1">TODO acknowledge.<a href="#appendix-C-1" class="pilcrow">¶</a></p>
+<p id="appendix-D-1">The authors would like to thank Ethan Heilman, Michael Rosenberg for their
+knowledge of existing practices on key directories, and Mark Nottingham for
+helpful discussion on HTTP best practices.<a href="#appendix-D-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authors-addresses">
-<section id="appendix-D">
+<section id="appendix-E">
       <h2 id="name-authors-addresses">
 <a href="#name-authors-addresses" class="section-name selfRef">Authors' Addresses</a>
       </h2>

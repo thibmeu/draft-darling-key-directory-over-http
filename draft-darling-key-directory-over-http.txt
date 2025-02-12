@@ -5,11 +5,11 @@
 ???                                                           F. Darling
 Internet-Draft                                                T. Meunier
 Intended status: Informational                                 S. Newton
-Expires: 14 August 2025                                  Cloudflare Inc.
-                                                        10 February 2025
+Expires: 16 August 2025                                  Cloudflare Inc.
+                                                        12 February 2025
 
 
-                        Key Directory over HTTP
+             Recommendations for Key Directories over HTTP
               draft-darling-key-directory-over-http-latest
 
 Abstract
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 14 August 2025.
+   This Internet-Draft will expire on 16 August 2025.
 
 Copyright Notice
 
@@ -89,26 +89,27 @@ Table of Contents
      5.6.  Future considerations
        5.6.1.  Consistency
        5.6.2.  Key Transparency
-   6.  Deployment Considerations
-   7.  Privacy Considerations
-   8.  Security Considerations
-   9.  IANA Considerations
-   10. References
-     10.1.  Normative References
-     10.2.  Informative References
+   6.  Privacy Considerations
+   7.  Security Considerations
+   8.  IANA Considerations
+   9.  References
+     9.1.  Normative References
+     9.2.  Informative References
    Appendix A.  Test vectors
-   Appendix B.  Use cases
-     B.1.  DAP
-     B.2.  OHTTP
-     B.3.  Privacy Pass
-     B.4.  Masque relay
+   Appendix B.  Non normative proposals
+     B.1.  For JOSE
+     B.2.  For COSE
+   Appendix C.  Use cases
+     C.1.  DAP
+     C.2.  OHTTP
+     C.3.  Privacy Pass
    Acknowledgments
    Authors' Addresses
 
 1.  Introduction
 
    Multiple Internet protocols rely on public key cryptography.  They
-   require keys to be distributed by origins to clients.  This can be
+   require keys to be distributed by Origins to Clients.  This can be
    done via certificates, software releases, or HTTP.  This document
    focuses on this last mechanism.  It aims to set recommendations on
    how to design a key directory that is served over HTTP.
@@ -117,9 +118,12 @@ Table of Contents
    for rotation, or caching on intermediate mirrors or clients.  This
    document specifies which cache directives origin should set, how
    clients and mirrors should consume cache directive set by origins,
-   how origins should expose their key directory, and rotate them.  The
-   document does not cover a specific directory format, as these needs
-   might vary from one protocol to the next.
+   how origins should expose their key directory, and rotate them.  This
+   complements reccomendations provided by [HTTP-BEST-PRACTICES],
+   narrowing them for key directories protocols.
+
+   The document does not cover a specific directory format, as these
+   needs vary from one protocol to the next.
 
 2.  Motivation
 
@@ -380,6 +384,10 @@ Table of Contents
    However, if a Client fetches an Origin key directory for every
    request, it would waste time and network resources.
 
+   This section provides interaction with some cache directive.
+   Deployments SHOULD also consider the recommendations laid out in
+   Section 4.9 of [HTTP-BEST-PRACTICES].
+
 5.4.1.  not-before fields
 
    Protocols SHOULD define a not-before field.  Origins SHOULD add a
@@ -432,21 +440,23 @@ Table of Contents
   Content-Type: <your-protocol>
   Last-Modified: <datestamp>
 
-   HEAD requests can be used by clients to cheaply determine if the
+   HEAD requests can be used by Clients to cheaply determine if the
    directory has changed.  The Origin server SHOULD issue a Last-
    Modified header with the date stamp of when the key directory
    resource was last modified.
 
    If issuing a Last-Modified header, the Origin server SHOULD support
-   the correct response to a 'If-Modified-Since' HTTP GET or HEAD
-   request, returning the appropriate HTTP status codes [HTTP-CACHE].
+   the correct response to a If-Modified-Since HTTP GET or HEAD request,
+   returning the appropriate HTTP status codes [HTTP-CACHE].
 
    It is RECOMMENDED that Mirrors support Last-Modified and 'If-
    Modified-Since' [HTTP-CACHE].
 
 5.6.  Future considerations
 
-   These considerations should be addressed in future drafts.
+   These considerations should be addressed in future drafts.  Defining
+   them now appears to be premature as the core of the draft does not
+   have consensus.
 
 5.6.1.  Consistency
 
@@ -459,50 +469,32 @@ Table of Contents
 
 5.6.2.  Key Transparency
 
-   Key Directory over HTTP should integrate with transparency, once the
+   Key Directory over HTTP SHOULD integrate with transparency, once the
    protocol has been defined in [KEYTRANS].  There are specific
    consideration as to what goes in the log: the full directory, keys
    individually, privacy considerations.
 
-6.  Deployment Considerations
-
-   Rotation schedule: fast?  Proxy improves client experience and
-   shields key directory server
-
-7.  Privacy Considerations
-
-   TODO Privacy
+6.  Privacy Considerations
 
    Clients fetching keys mean they reveal their IP, time, and other
-   informations.  When the key directory is for an external service,
-   Clients SHOULD consider proxying their traffic through a mirror
-   server.  Mirrors SHOULD NOT collide with the key server.
+   informations.  When the key directory is provided by an Origin
+   distinct from the Origin providing service, Clients SHOULD consider
+   proxying their traffic through a Mirror server provided by the
+   service they use.  This may happen if the Origin service delegates
+   key management to a third party for instance.  Mirrors SHOULD NOT
+   collide with the key server in an attempt to break Client privacy.
 
-8.  Security Considerations
+7.  Security Considerations
 
    TODO Security
 
-9.  IANA Considerations
+8.  IANA Considerations
 
    This document has no IANA actions.
 
-10.  References
+9.  References
 
-10.1.  Normative References
-
-   [CONSISTENCY]
-              "*** BROKEN REFERENCE ***".
-
-   [COSE]     Schaad, J., "CBOR Object Signing and Encryption (COSE)",
-              RFC 8152, DOI 10.17487/RFC8152, July 2017,
-              <https://www.rfc-editor.org/rfc/rfc8152>.
-
-   [DAP]      Geoghegan, T., Patton, C., Pitman, B., Rescorla, E., and
-              C. A. Wood, "Distributed Aggregation Protocol for Privacy
-              Preserving Measurement", Work in Progress, Internet-Draft,
-              draft-ietf-ppm-dap-14, 3 February 2025,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-ppm-dap-
-              14>.
+9.1.  Normative References
 
    [HTTP]     Fielding, R., Ed., Nottingham, M., Ed., and J. Reschke,
               Ed., "HTTP Semantics", STD 97, RFC 9110,
@@ -514,26 +506,6 @@ Table of Contents
               Ed., "HTTP Caching", STD 98, RFC 9111,
               DOI 10.17487/RFC9111, June 2022,
               <https://www.rfc-editor.org/rfc/rfc9111>.
-
-   [JOSE]     Jones, M., "JSON Web Key (JWK)", RFC 7517,
-              DOI 10.17487/RFC7517, May 2015,
-              <https://www.rfc-editor.org/rfc/rfc7517>.
-
-   [KEYTRANS] McMillion, B. and F. Linker, "Key Transparency Protocol",
-              Work in Progress, Internet-Draft, draft-ietf-keytrans-
-              protocol-00, 10 December 2024,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-
-              keytrans-protocol-00>.
-
-   [OHTTP]    Thomson, M. and C. A. Wood, "Oblivious HTTP", RFC 9458,
-              DOI 10.17487/RFC9458, January 2024,
-              <https://www.rfc-editor.org/rfc/rfc9458>.
-
-   [PRIVACYPASS]
-              Celi, S., Davidson, A., Valdez, S., and C. A. Wood,
-              "Privacy Pass Issuance Protocols", RFC 9578,
-              DOI 10.17487/RFC9578, June 2024,
-              <https://www.rfc-editor.org/rfc/rfc9578>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -553,7 +525,57 @@ Table of Contents
               (URIs)", RFC 8615, DOI 10.17487/RFC8615, May 2019,
               <https://www.rfc-editor.org/rfc/rfc8615>.
 
-10.2.  Informative References
+9.2.  Informative References
+
+   [CONSISTENCY]
+              "*** BROKEN REFERENCE ***".
+
+   [COSE]     Schaad, J., "CBOR Object Signing and Encryption (COSE)",
+              RFC 8152, DOI 10.17487/RFC8152, July 2017,
+              <https://www.rfc-editor.org/rfc/rfc8152>.
+
+   [COSE-HPKE]
+              Tschofenig, H., Steele, O., Daisuke, A., and L. Lundblade,
+              "Use of Hybrid Public-Key Encryption (HPKE) with CBOR
+              Object Signing and Encryption (COSE)", Work in Progress,
+              Internet-Draft, draft-ietf-cose-hpke-07, 22 October 2023,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-cose-
+              hpke-07>.
+
+   [DAP]      Geoghegan, T., Patton, C., Pitman, B., Rescorla, E., and
+              C. A. Wood, "Distributed Aggregation Protocol for Privacy
+              Preserving Measurement", Work in Progress, Internet-Draft,
+              draft-ietf-ppm-dap-14, 3 February 2025,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-ppm-dap-
+              14>.
+
+   [HTTP-BEST-PRACTICES]
+              Nottingham, M., "Building Protocols with HTTP", BCP 56,
+              RFC 9205, DOI 10.17487/RFC9205, June 2022,
+              <https://www.rfc-editor.org/rfc/rfc9205>.
+
+   [JOSE]     Jones, M., "JSON Web Key (JWK)", RFC 7517,
+              DOI 10.17487/RFC7517, May 2015,
+              <https://www.rfc-editor.org/rfc/rfc7517>.
+
+   [JOSE-HPKE]
+              "*** BROKEN REFERENCE ***".
+
+   [KEYTRANS] McMillion, B. and F. Linker, "Key Transparency Protocol",
+              Work in Progress, Internet-Draft, draft-ietf-keytrans-
+              protocol-00, 10 December 2024,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-
+              keytrans-protocol-00>.
+
+   [OHTTP]    Thomson, M. and C. A. Wood, "Oblivious HTTP", RFC 9458,
+              DOI 10.17487/RFC9458, January 2024,
+              <https://www.rfc-editor.org/rfc/rfc9458>.
+
+   [PRIVACYPASS]
+              Celi, S., Davidson, A., Valdez, S., and C. A. Wood,
+              "Privacy Pass Issuance Protocols", RFC 9578,
+              DOI 10.17487/RFC9578, June 2024,
+              <https://www.rfc-editor.org/rfc/rfc9578>.
 
    [RFC9000]  Iyengar, J., Ed. and M. Thomson, Ed., "QUIC: A UDP-Based
               Multiplexed and Secure Transport", RFC 9000,
@@ -562,16 +584,50 @@ Table of Contents
 
 Appendix A.  Test vectors
 
-   List how to test cache List how to test rotation
+   Implementation may test the following scenarios 1.  One key is
+   provided on a normal basis, the key rotates: 1. does the directory
+   has two entries or one?  2. what are the cache headers?  3. what are
+   the keys as seen by a client?  4. does the new key has a unique key
+   id?
 
-Appendix B.  Use cases
+   1.  Key has to be rotated immediately
+
+   2.  How long does it take for client to notice
+
+   3.  What is the backoff to avoid a thundering herd issue
+
+Appendix B.  Non normative proposals
+
+B.1.  For JOSE
+
+   JOSE has a key directory in the form of JWK Set as defined in
+   Section 5 of [JOSE].  However, it does not addhere to the best
+   practices laid down here, despite being Web keys.  This would be
+   valuable as the group aims to integrates with all sort of
+   cryptographic keys, as can be seen with the new HPKE proposal
+   [JOSE-HPKE].
+
+   Following these recommendations, JOSE MAY define:
+
+   *  A well-known URI
+
+   *  A deterministic Key ID
+
+   *  Recommendations for caching and rotation, or leave it to
+      implementations.
+
+B.2.  For COSE
+
+   Same as the above, for COSE Key Set.
+
+Appendix C.  Use cases
 
    See existing key directory on https://key-directory-over-
    http.research.cloudflare.com/
 
-B.1.  DAP
+C.1.  DAP
 
-   HpkeConfigList [1]
+   Defined in Section 4.5.1 of [DAP].
 
    HpkeConfig HpkeConfigList<0..2^16-1>;
 
@@ -594,12 +650,9 @@ B.1.  DAP
 
    *  Need not-before to handle early capture
 
-   [1] https://datatracker.ietf.org/doc/html/draft-ietf-ppm-dap-
-   13#section-4.5.1
+C.2.  OHTTP
 
-B.2.  OHTTP
-
-   Key Configutation [1]
+   Defined in Section 3 of [OHTTP].
 
    HPKE Symmetric Algorithms {
      HPKE KDF ID (16),
@@ -622,11 +675,9 @@ B.2.  OHTTP
 
    *  No mention of HTTP Caching for rotation
 
-   [1] https://www.ietf.org/rfc/rfc9458.html#name-key-configuration
+C.3.  Privacy Pass
 
-B.3.  Privacy Pass
-
-   Issuer directory [1]
+   Defined in Section 4 of [PRIVACYPASS]
 
     {
        "issuer-request-uri": "https://issuer.example.net/request",
@@ -646,15 +697,11 @@ B.3.  Privacy Pass
    Partially informed comments: * Not as flexible as HPKE * Has some
    protocol metadata (token-type, issuer-request-uri, rate-limit)
 
-   [1] https://www.rfc-editor.org/rfc/rfc9578#name-configuration
-
-B.4.  Masque relay
-
-   ..
-
 Acknowledgments
 
-   TODO acknowledge.
+   The authors would like to thank Ethan Heilman, Michael Rosenberg for
+   their knowledge of existing practices on key directories, and Mark
+   Nottingham for helpful discussion on HTTP best practices.
 
 Authors' Addresses
 
