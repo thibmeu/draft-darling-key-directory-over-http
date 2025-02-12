@@ -49,7 +49,7 @@ informative:
   DAP: I-D.draft-ietf-ppm-dap-14
   HTTP-BEST-PRACTICES: RFC9205
   JOSE: RFC7517
-  JOSE-HPKE: I-D.draft-rha-jose-hpke-encrypt-10
+  JOSE-HPKE: I-D.draft-rha-jose-hpke-encrypt-07
   KEYTRANS: I-D.ietf-keytrans-protocol-00
   OHTTP: RFC9458
   PRIVACYPASS: RFC9578
