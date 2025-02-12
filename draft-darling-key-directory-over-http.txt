@@ -564,7 +564,12 @@ Table of Contents
               <https://www.rfc-editor.org/rfc/rfc7517>.
 
    [JOSE-HPKE]
-              "*** BROKEN REFERENCE ***".
+              Reddy.K, T., Tschofenig, H., Banerjee, A., Steele, O., and
+              M. B. Jones, "Use of Hybrid Public Key Encryption (HPKE)
+              with JSON Object Signing and Encryption (JOSE)", Work in
+              Progress, Internet-Draft, draft-rha-jose-hpke-encrypt-07,
+              31 March 2024, <https://datatracker.ietf.org/doc/html/
+              draft-rha-jose-hpke-encrypt-07>.
 
    [KEYTRANS] McMillion, B. and F. Linker, "Key Transparency Protocol",
               Work in Progress, Internet-Draft, draft-ietf-keytrans-
