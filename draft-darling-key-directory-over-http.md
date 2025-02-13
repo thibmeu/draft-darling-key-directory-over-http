@@ -344,7 +344,7 @@ control when the Key Directory should be refreshed. For instance, Origins
 provides a
 `Cache-Control: max-age` header, or `Expires` header which is slightly less than
 the grace period given for a key about to rotate. Clients should respect the
-`max-age` cache directive oe other directives. If an Origin
+`max-age` cache directive or other directives. If an Origin
 provides a `max-age` header and a Mirror is used, an Origin should provide a
 `s-maxage` header that is equivalent to `max-age`.
 
