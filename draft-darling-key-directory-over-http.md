@@ -367,7 +367,7 @@ key rotations.
 
 ## Well known URL
 
-It is recommended protocol register a {{!WELL-KNOWN=RFC8615}} URL and associated
+It is recommended protocols register a {{!WELL-KNOWN=RFC8615}} URL and associated
 content-type.
 
 A key directory server should consider supporting both GET and HEAD request on
