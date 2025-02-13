@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-11T00:57:53.112520+00:00",
+  "timestamp": "2025-02-13T00:58:20.110329+00:00",
   "repo": "thibmeu/draft-darling-key-directory-over-http",
   "labels": [
     {
@@ -379,6 +379,108 @@
       "mergeCommit": {
         "oid": "719cccb7c2d81eec382da0843f03cea108d29cf8"
       },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 6,
+      "id": "PR_kwDONgO_Sc6K7EAn",
+      "title": "fix formatting",
+      "url": "https://github.com/thibmeu/draft-darling-key-directory-over-http/pull/6",
+      "state": "MERGED",
+      "author": "ThePlexus",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-02-12T09:14:55Z",
+      "updatedAt": "2025-02-12T09:24:48Z",
+      "baseRepository": "thibmeu/draft-darling-key-directory-over-http",
+      "baseRefName": "main",
+      "baseRefOid": "d0d753ccad13003203e1cc145095a3dca1f7309a",
+      "headRepository": "ThePlexus/draft-darling-key-directory-over-http",
+      "headRefName": "formatfix",
+      "headRefOid": "da0dfd9f8ab8819cc2ebd14519b9aa8b6fa1b6e2",
+      "closedAt": "2025-02-12T09:24:48Z",
+      "mergedAt": "2025-02-12T09:24:48Z",
+      "mergedBy": "ThePlexus",
+      "mergeCommit": {
+        "oid": "f7d74f4efff889c000dc5b3734c849bfead57f53"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDONgO_Sc6bpTJZ",
+          "commit": {
+            "abbreviatedOid": "f6a4162"
+          },
+          "author": "thibmeu",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-02-12T09:23:30Z",
+          "updatedAt": "2025-02-12T09:23:30Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "id": "PR_kwDONgO_Sc6K7dFf",
+      "title": "draft",
+      "url": "https://github.com/thibmeu/draft-darling-key-directory-over-http/pull/7",
+      "state": "CLOSED",
+      "author": "fisherdarling",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-02-12T10:00:22Z",
+      "updatedAt": "2025-02-12T10:25:38Z",
+      "baseRepository": "thibmeu/draft-darling-key-directory-over-http",
+      "baseRefName": "main",
+      "baseRefOid": "f7d74f4efff889c000dc5b3734c849bfead57f53",
+      "headRepository": "thibmeu/draft-darling-key-directory-over-http",
+      "headRefName": "fisher/rename",
+      "headRefOid": "3b16bd56a067efbaa06ebc3ecfe98e534f109ce0",
+      "closedAt": "2025-02-12T10:17:29Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "thibmeu",
+          "authorAssociation": "OWNER",
+          "body": "while one name is required, this is a shared effort. the \"lead author\" name is removed anyway at a later point in the process.",
+          "createdAt": "2025-02-12T10:25:35Z",
+          "updatedAt": "2025-02-12T10:25:35Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 8,
+      "id": "PR_kwDONgO_Sc6LBGkZ",
+      "title": "Remove RFC 2119 language",
+      "url": "https://github.com/thibmeu/draft-darling-key-directory-over-http/pull/8",
+      "state": "OPEN",
+      "author": "thibmeu",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "in its current format, the draft is about recommendations. removing normative RFC 2119 language.\r\n\r\nThere are things that would actually be nice to define with a normative draft (thinking about all directories having a well know, a key id, or using http cache headers). These is input we'd take from the dispatch.",
+      "createdAt": "2025-02-12T21:16:37Z",
+      "updatedAt": "2025-02-12T21:16:37Z",
+      "baseRepository": "thibmeu/draft-darling-key-directory-over-http",
+      "baseRefName": "main",
+      "baseRefOid": "f7d74f4efff889c000dc5b3734c849bfead57f53",
+      "headRepository": "thibmeu/draft-darling-key-directory-over-http",
+      "headRefName": "remove-normative-rfc2119",
+      "headRefOid": "5b36c56fde59a7a1d989c7ff512b62c4809c41d0",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
       "comments": [],
       "reviews": []
     }
