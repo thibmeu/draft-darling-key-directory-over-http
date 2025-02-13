@@ -1056,7 +1056,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Darling, et al.</td>
-<td class="center">Expires 16 August 2025</td>
+<td class="center">Expires 17 August 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1069,12 +1069,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-darling-key-directory-over-http-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-02-12" class="published">12 February 2025</time>
+<time datetime="2025-02-13" class="published">13 February 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-08-16">16 August 2025</time></dd>
+<dd class="expires"><time datetime="2025-08-17">17 August 2025</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1133,7 +1133,7 @@ HTTP.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 16 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 17 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1418,10 +1418,10 @@ privacy proxy.<a href="#section-4-3.6.1" class="pilcrow">¶</a></p>
       <h2 id="name-architecture">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-architecture" class="section-name selfRef">Architecture</a>
       </h2>
-<p id="section-5-1">An Origin is exposing a key directory for Clients to fetch. Clients <span class="bcp14">MAY</span> fetch the
+<p id="section-5-1">An Origin is exposing a key directory for Clients to fetch. Clients may fetch the
 directory from a Mirror, either to protect its privacy, or because the Origin
 wants to leverage a content delivery network. The endpoint and request pattern
-<span class="bcp14">MUST</span> be the same as if the fetch was to an Origin.<a href="#section-5-1" class="pilcrow">¶</a></p>
+should be the same as if the fetch was to an Origin.<a href="#section-5-1" class="pilcrow">¶</a></p>
 <p id="section-5-2">This document focuses on the below interaction, which is triggered when the
 Client does not have valid key for the Origin. This can be because the Client is
 new, its cache is expired, or the Origin refuses requests with the current key set.<a href="#section-5-2" class="pilcrow">¶</a></p>
@@ -1496,8 +1496,8 @@ new, its cache is expired, or the Origin refuses requests with the current key s
         <h3 id="name-key-id">
 <a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-key-id" class="section-name selfRef">Key ID</a>
         </h3>
-<p id="section-5.1-1">Each key in the directory <span class="bcp14">MUST</span> be associated with a unique Key ID.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
-<p id="section-5.1-2">Key ID <span class="bcp14">MUST</span> be derived from key material that is shared publicly.
+<p id="section-5.1-1">Each key in the directory is associated with a unique Key ID.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.1-2">Key ID has to be derived from key material that is shared publicly.
 Protocols <span class="bcp14">SHOULD</span> provide the following blob of data:<a href="#section-5.1-2" class="pilcrow">¶</a></p>
 <div class="lang-tls sourcecode" id="section-5.1-3">
 <pre>
@@ -1506,7 +1506,7 @@ struct {
 } PublicKeyMaterial;
 </pre><a href="#section-5.1-3" class="pilcrow">¶</a>
 </div>
-<p id="section-5.1-4">PublicKeyMaterial <span class="bcp14">MAY</span> be composed of both cryptographic material and metadata.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
+<p id="section-5.1-4">PublicKeyMaterial may be composed of both cryptographic material and metadata.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
 <p id="section-5.1-5">Key ID is defined has follow:<a href="#section-5.1-5" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-5.1-6">
 <pre>
@@ -1543,9 +1543,9 @@ their H?<a href="#section-5.1-10.2.1" class="pilcrow">¶</a></p>
 <a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-key-selection" class="section-name selfRef">Key Selection</a>
         </h3>
 <p id="section-5.2-1">The following is a deterministic algorithm for determining which Key a Client
-<span class="bcp14">SHOULD</span> use to fulfill their cryptographic needs. By using a deterministic
+uses to fulfill their cryptographic needs. By using a deterministic
 algorithm, Origins can more easily predict the effects of a Key rotation and
-implement grace periods, soak times, etc. Protocols <span class="bcp14">MAY</span> place additional
+implement grace periods, soak times, etc. Protocols may place additional
 restrictions, or push these decision details to deployments.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
 <div id="algorithm">
 <section id="section-5.2.1">
@@ -1590,7 +1590,7 @@ remaining keys in <strong>descending</strong> order based on <a href="#not-befor
 ordered in the Key Directory format.<a href="#section-5.2.1-1.4.1" class="pilcrow">¶</a></p>
 </li>
           </ol>
-<p id="section-5.2.1-2">Clients <span class="bcp14">SHOULD</span> implement the Key Selection Algorithm. Origins <span class="bcp14">SHOULD</span> present
+<p id="section-5.2.1-2">Clients should implement the Key Selection Algorithm. Origins should present
 the newest Keys first.<a href="#section-5.2.1-2" class="pilcrow">¶</a></p>
 <p id="section-5.2.1-3">For protocols which define a <a href="#not-before" class="auto internal xref">Section 5.4.1</a> field, the above algorithm minimizes the
 chance that the Client uses a key that has expired between fetching the directory
@@ -1599,7 +1599,7 @@ from the origin and its usage as part of the protocol.<a href="#section-5.2.1-3"
 to present their key directory so that the newest is always first, and
 the soon-to-be-removed key is last. This minimizes the chance of a client using
 an expired key.<a href="#section-5.2.1-4" class="pilcrow">¶</a></p>
-<p id="section-5.2.1-5">Expired key <span class="bcp14">MAY</span> be presented for completion, only if the protocol defines a
+<p id="section-5.2.1-5">Expired key may be presented for completion, only if the protocol defines a
 <code>not-after</code> field.<a href="#section-5.2.1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1610,10 +1610,10 @@ an expired key.<a href="#section-5.2.1-4" class="pilcrow">¶</a></p>
         <h3 id="name-rotation">
 <a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-rotation" class="section-name selfRef">Rotation</a>
         </h3>
-<p id="section-5.3-1">Clients and Origins <span class="bcp14">SHOULD NOT</span> assume a key directory is fixed. Origins <span class="bcp14">SHOULD</span>
-rotate keys on a schedule. Clients <span class="bcp14">SHOULD</span> fetch keys upon an immediate rotation
-for security reasons. This section goes over how Origins <span class="bcp14">SHOULD</span> rotate their
-keys, and how that interacts with scheduled and immediate rotations.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
+<p id="section-5.3-1">Key directories are not permanent: they change over time. Origins <span class="bcp14">SHOULD</span>
+rotate keys on a schedule. Clients are going to fetch keys upon an immediate
+rotation for security reasons. This section goes over how an Origin rotates
+its keys, and how that interacts with scheduled and immediate rotations.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
 <div id="algorithm-1">
 <section id="section-5.3.1">
           <h4 id="name-algorithm-2">
@@ -1625,8 +1625,8 @@ keys, and how that interacts with scheduled and immediate rotations.<a href="#se
 Generate(params, RAND) -&gt; (publickey, privatekey, metadata)
 </pre><a href="#section-5.3.1-2" class="pilcrow">¶</a>
 </div>
-<p id="section-5.3.1-3">At any point in time, all keys in the directory <span class="bcp14">MUST</span> have a unique key id as defined in <a href="#key-id" class="auto internal xref">Section 5.1</a>.
-When adding a key in the directory, that key <span class="bcp14">MUST</span> have a unique key id.<a href="#section-5.3.1-3" class="pilcrow">¶</a></p>
+<p id="section-5.3.1-3">At any point in time, all keys in the directory have a unique key id as defined in <a href="#key-id" class="auto internal xref">Section 5.1</a>.
+When adding a key in the directory, that key has a unique key id.<a href="#section-5.3.1-3" class="pilcrow">¶</a></p>
 <p id="section-5.3.1-4">Generation looks as follows<a href="#section-5.3.1-4" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-5.3.1-5">
 <pre>
@@ -1645,28 +1645,28 @@ while (key_id is not unique)
 <a href="#section-5.3.2" class="section-number selfRef">5.3.2. </a><a href="#name-scheduled-rotation" class="section-name selfRef">Scheduled rotation</a>
           </h4>
 <p id="section-5.3.2-1">Scheduled rotation happens at a time known to Origins, Clients, and Mirrors.
-This <span class="bcp14">MAY</span> be a regular interval (monthly, weekly, daily), or an ad-hoc schedule
+This may be a regular interval (monthly, weekly, daily), or an ad-hoc schedule
 agreed between all parties.<a href="#section-5.3.2-1" class="pilcrow">¶</a></p>
-<p id="section-5.3.2-2">Scheduled rotations <span class="bcp14">MUST</span> be communicated in one of the two mode below<a href="#section-5.3.2-2" class="pilcrow">¶</a></p>
+<p id="section-5.3.2-2">Scheduled rotations are communicated in one of the two mode below<a href="#section-5.3.2-2" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlParallel" id="section-5.3.2-3">
             <dt id="section-5.3.2-3.1"><strong>Passive:</strong></dt>
             <dd style="margin-left: 1.5em" id="section-5.3.2-3.2">
               <p id="section-5.3.2-3.2.1">Origins rely on cache headers to inform Clients about key expiry. They stop
 advertising the key at time <code>t</code>, and delete it at time <code>t_expiry=t+maxage</code>.
-Origins <span class="bcp14">MAY</span> have to take intermediate mirrors into considerations, if they
+Origins may have to take intermediate mirrors into considerations, if they
 are aware these mirrors don't respect their cache headers.<a href="#section-5.3.2-3.2.1" class="pilcrow">¶</a></p>
 </dd>
             <dd class="break"></dd>
 <dt id="section-5.3.2-3.3"><strong>Active:</strong></dt>
             <dd style="margin-left: 1.5em" id="section-5.3.2-3.4">
-              <p id="section-5.3.2-3.4.1">Origins keep serving the key and add a <code>not-after</code> field. This field <span class="bcp14">MUST</span> be
+              <p id="section-5.3.2-3.4.1">Origins keep serving the key and add a <code>not-after</code> field. This field should be
 at least <code>t+maxage</code>.<a href="#section-5.3.2-3.4.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
 </dl>
-<p id="section-5.3.2-4">With both modes, an Origin <span class="bcp14">SHOULD</span> signal a key is not supported by sending a
-response with status code 400.
-It is <span class="bcp14">RECOMMENDED</span> to use key ID as defined in <a href="#key-id" class="auto internal xref">Section 5.1</a>.<a href="#section-5.3.2-4" class="pilcrow">¶</a></p>
+<p id="section-5.3.2-4">With both modes, an Origin has to signal a key is not supported by sending a
+response with status code 400. For instance, the error can include a key ID as
+defined in <a href="#key-id" class="auto internal xref">Section 5.1</a>.<a href="#section-5.3.2-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="immediate">
@@ -1674,20 +1674,20 @@ It is <span class="bcp14">RECOMMENDED</span> to use key ID as defined in <a href
           <h4 id="name-immediate">
 <a href="#section-5.3.3" class="section-number selfRef">5.3.3. </a><a href="#name-immediate" class="section-name selfRef">Immediate</a>
           </h4>
-<p id="section-5.3.3-1">Origins MIGHT have to rotate keys immediately. Existing keys <span class="bcp14">MAY</span>
-have to be invalidated and/or new keys be provisioned. Immediate key rotation
-can happen in the event of a key compromise, loss, or other imperious reason.<a href="#section-5.3.3-1" class="pilcrow">¶</a></p>
+<p id="section-5.3.3-1">Origins might have to rotate keys immediately. Existing keys may have to be
+invalidated and/or new keys be provisioned. Immediate key rotation can happen in
+the event of a key compromise, loss, or other imperious reason.<a href="#section-5.3.3-1" class="pilcrow">¶</a></p>
 <p id="section-5.3.3-2">Immediate key rotation will cause some client requests to the server to fail
 until the client and mirrors retrieve a new version of the directory. The key
 directory endpoint is going to be placed under a higher load.<a href="#section-5.3.3-2" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-5.3.3-3">
 <li id="section-5.3.3-3.1">
-              <p id="section-5.3.3-3.1.1">Origins <span class="bcp14">MAY</span> introduce a random backoff to spread the load of key distribution
-over time. See <a href="#cache-behaviour" class="auto internal xref">Section 5.4</a><a href="#section-5.3.3-3.1.1" class="pilcrow">¶</a></p>
+              <p id="section-5.3.3-3.1.1">Origins should consider introducing a random backoff to spread the load of
+key distribution over time. See <a href="#cache-behaviour" class="auto internal xref">Section 5.4</a><a href="#section-5.3.3-3.1.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-5.3.3-3.2">
-              <p id="section-5.3.3-3.2.1">Clients on a scheduled rotation <span class="bcp14">MAY</span> be configured to distrust rotation outside
-a fixed window. Protocols <span class="bcp14">SHOULD</span> define such policies.<a href="#section-5.3.3-3.2.1" class="pilcrow">¶</a></p>
+              <p id="section-5.3.3-3.2.1">Clients on a scheduled rotation should be configured to distrust rotation outside
+a fixed window. Such policies should be defined by protocols.<a href="#section-5.3.3-3.2.1" class="pilcrow">¶</a></p>
 </li>
           </ol>
 </section>
@@ -1707,15 +1707,15 @@ invalid key.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
 key, are at odds with each other. In the event of an <a href="#immediate" class="auto internal xref">Section 5.3.3</a> key rotation, a
 Client might use an invalid key. However, if a Client fetches an Origin key
 directory for every request, it would waste time and network resources.<a href="#section-5.4-2" class="pilcrow">¶</a></p>
-<p id="section-5.4-3">This section provides interaction with some cache directive. Deployments <span class="bcp14">SHOULD</span>
+<p id="section-5.4-3">This section provides interaction with some cache directive. Deployments should
 also consider the recommendations laid out in <span><a href="https://rfc-editor.org/rfc/rfc9205#section-4.9" class="relref">Section 4.9</a> of [<a href="#HTTP-BEST-PRACTICES" class="cite xref">HTTP-BEST-PRACTICES</a>]</span>.<a href="#section-5.4-3" class="pilcrow">¶</a></p>
 <div id="not-before">
 <section id="section-5.4.1">
           <h4 id="name-not-before-fields">
 <a href="#section-5.4.1" class="section-number selfRef">5.4.1. </a><a href="#name-not-before-fields" class="section-name selfRef"><code>not-before</code> fields</a>
           </h4>
-<p id="section-5.4.1-1">Protocols <span class="bcp14">SHOULD</span> define a <code>not-before</code> field. Origins <span class="bcp14">SHOULD</span> add a <code>not-before</code>
-field or equivalent to each Key in the Directory. The not-before field allows
+<p id="section-5.4.1-1">Protocols should define a <code>not-before</code> field. This field can be attached by Origins
+to each Key in the Directory. The <code>not-before</code> field allows
 Origins to signal to Clients when a Key is ready to use and reduces the
 chance a Client uses a key which is not yet available. not-before fields <span class="bcp14">SHOULD</span>
 be a Unix epoch timestamp in seconds.<a href="#section-5.4.1-1" class="pilcrow">¶</a></p>
@@ -1726,17 +1726,18 @@ be a Unix epoch timestamp in seconds.<a href="#section-5.4.1-1" class="pilcrow">
           <h4 id="name-cache-directives">
 <a href="#section-5.4.2" class="section-number selfRef">5.4.2. </a><a href="#name-cache-directives" class="section-name selfRef">Cache directives</a>
           </h4>
-<p id="section-5.4.2-1">Origins <span class="bcp14">SHOULD</span> respond with cache directives <span>[<a href="#HTTP-CACHE" class="cite xref">HTTP-CACHE</a>]</span> which
-control when the Key Directory should be refreshed. Origins <span class="bcp14">SHOULD</span> provide a
+<p id="section-5.4.2-1">Origins responds with cache directives <span>[<a href="#HTTP-CACHE" class="cite xref">HTTP-CACHE</a>]</span>. These
+control when the Key Directory should be refreshed. For instance, Origins
+provides a
 <code>Cache-Control: max-age</code> header, or <code>Expires</code> header which is slightly less than
-the grace period given for a key about to rotate. Clients <span class="bcp14">SHOULD</span> respect the
-<code>max-age</code> cache directive and <span class="bcp14">MAY</span> respect other directives. If an Origin
-provides a <code>max-age</code> header AND a Mirror is used, the Origin <span class="bcp14">SHOULD</span> provide a
+the grace period given for a key about to rotate. Clients should respect the
+<code>max-age</code> cache directive or other directives. If an Origin
+provides a <code>max-age</code> header and a Mirror is used, an Origin should provide a
 <code>s-maxage</code> header that is equivalent to <code>max-age</code>.<a href="#section-5.4.2-1" class="pilcrow">¶</a></p>
 <p id="section-5.4.2-2">To prevent Clients refreshing their Key Directories at the same time
-(synchronization), Mirrors <span class="bcp14">SHOULD</span> provide to its clients a <code>max-age</code> cache
+(synchronization), Mirrors should provide to its clients a <code>max-age</code> cache
 directive with duration in the range <code>[0, Origin s-maxage]</code>.<a href="#section-5.4.2-2" class="pilcrow">¶</a></p>
-<p id="section-5.4.2-3">Origins <span class="bcp14">SHOULD</span> consider using <code>Date</code> (<span><a href="https://rfc-editor.org/rfc/rfc9110#section-6.6.1" class="relref">Section 6.6.1</a> of [<a href="#HTTP" class="cite xref">HTTP</a>]</span>) and
+<p id="section-5.4.2-3">Origins should consider using <code>Date</code> (<span><a href="https://rfc-editor.org/rfc/rfc9110#section-6.6.1" class="relref">Section 6.6.1</a> of [<a href="#HTTP" class="cite xref">HTTP</a>]</span>) and
 <code>Last-modified</code> (<span><a href="https://rfc-editor.org/rfc/rfc9110#section-8.8.2" class="relref">Section 8.8.2</a> of [<a href="#HTTP" class="cite xref">HTTP</a>]</span>) headers to ease <a href="#rotation" class="auto internal xref">Section 5.3</a>.<a href="#section-5.4.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1745,12 +1746,12 @@ directive with duration in the range <code>[0, Origin s-maxage]</code>.<a href="
           <h4 id="name-client-cache-refresh">
 <a href="#section-5.4.3" class="section-number selfRef">5.4.3. </a><a href="#name-client-cache-refresh" class="section-name selfRef">Client cache refresh</a>
           </h4>
-<p id="section-5.4.3-1">The primary method a Client <span class="bcp14">SHOULD</span> use to determine when it refreshes its view
+<p id="section-5.4.3-1">The primary method a Client should use to determine when it refreshes its view
 of the Key Directory is through the delta seconds described in the <code>max-age</code>
 cache directive. The higher the delta, the less frequent a Client will update
 its cache. The lower the delta, the quicker clients will respond to unplanned
 key rotations.<a href="#section-5.4.3-1" class="pilcrow">¶</a></p>
-<p id="section-5.4.3-2"><code>min-fresh</code> <span class="bcp14">MAY</span> also be sent by Origins as defined in <span>[<a href="#HTTP-CACHE" class="cite xref">HTTP-CACHE</a>]</span>.<a href="#section-5.4.3-2" class="pilcrow">¶</a></p>
+<p id="section-5.4.3-2"><code>min-fresh</code> could also be sent by Origins as defined in <span>[<a href="#HTTP-CACHE" class="cite xref">HTTP-CACHE</a>]</span>.<a href="#section-5.4.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1760,9 +1761,10 @@ key rotations.<a href="#section-5.4.3-1" class="pilcrow">¶</a></p>
         <h3 id="name-well-known-url">
 <a href="#section-5.5" class="section-number selfRef">5.5. </a><a href="#name-well-known-url" class="section-name selfRef">Well known URL</a>
         </h3>
-<p id="section-5.5-1">It is <span class="bcp14">RECOMMENDED</span> protocol register a <span>[<a href="#WELL-KNOWN" class="cite xref">WELL-KNOWN</a>]</span> URL and associated
+<p id="section-5.5-1">It is recommended protocols register a <span>[<a href="#WELL-KNOWN" class="cite xref">WELL-KNOWN</a>]</span> URL and associated
 content-type.<a href="#section-5.5-1" class="pilcrow">¶</a></p>
-<p id="section-5.5-2">A key directory server <span class="bcp14">MUST</span> support both GET and HEAD request on that endpoint.<a href="#section-5.5-2" class="pilcrow">¶</a></p>
+<p id="section-5.5-2">A key directory server should consider supporting both GET and HEAD request on
+that endpoint.<a href="#section-5.5-2" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-5.5-3">
 <pre>
 GET /.well-known/&lt;your-protocol&gt;
@@ -1779,7 +1781,7 @@ stamp of when the key directory resource was last modified.<a href="#section-5.5
 <p id="section-5.5-5">If issuing a <code>Last-Modified</code> header, the Origin server <span class="bcp14">SHOULD</span> support the correct
 response to a <code>If-Modified-Since</code> HTTP GET or HEAD request, returning the
 appropriate HTTP status codes <span>[<a href="#HTTP-CACHE" class="cite xref">HTTP-CACHE</a>]</span>.<a href="#section-5.5-5" class="pilcrow">¶</a></p>
-<p id="section-5.5-6">It is <span class="bcp14">RECOMMENDED</span> that Mirrors support <code>Last-Modified</code> and <code>If-Modified-Since</code>
+<p id="section-5.5-6">It is recommended that Mirrors support <code>Last-Modified</code> and <code>If-Modified-Since</code>
           <span>[<a href="#HTTP-CACHE" class="cite xref">HTTP-CACHE</a>]</span>.<a href="#section-5.5-6" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1979,7 +1981,7 @@ privacy.<a href="#section-6-1" class="pilcrow">¶</a></p>
 However, it does not addhere to the best practices laid down here, despite being
 Web keys. This would be valuable as the group aims to integrates with all sort
 of cryptographic keys, as can be seen with the new HPKE proposal <span>[<a href="#JOSE-HPKE" class="cite xref">JOSE-HPKE</a>]</span>.<a href="#appendix-B.1-1" class="pilcrow">¶</a></p>
-<p id="appendix-B.1-2">Following these recommendations, JOSE <span class="bcp14">MAY</span> define:<a href="#appendix-B.1-2" class="pilcrow">¶</a></p>
+<p id="appendix-B.1-2">Following these recommendations, JOSE may define:<a href="#appendix-B.1-2" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="appendix-B.1-3.1">
             <p id="appendix-B.1-3.1.1">A well-known URI<a href="#appendix-B.1-3.1.1" class="pilcrow">¶</a></p>
