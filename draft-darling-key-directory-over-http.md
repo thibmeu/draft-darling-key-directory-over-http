@@ -363,7 +363,7 @@ cache directive. The higher the delta, the less frequent a Client will update
 its cache. The lower the delta, the quicker clients will respond to unplanned
 key rotations.
 
-`min-fresh` could also be sent by Origins as defined in {{HTTP-CACHE}}.
+`min-fresh` could also be sent by Clients as defined in {{HTTP-CACHE}}.
 
 ## Well known URL
 
