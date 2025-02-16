@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-13T00:58:20.110329+00:00",
+  "timestamp": "2025-02-16T01:02:50.452491+00:00",
   "repo": "thibmeu/draft-darling-key-directory-over-http",
   "labels": [
     {
@@ -463,26 +463,55 @@
       "id": "PR_kwDONgO_Sc6LBGkZ",
       "title": "Remove RFC 2119 language",
       "url": "https://github.com/thibmeu/draft-darling-key-directory-over-http/pull/8",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "thibmeu",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "in its current format, the draft is about recommendations. removing normative RFC 2119 language.\r\n\r\nThere are things that would actually be nice to define with a normative draft (thinking about all directories having a well know, a key id, or using http cache headers). These is input we'd take from the dispatch.",
       "createdAt": "2025-02-12T21:16:37Z",
-      "updatedAt": "2025-02-12T21:16:37Z",
+      "updatedAt": "2025-02-13T09:17:34Z",
       "baseRepository": "thibmeu/draft-darling-key-directory-over-http",
       "baseRefName": "main",
       "baseRefOid": "f7d74f4efff889c000dc5b3734c849bfead57f53",
       "headRepository": "thibmeu/draft-darling-key-directory-over-http",
       "headRefName": "remove-normative-rfc2119",
-      "headRefOid": "5b36c56fde59a7a1d989c7ff512b62c4809c41d0",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "0c7397b153f648c4cd8986268ce52da70e3b34b0",
+      "closedAt": "2025-02-13T09:12:06Z",
+      "mergedAt": "2025-02-13T09:12:06Z",
+      "mergedBy": "thibmeu",
+      "mergeCommit": {
+        "oid": "eba28de55e0ba9ee5e2f323abf5853621a3fd488"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDONgO_Sc6b0ySe",
+          "commit": {
+            "abbreviatedOid": "5b36c56"
+          },
+          "author": "fisherdarling",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-02-13T08:58:51Z",
+          "updatedAt": "2025-02-13T08:59:38Z",
+          "comments": [
+            {
+              "originalPosition": 171,
+              "body": "```suggestion\n`max-age` cache directive or other directives. If an Origin\n```\n",
+              "createdAt": "2025-02-13T08:58:51Z",
+              "updatedAt": "2025-02-13T08:59:38Z"
+            },
+            {
+              "originalPosition": 199,
+              "body": "```suggestion\nIt is recommended protocols register a {{!WELL-KNOWN=RFC8615}} URL and associated\n```\n",
+              "createdAt": "2025-02-13T08:59:22Z",
+              "updatedAt": "2025-02-13T08:59:38Z"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
