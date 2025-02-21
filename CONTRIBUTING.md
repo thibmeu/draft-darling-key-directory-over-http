@@ -19,10 +19,10 @@ subject to a Simplified BSD License) in Contributions.
 
 ## Working Group Information
 
-Discussion of this work occurs on the [Oblivious HTTP Application Intermediation
- mailing list](mailto:ohai@ietf.org)
-([archive](https://mailarchive.ietf.org/arch/browse/ohai/),
-[subscribe](https://www.ietf.org/mailman/listinfo/ohai)).
+Discussion of this work occurs on the [Dispatch
+ mailing list](mailto:dispatch@ietf.org)
+([archive](https://mailarchive.ietf.org/arch/browse/dispatch/),
+[subscribe](https://www.ietf.org/mailman/listinfo/dispatch)).
 In addition to contributions in GitHub, you are encouraged to participate in
 discussions there.
 
@@ -30,4 +30,4 @@ discussions there.
 technical issues needs to occur on the mailing list.
 
 You might also like to familiarize yourself with other
-[ documents](https://datatracker.ietf.org/wg/ohai/documents/).
+[documents](https://datatracker.ietf.org/wg/dispatch/documents/).

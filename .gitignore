@@ -17,7 +17,7 @@
 /versioned/
 Gemfile.lock
 archive.json
-draft-darling-ohai-hpke-key-directory-over-http.xml
+draft-darling-key-directory-over-http.xml
 package-lock.json
 report.xml
 !requirements.txt
