@@ -5,8 +5,8 @@
 ???                                                           F. Darling
 Internet-Draft                                                T. Meunier
 Intended status: Informational                                 S. Newton
-Expires: 17 August 2025                                  Cloudflare Inc.
-                                                        13 February 2025
+Expires: 25 August 2025                                  Cloudflare Inc.
+                                                        21 February 2025
 
 
              Recommendations for Key Directories over HTTP
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 August 2025.
+   This Internet-Draft will expire on 25 August 2025.
 
 Copyright Notice
 
