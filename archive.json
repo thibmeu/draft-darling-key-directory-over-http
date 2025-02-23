@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-02-20T00:58:44.041751+00:00",
+  "timestamp": "2025-02-23T01:03:04.091915+00:00",
   "repo": "thibmeu/draft-darling-key-directory-over-http",
   "labels": [
     {
@@ -49,7 +49,81 @@
       "color": "ffffff"
     }
   ],
-  "issues": [],
+  "issues": [
+    {
+      "number": 9,
+      "id": "I_kwDONgO_Sc6q_wLq",
+      "title": "Remove ohai-hpke prefix everywhere",
+      "url": "https://github.com/thibmeu/draft-darling-key-directory-over-http/issues/9",
+      "state": "CLOSED",
+      "author": "thibmeu",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "thibmeu"
+      ],
+      "labels": [],
+      "body": "These are artifacts from previous versions",
+      "createdAt": "2025-02-21T11:59:36Z",
+      "updatedAt": "2025-02-21T14:22:06Z",
+      "closedAt": "2025-02-21T14:22:05Z",
+      "comments": []
+    },
+    {
+      "number": 10,
+      "id": "I_kwDONgO_Sc6rH-XE",
+      "title": "Discuss how clients establish trust in a key",
+      "url": "https://github.com/thibmeu/draft-darling-key-directory-over-http/issues/10",
+      "state": "OPEN",
+      "author": "jyasskin",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Is it by trusting the TLS connection to the origin serving the key? (And how does that interact with the mirroring architecture in the draft?) Or is it by trusting a hash of the public key? (And how does that interact with rotation?) Or something else?",
+      "createdAt": "2025-02-22T16:39:59Z",
+      "updatedAt": "2025-02-22T16:48:01Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "thibmeu",
+          "authorAssociation": "OWNER",
+          "body": "This is indeed something that should be defined.\n\nThe intent is to bootstrap trust with TLS, given keys are distributed over HTTP, should it be to the server or a mirror.\n\nMore complex interaction, such as key transparency, or retrieving the key from multiple mirrors, are left out to future drafts within the [future consideration section](https://datatracker.ietf.org/doc/html/draft-darling-key-directory-over-http-00#name-future-considerations).\n\nIf you have suggestions, please comment on the issue",
+          "createdAt": "2025-02-22T16:48:00Z",
+          "updatedAt": "2025-02-22T16:48:00Z"
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "id": "I_kwDONgO_Sc6rIHbj",
+      "title": "Discuss how keys should be located",
+      "url": "https://github.com/thibmeu/draft-darling-key-directory-over-http/issues/11",
+      "state": "OPEN",
+      "author": "jyasskin",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "The presence of https://thibmeu.github.io/draft-darling-key-directory-over-http/draft-darling-key-directory-over-http.html#name-well-known-url seems to imply that keys will be identified by their origin, rather than a URL, and that they need to be trusted over that whole origin. If that's your goal, it should be explicit in the draft. \n\nThis goal would also make the draft less general than its title claims: it's only for keys meant to govern entire origins, and not for any key transferred over HTTP(S).\n\nIf this limitation isn't your goal, you should talk about the tradeoffs between origin-wide keys and URL-identified keys.",
+      "createdAt": "2025-02-22T17:05:41Z",
+      "updatedAt": "2025-02-22T18:17:28Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "thibmeu",
+          "authorAssociation": "OWNER",
+          "body": "The draft recommends that protocols define a well-known URL for their protocol. It does not recommend any specifics for this registration. For instance, protocol MAY use path components or query strings to pass more specific information.\n\n[Section 3 of RFC8615](https://www.rfc-editor.org/rfc/rfc8615#section-3) specifies the following\n\n```\nRegistrations MAY also contain additional information, such as the\n   syntax of additional path components, query strings, and/or fragment\n   identifiers to be appended to the well-known URI, or protocol-\n   specific details (e.g., HTTP [[RFC7231](https://www.rfc-editor.org/rfc/rfc7231)] method handling).\n```\n\nI think this addresses your concern, without modification to the draft.",
+          "createdAt": "2025-02-22T17:33:02Z",
+          "updatedAt": "2025-02-22T17:33:02Z"
+        },
+        {
+          "author": "jyasskin",
+          "authorAssociation": "NONE",
+          "body": "For protocols that can use a whole URL to identify keys, there's no need to define a .well-known path, and in fact such protocols should not do so (primarily because it's harder for many authors to put resources at such a domain-wide location, but also because it unnecessarily consumes space in the well-known registry and, depending on the .well-known description, can make bugs easier if an application converts a URL to an origin before looking for the key). It's fine to recommend this for origin-wide protocols (like several of the motivating protocols), but I don't think the recommendation is a good idea for all key-transfers over HTTP.\n\nIt's at least worth consulting the HTTPWG about this question.",
+          "createdAt": "2025-02-22T18:17:27Z",
+          "updatedAt": "2025-02-22T18:17:27Z"
+        }
+      ]
+    }
+  ],
   "pulls": [
     {
       "number": 1,
