@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-03-02T01:03:36.467310+00:00",
+  "timestamp": "2025-03-04T01:00:48.407002+00:00",
   "repo": "thibmeu/draft-darling-key-directory-over-http",
   "labels": [
     {
@@ -122,6 +122,22 @@
           "updatedAt": "2025-02-22T18:17:27Z"
         }
       ]
+    },
+    {
+      "number": 12,
+      "id": "I_kwDONgO_Sc6sPZ0g",
+      "title": "Consider adding references to OpenID Connect and OAuth",
+      "url": "https://github.com/thibmeu/draft-darling-key-directory-over-http/issues/12",
+      "state": "OPEN",
+      "author": "thibmeu",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Regarding key rotation, even though it does not mention HTTP at all, nor deterministic key rotation\n* [OpenID Connect key rotation](https://openid.net/specs/openid-connect-core-1_0.html#RotateSigKeys)\n\nFor provider metadata. This is currently out of the scope for the draft. I think it's a possible good pairing for #11\n* [OpenID Connect Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)\n* [RFC 8414 Authorization server metadata](https://www.rfc-editor.org/rfc/rfc8414.html#section-2)",
+      "createdAt": "2025-03-02T18:45:41Z",
+      "updatedAt": "2025-03-02T18:45:41Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
