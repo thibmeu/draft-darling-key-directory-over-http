@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-03-16T01:05:58.740401+00:00",
+  "timestamp": "2025-03-18T01:01:30.622232+00:00",
   "repo": "thibmeu/draft-darling-key-directory-over-http",
   "labels": [
     {
@@ -136,6 +136,22 @@
       "body": "Regarding key rotation, even though it does not mention HTTP at all, nor deterministic key rotation\n* [OpenID Connect key rotation](https://openid.net/specs/openid-connect-core-1_0.html#RotateSigKeys)\n\nFor provider metadata. This is currently out of the scope for the draft. I think it's a possible good pairing for #11\n* [OpenID Connect Provider Metadata](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata)\n* [RFC 8414 Authorization server metadata](https://www.rfc-editor.org/rfc/rfc8414.html#section-2)",
       "createdAt": "2025-03-02T18:45:41Z",
       "updatedAt": "2025-03-02T18:45:41Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 13,
+      "id": "I_kwDONgO_Sc6uQ1N4",
+      "title": "Add key discovery via `_uri`",
+      "url": "https://github.com/thibmeu/draft-darling-key-directory-over-http/issues/13",
+      "state": "OPEN",
+      "author": "thibmeu",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "The current draft recommends the use of a well-known for the key directory. This does not encompass all existing designs, such as [OAuth Server Metadata](https://www.rfc-editor.org/rfc/rfc8414#section-7.1.2), which provides a discovery via a field on a server metadata.\n\nFor protocols with server metadata, this should be an alternative to defining a well-known.\n\nSee [Michael Jones email](https://mailarchive.ietf.org/arch/msg/secdispatch/gz4_7HnZkRtduDhC8MyJWdAayak/)",
+      "createdAt": "2025-03-17T03:33:05Z",
+      "updatedAt": "2025-03-17T03:33:05Z",
       "closedAt": null,
       "comments": []
     }
